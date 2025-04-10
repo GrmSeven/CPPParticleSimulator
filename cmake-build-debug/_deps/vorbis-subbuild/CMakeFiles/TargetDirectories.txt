@@ -1,0 +1,3 @@
+C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate.dir
+C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/rebuild_cache.dir

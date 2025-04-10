@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>;
 
 int main()
 {
@@ -15,7 +15,12 @@ int main()
             }
         }
 
+        const sf::Font font("hih.ttf");
+        sf::Text text(font, "Hello SFML", 50);
+        text.setFillColor(sf::Color(25,255,255));
+
         window.clear();
+        window.draw(text);
         window.display();
     }
 }

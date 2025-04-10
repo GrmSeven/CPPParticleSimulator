@@ -1,0 +1,21 @@
+# ninja log v6
+3	131	7659894653598967	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	6c3639bb5b38b999
+3	131	7659894653598967	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	6c3639bb5b38b999
+132	15031	7659894802619532	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	cd1eb2190be84c35
+132	15031	7659894802619532	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	cd1eb2190be84c35
+15031	15308	7659894802723088	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	9b66907ebeda29e1
+15031	15308	7659894802723088	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	9b66907ebeda29e1
+15327	15435	7659894806661269	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	20fafcb351eec060
+15327	15435	7659894806661269	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	20fafcb351eec060
+15435	15516	7659894807486316	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	1c5103f520db02bd
+15435	15516	7659894807486316	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	1c5103f520db02bd
+15516	15597	7659894808304729	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	16f5bb387c96050
+15516	15597	7659894808304729	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	16f5bb387c96050
+15597	15681	7659894809143646	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	d426e5d2e5ed5c55
+15597	15681	7659894809143646	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	d426e5d2e5ed5c55
+15682	15787	7659894810156429	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	3fd57e24101584a4
+15682	15787	7659894810156429	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	3fd57e24101584a4
+15787	15904	7659894811365862	CMakeFiles/sfml-populate-complete	a9be2b35fba49944
+15787	15904	7659894811365862	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	a9be2b35fba49944
+15787	15904	7659894811365862	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	a9be2b35fba49944
+15787	15904	7659894811365862	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	a9be2b35fba49944

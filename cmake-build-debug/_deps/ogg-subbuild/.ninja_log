@@ -1,0 +1,21 @@
+# ninja log v6
+3	100	7659895020628041	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	c517826c424722a8
+3	100	7659895020628041	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	c517826c424722a8
+101	2808	7659895047714042	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	1c5b6f7b57886d16
+101	2808	7659895047714042	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	1c5b6f7b57886d16
+2808	3106	7659895047802334	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	3238afcda6afc529
+2808	3106	7659895047802334	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	3238afcda6afc529
+3107	3245	7659895052064989	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	a8b8a18d11c6c2e4
+3107	3245	7659895052064989	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	a8b8a18d11c6c2e4
+3245	3343	7659895053062038	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	6c8e04c07b2a3455
+3245	3343	7659895053062038	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	6c8e04c07b2a3455
+3343	3422	7659895053855721	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	472a2fb68f22a8fa
+3343	3422	7659895053855721	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	472a2fb68f22a8fa
+3422	3503	7659895054674262	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	6901ae06974c0be1
+3422	3503	7659895054674262	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	6901ae06974c0be1
+3504	3592	7659895055535599	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	5d535a9afb59c6a3
+3504	3592	7659895055535599	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	5d535a9afb59c6a3
+3592	3705	7659895056670955	CMakeFiles/ogg-populate-complete	8ab260837c3643c0
+3592	3705	7659895056670955	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	8ab260837c3643c0
+3592	3705	7659895056670955	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete	8ab260837c3643c0
+3592	3705	7659895056670955	C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	8ab260837c3643c0

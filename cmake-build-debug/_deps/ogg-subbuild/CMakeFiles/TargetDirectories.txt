@@ -1,0 +1,3 @@
+C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate.dir
+C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/rebuild_cache.dir
