@@ -4,3 +4,9 @@ out
 .idea
 .vs
 .vscode
+cmake-build-debug/
+build/
+CMakeFiles/
+CMakeCache.txt
+.DS_Store
+Thumbs.db

@@ -1,3 +1,0 @@
-D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate.dir
-D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/edit_cache.dir
-D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/rebuild_cache.dir
