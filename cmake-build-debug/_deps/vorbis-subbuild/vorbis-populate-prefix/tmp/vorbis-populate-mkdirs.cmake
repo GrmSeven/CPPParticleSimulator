@@ -6,22 +6,22 @@ cmake_minimum_required(VERSION 3.5)
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-src")
-  file(MAKE_DIRECTORY "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-src")
+if(NOT EXISTS "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-src")
+  file(MAKE_DIRECTORY "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-src")
 endif()
 file(MAKE_DIRECTORY
-  "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-build"
-  "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix"
-  "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/tmp"
-  "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp"
-  "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src"
-  "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp"
+  "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-build"
+  "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix"
+  "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/tmp"
+  "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp"
+  "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src"
+  "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp${cfgdir}") # cfgdir has leading slash
 endif()

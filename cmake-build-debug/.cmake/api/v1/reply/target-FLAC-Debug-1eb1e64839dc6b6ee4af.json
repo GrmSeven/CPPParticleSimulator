@@ -224,25 +224,25 @@
 			[
 				{
 					"backtrace" : 16,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/flac-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-src/include"
 				},
 				{
 					"backtrace" : 17,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/flac-build"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-build"
 				},
 				{
 					"backtrace" : 18,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/flac-src/src/libFLAC/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-src/src/libFLAC/include"
 				},
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-src/include"
 				},
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-build/include"
 				}
 			],
 			"language" : "C",
@@ -344,25 +344,25 @@
 			[
 				{
 					"backtrace" : 16,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/flac-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-src/include"
 				},
 				{
 					"backtrace" : 17,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/flac-build"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-build"
 				},
 				{
 					"backtrace" : 18,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/flac-src/src/libFLAC/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-src/src/libFLAC/include"
 				},
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-src/include"
 				},
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-build/include"
 				}
 			],
 			"language" : "RC",

@@ -57,11 +57,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-src/include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-build/include"
 				}
 			],
 			"language" : "C",

@@ -85,15 +85,15 @@
 			[
 				{
 					"backtrace" : 5,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-build/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-src/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-build/include/freetype/config"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-build/include/freetype/config"
 				}
 			],
 			"language" : "C",
@@ -163,15 +163,15 @@
 			[
 				{
 					"backtrace" : 5,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-build/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-src/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-build/include/freetype/config"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-build/include/freetype/config"
 				}
 			],
 			"language" : "RC",

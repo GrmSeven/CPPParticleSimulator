@@ -98,7 +98,7 @@
 				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/include"
 				}
 			],
 			"language" : "CXX",
@@ -112,11 +112,11 @@
 	[
 		{
 			"backtrace" : 2,
-			"id" : "sfml-system::@8cb1db2982443611e568"
+			"id" : "sfml-window::@5730451e331e3690ae65"
 		},
 		{
 			"backtrace" : 2,
-			"id" : "sfml-window::@5730451e331e3690ae65"
+			"id" : "sfml-system::@8cb1db2982443611e568"
 		},
 		{
 			"backtrace" : 2,

@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "_deps/sfml-build/lib/libvorbisencd.a"
+			"path" : "_deps/sfml-build/lib/libvorbisfiled.a"
 		}
 	],
 	"backtrace" : 1,
@@ -28,7 +28,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 78,
+				"line" : 79,
 				"parent" : 0
 			},
 			{
@@ -40,13 +40,13 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 112,
+				"line" : 113,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 95,
+				"line" : 102,
 				"parent" : 0
 			}
 		]
@@ -64,22 +64,18 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-src/lib"
-				},
-				{
-					"backtrace" : 4,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/vorbis-src/include"
 				},
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-src/include"
 				},
 				{
 					"backtrace" : 3,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-build/include"
 				}
 			],
 			"language" : "C",
@@ -104,7 +100,7 @@
 	{
 		"name" : "Dependencies"
 	},
-	"id" : "vorbisenc::@692b0ee2b61df6760d20",
+	"id" : "vorbisfile::@692b0ee2b61df6760d20",
 	"install" : 
 	{
 		"destinations" : 
@@ -119,8 +115,8 @@
 			"path" : "C:/Program Files (x86)/CMakeSFMLProject"
 		}
 	},
-	"name" : "vorbisenc",
-	"nameOnDisk" : "libvorbisencd.a",
+	"name" : "vorbisfile",
+	"nameOnDisk" : "libvorbisfiled.a",
 	"paths" : 
 	{
 		"build" : "_deps/vorbis-build/lib",
@@ -142,12 +138,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/vorbis-src/lib/vorbisenc.c",
+			"path" : "cmake-build-debug/_deps/vorbis-src/lib/vorbisfile.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "cmake-build-debug/_deps/vorbis-src/win32/vorbisenc.def",
+			"path" : "cmake-build-debug/_deps/vorbis-src/win32/vorbisfile.def",
 			"sourceGroupIndex" : 0
 		}
 	],

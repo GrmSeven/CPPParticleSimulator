@@ -200,11 +200,11 @@
 			[
 				{
 					"backtrace" : 10,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/include"
 				},
 				{
 					"backtrace" : 10,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/src"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/src"
 				}
 			],
 			"language" : "CXX",

@@ -34,7 +34,7 @@ include CMakeFiles\rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild\
+cmake_ninja_workdir = D$:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild\
 
 #############################################
 # Utility command for ogg-populate
@@ -46,7 +46,7 @@ build ogg-populate: phony CMakeFiles\ogg-populate CMakeFiles\ogg-populate-comple
 # Utility command for edit_cache
 
 build CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -57,7 +57,7 @@ build edit_cache: phony CMakeFiles\edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild -BC:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SD:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild -BD:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -75,7 +75,7 @@ build CMakeFiles\ogg-populate | ${cmake_ninja_workdir}CMakeFiles\ogg-populate: p
 # Custom command for CMakeFiles\ogg-populate-complete
 
 build CMakeFiles\ogg-populate-complete ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-done | ${cmake_ninja_workdir}CMakeFiles\ogg-populate-complete ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-done: CUSTOM_COMMAND ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-mkdir ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-download ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-configure ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-test
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E make_directory C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E make_directory D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done"
   DESC = Completed 'ogg-populate'
   restat = 1
 
@@ -84,7 +84,7 @@ build CMakeFiles\ogg-populate-complete ogg-populate-prefix\src\ogg-populate-stam
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-build
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-build | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-build: CUSTOM_COMMAND ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-configure
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-build && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-build && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build"
   DESC = No build step for 'ogg-populate'
   restat = 1
 
@@ -93,7 +93,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-build | ${cmake_ni
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-configure
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-configure | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-configure: CUSTOM_COMMAND ogg-populate-prefix\tmp\ogg-populate-cfgcmd.txt ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-build && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-build && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure"
   DESC = No configure step for 'ogg-populate'
   restat = 1
 
@@ -102,7 +102,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-configure | ${cmak
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-download
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-download | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-download: CUSTOM_COMMAND ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-gitinfo.txt ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-mkdir
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/tmp/ogg-populate-gitclone.cmake && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/tmp/ogg-populate-gitclone.cmake && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download"
   DESC = Performing download step (git clone) for 'ogg-populate'
   pool = console
   restat = 1
@@ -112,7 +112,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-download | ${cmake
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install: CUSTOM_COMMAND ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-build
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-build && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-build && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install"
   DESC = No install step for 'ogg-populate'
   restat = 1
 
@@ -121,7 +121,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install | ${cmake_
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-mkdir
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-mkdir | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-mkdir: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -Dcfgdir= -P C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/tmp/ogg-populate-mkdirs.cmake && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-subbuild && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -Dcfgdir= -P D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/tmp/ogg-populate-mkdirs.cmake && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir"
   DESC = Creating directories for 'ogg-populate'
   restat = 1
 
@@ -130,7 +130,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-mkdir | ${cmake_ni
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch: CUSTOM_COMMAND ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch-info.txt ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-src && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -DOGG_DIR=C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-src -P C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/tools/ogg/PatchOgg.cmake && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-src && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -DOGG_DIR=D:/с++/CPPPR/cmake-build-debug/_deps/ogg-src -P D:/с++/CPPPR/cmake-build-debug/_deps/sfml-src/tools/ogg/PatchOgg.cmake && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch"
   DESC = Performing patch step for 'ogg-populate'
   pool = console
   restat = 1
@@ -140,7 +140,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-patch | ${cmake_ni
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-test
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-test | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-test: CUSTOM_COMMAND ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-install
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-build && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E touch C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-build && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E echo_append && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -E touch D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test"
   DESC = No test step for 'ogg-populate'
   restat = 1
 
@@ -149,7 +149,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-test | ${cmake_nin
 # Custom command for ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update
 
 build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update | ${cmake_ninja_workdir}ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update: CUSTOM_COMMAND ogg-populate-prefix\tmp\ogg-populate-gitupdate.cmake ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update-info.txt ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-download
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug\_deps\ogg-src && "C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/tmp/ogg-populate-gitupdate.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D D:\с++\CPPPR\cmake-build-debug\_deps\ogg-src && "D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/tmp/ogg-populate-gitupdate.cmake"
   DESC = Performing update step for 'ogg-populate'
   pool = console
 
@@ -162,7 +162,7 @@ build ogg-populate-prefix\src\ogg-populate-stamp\ogg-populate-update | ${cmake_n
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild
+# Folder: D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild
 
 build all: phony ogg-populate
 
@@ -173,14 +173,14 @@ build all: phony ogg-populate
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeDetermineSystem.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystem.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitclone.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitupdate.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.30.5\CMakeSystem.cmake CMakeLists.txt ogg-populate-prefix\tmp\ogg-populate-mkdirs.cmake
+build build.ninja: RERUN_CMAKE | CMakeCache.txt CMakeFiles\3.30.5\CMakeSystem.cmake CMakeLists.txt D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeDetermineSystem.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeGenericSystem.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystem.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitclone.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitupdate.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake ogg-populate-prefix\tmp\ogg-populate-mkdirs.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeDetermineSystem.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystem.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitclone.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitupdate.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows.cmake C$:\Program$ Files\JetBrains\CLion$ 2024.3.3\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.30.5\CMakeSystem.cmake CMakeLists.txt ogg-populate-prefix\tmp\ogg-populate-mkdirs.cmake: phony
+build CMakeCache.txt CMakeFiles\3.30.5\CMakeSystem.cmake CMakeLists.txt D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeDetermineSystem.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeGenericSystem.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystem.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitclone.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\gitupdate.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\Windows.cmake D$:\CLion$ 2024.3.5\bin\cmake\win\x64\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake ogg-populate-prefix\tmp\ogg-populate-mkdirs.cmake: phony
 
 
 #############################################

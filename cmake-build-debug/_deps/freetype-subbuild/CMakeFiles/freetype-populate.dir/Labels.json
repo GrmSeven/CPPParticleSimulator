@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test.rule"
 		},
 		{
-			"file" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update.rule"
+			"file" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update.rule"
 		}
 	],
 	"target" : 

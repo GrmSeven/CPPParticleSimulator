@@ -407,98 +407,98 @@
 				{
 					"directoryIndex" : 13,
 					"id" : "FLAC::@d572677c3819035d9b3d",
-					"jsonFile" : "target-FLAC-Debug-1d94dd77c66abdbcb37f.json",
+					"jsonFile" : "target-FLAC-Debug-1eb1e64839dc6b6ee4af.json",
 					"name" : "FLAC",
 					"projectIndex" : 4
 				},
 				{
 					"directoryIndex" : 14,
 					"id" : "benchmark_residual::@3956ab943ce8cc4f6f98",
-					"jsonFile" : "target-benchmark_residual-Debug-cd8d0ffa9ad97be7475a.json",
+					"jsonFile" : "target-benchmark_residual-Debug-431f09108288ce3f5c89.json",
 					"name" : "benchmark_residual",
 					"projectIndex" : 4
 				},
 				{
 					"directoryIndex" : 8,
 					"id" : "freetype::@d06f9f5ffc3cc0b4bd77",
-					"jsonFile" : "target-freetype-Debug-7e2aaea3aab873a463f8.json",
+					"jsonFile" : "target-freetype-Debug-43f0d89476a5c33837ad.json",
 					"name" : "freetype",
 					"projectIndex" : 2
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "main::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-main-Debug-53794e4d85eb5ffd5574.json",
+					"jsonFile" : "target-main-Debug-cdf39e530de6758608e4.json",
 					"name" : "main",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 10,
 					"id" : "ogg::@4e5ed7d02827854e35f8",
-					"jsonFile" : "target-ogg-Debug-d74868f0ca36e2f84489.json",
+					"jsonFile" : "target-ogg-Debug-5dd01806b869567fae96.json",
 					"name" : "ogg",
 					"projectIndex" : 3
 				},
 				{
 					"directoryIndex" : 9,
 					"id" : "sfml-audio::@a153e5727587c53fce98",
-					"jsonFile" : "target-sfml-audio-Debug-f127bcb999950dbf0e75.json",
+					"jsonFile" : "target-sfml-audio-Debug-b8c1d92b5dd56fef1eb9.json",
 					"name" : "sfml-audio",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 7,
 					"id" : "sfml-graphics::@98af38147d5fa7e70f61",
-					"jsonFile" : "target-sfml-graphics-Debug-9c06d5d44f2de3873ed3.json",
+					"jsonFile" : "target-sfml-graphics-Debug-334908b5a20e20d2d80a.json",
 					"name" : "sfml-graphics",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "sfml-main::@81ec5539f1398dd625f6",
-					"jsonFile" : "target-sfml-main-Debug-8cf0d339d125ddadd279.json",
+					"jsonFile" : "target-sfml-main-Debug-a2b8379163f9b249084c.json",
 					"name" : "sfml-main",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 6,
 					"id" : "sfml-network::@d7f79968b2699e7782cb",
-					"jsonFile" : "target-sfml-network-Debug-79ad8207ecdbbf24bef7.json",
+					"jsonFile" : "target-sfml-network-Debug-b632d7cf0f632923f75d.json",
 					"name" : "sfml-network",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "sfml-system::@8cb1db2982443611e568",
-					"jsonFile" : "target-sfml-system-Debug-9328fb979d6c0faf05ef.json",
+					"jsonFile" : "target-sfml-system-Debug-8adcacf9ca287cab8b7e.json",
 					"name" : "sfml-system",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 5,
 					"id" : "sfml-window::@5730451e331e3690ae65",
-					"jsonFile" : "target-sfml-window-Debug-8315ec6073f243d9e69a.json",
+					"jsonFile" : "target-sfml-window-Debug-a8d5a75785c9c9d5763c.json",
 					"name" : "sfml-window",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 16,
 					"id" : "vorbis::@692b0ee2b61df6760d20",
-					"jsonFile" : "target-vorbis-Debug-28318040c8135f7b6d68.json",
+					"jsonFile" : "target-vorbis-Debug-a3937f8bfb7793b66f7f.json",
 					"name" : "vorbis",
 					"projectIndex" : 5
 				},
 				{
 					"directoryIndex" : 16,
 					"id" : "vorbisenc::@692b0ee2b61df6760d20",
-					"jsonFile" : "target-vorbisenc-Debug-38801620cbe542be89d8.json",
+					"jsonFile" : "target-vorbisenc-Debug-ea420673b57cff2392ac.json",
 					"name" : "vorbisenc",
 					"projectIndex" : 5
 				},
 				{
 					"directoryIndex" : 16,
 					"id" : "vorbisfile::@692b0ee2b61df6760d20",
-					"jsonFile" : "target-vorbisfile-Debug-faa14b4bafefd27a8769.json",
+					"jsonFile" : "target-vorbisfile-Debug-a76ff4dfc5b70b9863f7.json",
 					"name" : "vorbisfile",
 					"projectIndex" : 5
 				}
@@ -508,8 +508,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug",
-		"source" : "C:/Users/kostiantyn/Desktop/CPPPR"
+		"build" : "D:/\u0441++/CPPPR/cmake-build-debug",
+		"source" : "D:/\u0441++/CPPPR"
 	},
 	"version" : 
 	{

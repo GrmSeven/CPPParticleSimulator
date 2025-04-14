@@ -1,14 +1,14 @@
-"C:\Program Files\JetBrains\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3.3/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\kostiantyn\Desktop\CPPPR -B C:\Users\kostiantyn\Desktop\CPPPR\cmake-build-debug
+"D:\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/CLion 2024.3.5/bin/ninja/win/x64/ninja.exe" -G Ninja -S D:\с++\CPPPR -B D:\с++\CPPPR\cmake-build-debug
 -- The CXX compiler identification is GNU 13.1.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: C:/Program Files/JetBrains/CLion 2024.3.3/bin/mingw/bin/g++.exe - skipped
+-- Check for working CXX compiler: D:/CLion 2024.3.5/bin/mingw/bin/g++.exe - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- The C compiler identification is GNU 13.1.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/Program Files/JetBrains/CLion 2024.3.3/bin/mingw/bin/gcc.exe - skipped
+-- Check for working C compiler: D:/CLion 2024.3.5/bin/mingw/bin/gcc.exe - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
@@ -124,6 +124,6 @@ CMake Deprecation Warning at cmake-build-debug/_deps/vorbis-src/CMakeLists.txt:1
 -- Configuring vorbis 1.3.7
 -- Looking for floor in m
 -- Looking for floor in m - found
--- Configuring done (89.7s)
--- Generating done (0.4s)
--- Build files have been written to: C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug
+-- Configuring done (61.8s)
+-- Generating done (0.2s)
+-- Build files have been written to: D:/с++/CPPPR/cmake-build-debug

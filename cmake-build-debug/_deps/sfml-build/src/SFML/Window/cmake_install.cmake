@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/src/SFML/Window
+# Install script for directory: D:/с++/CPPPR/cmake-build-debug/_deps/sfml-src/src/SFML/Window
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,14 +34,14 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Program Files/JetBrains/CLion 2024.3.3/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "D:/CLion 2024.3.5/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "devel" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-build/lib/libsfml-window-s-d.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "D:/с++/CPPPR/cmake-build-debug/_deps/sfml-build/lib/libsfml-window-s-d.a")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "devel" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-build/src/SFML/Window/SFMLWindowDependencies.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/SFML" TYPE FILE FILES "D:/с++/CPPPR/cmake-build-debug/_deps/sfml-build/src/SFML/Window/SFMLWindowDependencies.cmake")
 endif()
 

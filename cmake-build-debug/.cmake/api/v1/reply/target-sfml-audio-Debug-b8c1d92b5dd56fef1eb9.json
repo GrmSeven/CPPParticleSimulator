@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "_deps/sfml-build/lib/libsfml-window-s-d.a"
+			"path" : "_deps/sfml-build/lib/libsfml-audio-s-d.a"
 		}
 	],
 	"backtrace" : 2,
@@ -23,7 +23,7 @@
 		"files" : 
 		[
 			"cmake-build-debug/_deps/sfml-src/cmake/Macros.cmake",
-			"cmake-build-debug/_deps/sfml-src/src/SFML/Window/CMakeLists.txt",
+			"cmake-build-debug/_deps/sfml-src/src/SFML/Audio/CMakeLists.txt",
 			"cmake-build-debug/_deps/sfml-src/cmake/CompilerWarnings.cmake"
 		],
 		"nodes" : 
@@ -34,7 +34,7 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 269,
+				"line" : 165,
 				"parent" : 0
 			},
 			{
@@ -52,7 +52,7 @@
 			{
 				"command" : 3,
 				"file" : 1,
-				"line" : 283,
+				"line" : 182,
 				"parent" : 0
 			},
 			{
@@ -72,6 +72,30 @@
 				"file" : 2,
 				"line" : 68,
 				"parent" : 5
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 170,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 173,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 176,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 179,
+				"parent" : 0
 			},
 			{
 				"command" : 6,
@@ -100,13 +124,13 @@
 			{
 				"command" : 7,
 				"file" : 1,
-				"line" : 286,
+				"line" : 190,
 				"parent" : 0
 			},
 			{
 				"command" : 7,
 				"file" : 1,
-				"line" : 295,
+				"line" : 193,
 				"parent" : 0
 			}
 		]
@@ -204,68 +228,121 @@
 			[
 				{
 					"backtrace" : 8,
-					"define" : "SFML_STATIC"
+					"define" : "FLAC__NO_DLL"
 				},
 				{
 					"backtrace" : 9,
-					"define" : "_CRT_SECURE_NO_WARNINGS"
+					"define" : "MA_NO_ENCODING"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "MA_NO_FLAC"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "MA_NO_GENERATION"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "MA_NO_MP3"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "MA_NO_RESOURCE_MANAGER"
 				},
 				{
 					"backtrace" : 10,
+					"define" : "MA_USE_STDINT"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "OV_EXCLUDE_STATIC_CALLBACKS"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "SFML_IS_BIG_ENDIAN=0"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "SFML_STATIC"
+				},
+				{
+					"backtrace" : 13,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 14,
 					"define" : "_WINSOCK_DEPRECATED_NO_WARNINGS"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 11,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/src"
+					"backtrace" : 15,
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/src"
 				},
 				{
-					"backtrace" : 11,
+					"backtrace" : 15,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/include"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 16,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/miniaudio"
 				},
 				{
-					"backtrace" : 13,
+					"backtrace" : 17,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/vulkan"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/minimp3"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/vorbis-src/include"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-src/include"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/ogg-build/include"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/flac-src/include"
 				}
 			],
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
-				1,
-				3,
+				0,
+				2,
 				5,
+				7,
 				9,
-				11,
+				10,
+				12,
+				14,
+				16,
 				18,
-				20,
+				21,
 				23,
 				25,
 				27,
 				29,
 				31,
-				33,
 				36,
-				39,
-				41,
-				46,
-				49,
-				51,
-				52,
-				53,
-				56,
-				58,
-				59,
-				60,
-				62
+				38,
+				40,
+				42,
+				45,
+				47,
+				49
 			]
 		}
 	],
@@ -274,13 +351,33 @@
 		{
 			"backtrace" : 4,
 			"id" : "sfml-system::@8cb1db2982443611e568"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "ogg::@4e5ed7d02827854e35f8"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "FLAC::@d572677c3819035d9b3d"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "vorbis::@692b0ee2b61df6760d20"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "vorbisfile::@692b0ee2b61df6760d20"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "vorbisenc::@692b0ee2b61df6760d20"
 		}
 	],
 	"folder" : 
 	{
 		"name" : "SFML"
 	},
-	"id" : "sfml-window::@5730451e331e3690ae65",
+	"id" : "sfml-audio::@a153e5727587c53fce98",
 	"install" : 
 	{
 		"destinations" : 
@@ -295,12 +392,12 @@
 			"path" : "C:/Program Files (x86)/CMakeSFMLProject"
 		}
 	},
-	"name" : "sfml-window",
-	"nameOnDisk" : "libsfml-window-s-d.a",
+	"name" : "sfml-audio",
+	"nameOnDisk" : "libsfml-audio-s-d.a",
 	"paths" : 
 	{
-		"build" : "_deps/sfml-build/src/SFML/Window",
-		"source" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window"
+		"build" : "_deps/sfml-build/src/SFML/Audio",
+		"source" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio"
 	},
 	"sourceGroups" : 
 	[
@@ -338,7 +435,13 @@
 				27,
 				28,
 				29,
-				30,
+				30
+			]
+		},
+		{
+			"name" : "codecs",
+			"sourceIndexes" : 
+			[
 				31,
 				32,
 				33,
@@ -355,29 +458,9 @@
 				44,
 				45,
 				46,
-				47
-			]
-		},
-		{
-			"name" : "windows",
-			"sourceIndexes" : 
-			[
+				47,
 				48,
-				49,
-				50,
-				51,
-				52,
-				53,
-				54,
-				55,
-				56,
-				57,
-				58,
-				59,
-				60,
-				61,
-				62,
-				63
+				49
 			]
 		}
 	],
@@ -385,348 +468,275 @@
 	[
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Clipboard.hpp",
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/AudioResource.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/AudioResource.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Clipboard.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/AudioDevice.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/ClipboardImpl.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/AudioDevice.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Context.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Context.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/Export.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Cursor.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/Listener.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Cursor.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/CursorImpl.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Export.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/Listener.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/GlContext.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/Miniaudio.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/GlContext.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/GlResource.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/GlResource.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/ContextSettings.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Event.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Event.inl",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/InputImpl.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Joystick.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/MiniaudioUtils.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Joystick.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/JoystickImpl.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/MiniaudioUtils.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/JoystickManager.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/Music.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/JoystickManager.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Keyboard.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/Music.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Keyboard.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/PlaybackDevice.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Mouse.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Mouse.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Touch.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/PlaybackDevice.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Touch.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/Sound.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Sensor.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Sensor.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/SensorImpl.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/Sound.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/SensorManager.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundBuffer.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/SensorManager.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/VideoMode.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/VideoMode.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/VideoModeImpl.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundBuffer.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Vulkan.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundBufferRecorder.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Vulkan.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundBufferRecorder.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/VulkanImpl.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Window.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/Window.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundChannel.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/WindowBase.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/InputSoundFile.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/WindowBase.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/WindowBase.inl",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/WindowEnums.hpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Window/WindowHandle.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/WindowImpl.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/OutputSoundFile.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/WindowImpl.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/OutputSoundFile.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/CursorImpl.hpp",
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundRecorder.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundRecorder.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundSource.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundSource.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundStream.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundStream.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileFactory.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundFileFactory.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundFileFactory.inl",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundFileReader.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderFlac.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/CursorImpl.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderFlac.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/ClipboardImpl.hpp",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/ClipboardImpl.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderMp3.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/InputImpl.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderMp3.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderOgg.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/JoystickImpl.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderOgg.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/JoystickImpl.hpp",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/SensorImpl.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderWav.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/SensorImpl.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileReaderWav.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/Utils.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundFileWriter.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/VideoModeImpl.cpp",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 2,
-			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/VulkanImplWin32.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileWriterFlac.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/WindowImplWin32.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileWriterFlac.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/WindowImplWin32.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileWriterOgg.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/WglContext.cpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileWriterOgg.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 2,
-			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/WglContext.hpp",
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileWriterWav.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/_deps/sfml-src/src/SFML/Audio/SoundFileWriterWav.cpp",
 			"sourceGroupIndex" : 1
 		}
 	],

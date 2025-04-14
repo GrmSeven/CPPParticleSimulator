@@ -235,32 +235,32 @@
 			[
 				{
 					"backtrace" : 13,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/src"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/src"
 				},
 				{
 					"backtrace" : 13,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/include"
 				},
 				{
 					"backtrace" : 14,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/stb_image"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/stb_image"
 				},
 				{
 					"backtrace" : 15,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-build/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-src/include"
 				}
 			],
 			"language" : "CXX",
@@ -407,32 +407,32 @@
 			[
 				{
 					"backtrace" : 13,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/src"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/src"
 				},
 				{
 					"backtrace" : 13,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/include"
 				},
 				{
 					"backtrace" : 14,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/stb_image"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/stb_image"
 				},
 				{
 					"backtrace" : 15,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-build/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-build/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-src/include"
+					"path" : "D:/\u0441++/CPPPR/cmake-build-debug/_deps/freetype-src/include"
 				}
 			],
 			"language" : "CXX",
@@ -446,11 +446,11 @@
 	[
 		{
 			"backtrace" : 4,
-			"id" : "sfml-system::@8cb1db2982443611e568"
+			"id" : "sfml-window::@5730451e331e3690ae65"
 		},
 		{
 			"backtrace" : 4,
-			"id" : "sfml-window::@5730451e331e3690ae65"
+			"id" : "sfml-system::@8cb1db2982443611e568"
 		},
 		{
 			"backtrace" : 5,

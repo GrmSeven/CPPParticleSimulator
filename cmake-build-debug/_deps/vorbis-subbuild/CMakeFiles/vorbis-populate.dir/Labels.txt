@@ -1,14 +1,14 @@
 # Target labels
  vorbis-populate
 # Source files and their labels
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate-complete.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-build.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-configure.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-download.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-install.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-mkdir.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-patch.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-test.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-update.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate-complete.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-build.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-configure.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-download.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-install.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-mkdir.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-patch.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-test.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/vorbis-subbuild/vorbis-populate-prefix/src/vorbis-populate-stamp/vorbis-populate-update.rule

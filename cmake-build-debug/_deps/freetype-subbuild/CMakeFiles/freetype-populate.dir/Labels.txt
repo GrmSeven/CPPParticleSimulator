@@ -1,14 +1,14 @@
 # Target labels
  freetype-populate
 # Source files and their labels
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update.rule

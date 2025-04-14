@@ -1,14 +1,14 @@
 # Target labels
  ogg-populate
 # Source files and their labels
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test.rule
-C:/Users/kostiantyn/Desktop/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test.rule
+D:/с++/CPPPR/cmake-build-debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update.rule
