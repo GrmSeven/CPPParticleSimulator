@@ -1,5 +1,5 @@
 #include "renderer.h"
-
+#include <cmath>
 #include <iostream>
 
 #include "particle.h"
@@ -21,17 +21,39 @@ void renderer::handle_events() {
 
 // Runs once at the start
 void renderer::pre_process() {
-    // Creates a single particle
-    particles.push_back(particle({0.0, 400.0}, 0));
+    // Creates a few particles particle
+    particles.push_back(particle({100.0, 300.0}, {-500, 200}));
+    particles.push_back(particle({500.0, 500.0}, {500, 0}));
+    particles.push_back(particle({200.0, 500.0}, {0, 0}));
+    particles.push_back(particle({1000.0, 500.0}, {0, -500}));
+}
+
+// Put this later into other that will have multiple different formulas
+// Param_1 is for making different particles behave slightly differently, based on their type, using formula
+// This one uses this formula
+sf::Vector2<float> calculate_attraction_life(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1) {
+    sf::Vector2<float> direction_vector = (attractor - particle);
+    return direction_vector.normalized() * (direction_vector.length());
+}
+
+// Newton formula, abit boring
+sf::Vector2<float> calculate_attraction_newton(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1) {
+    sf::Vector2<float> direction_vector = (attractor - particle);
+    return direction_vector.normalized() * direction_vector.lengthSquared()*0.0001f;
 }
 
 // Runs every frame
 void renderer::process() {
-    for (particle& p : particles) {
+    for (int i = 0; i < particles.size(); i++) {
         // Apply velocity
-        p.velocity += {1,  2};
-        p.clamp({0, 0}, {width, height});
+        for (int j = i + 1; j < particles.size(); j++) {
+            particles[i].velocity += calculate_attraction_newton(particles[i].position, particles[j].position, 1);
+            particles[j].velocity += calculate_attraction_newton(particles[j].position, particles[i].position, 1);
+        }
+    }
+    for (particle& p : particles) {
         p.update(delta);
+        p.reflect({0, 0}, {width, height});
     }
 }
 

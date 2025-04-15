@@ -12,6 +12,7 @@ public:
     vector<particle> particles;
     void run();
     unsigned int width, height;
+    void set_framerate_limit(unsigned int fps);
 
 private:
     sf::RenderWindow window;
@@ -22,5 +23,5 @@ private:
     void process();
     void render();
 
-    void set_framerate_limit(unsigned int fps);
+
 };

@@ -12,12 +12,12 @@ public:
     //THIS MUST BE INCAPSULATED
 
 
-    particle(sf::Vector2<float> position = {0,0}, unsigned char type = 0);
+    particle(sf::Vector2<float> position = {0,0}, sf::Vector2<float> velocity = {0,0},  unsigned char type = 0);
 
     void update(float& delta);
     void clamp(sf::Vector2<unsigned int> l, sf::Vector2<unsigned int> r);
 
-    void reflection(sf::Vector2<unsigned int> l, sf::Vector2<unsigned int> r);
+    void reflect(sf::Vector2<unsigned int> l, sf::Vector2<unsigned int> r);
 
     [[nodiscard]] sf::Vector2<float> getPosition() const {
         return position;
