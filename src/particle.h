@@ -16,8 +16,8 @@ public:
 
     void update(float& delta);
     void clamp(sf::Vector2<unsigned int> l, sf::Vector2<unsigned int> r);
-
     void reflect(sf::Vector2<unsigned int> l, sf::Vector2<unsigned int> r);
+    void terminal_velocity(float& delta, float drag);
 
     [[nodiscard]] sf::Vector2<float> getPosition() const {
         return position;

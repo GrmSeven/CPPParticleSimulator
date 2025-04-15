@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include <SFML/Graphics.hpp>
 #include <vector>;
 

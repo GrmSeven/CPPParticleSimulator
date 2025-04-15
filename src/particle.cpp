@@ -24,4 +24,7 @@ void particle::reflect(sf::Vector2<unsigned int> l, sf::Vector2<unsigned int> r)
     position.y = abs(utils::abs_mod(position.y - 2.f * l.y + r.y, 2.f*(r.y-l.y))-r.y+l.y)+l.y;
 }
 
-
+// Slows down the particle, not sure if its the best approach
+void particle::terminal_velocity(float& delta, float drag) {
+    velocity *= std::max(0.0f, 1.0f - drag * delta);
+}

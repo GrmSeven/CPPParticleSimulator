@@ -22,24 +22,36 @@ void renderer::handle_events() {
 // Runs once at the start
 void renderer::pre_process() {
     // Creates a few particles particle
-    particles.push_back(particle({100.0, 300.0}, {-500, 200}));
-    particles.push_back(particle({500.0, 500.0}, {500, 0}));
-    particles.push_back(particle({200.0, 500.0}, {0, 0}));
-    particles.push_back(particle({1000.0, 500.0}, {0, -500}));
+    srand(time(0));
+    for (int i = 0; i < 500; ++i) {
+        particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}));
+    }
+    // particles.push_back(particle({100.0, 300.0}, {-100, 0}));
+    // particles.push_back(particle({500.0, 500.0}, {0, 0}));
+    // particles.push_back(particle({200.0, 500.0}, {0, 0}));
+    // particles.push_back(particle({1000.0, 500.0}, {0, -500}));
 }
 
 // Put this later into other that will have multiple different formulas
 // Param_1 is for making different particles behave slightly differently, based on their type, using formula
 // This one uses this formula
-sf::Vector2<float> calculate_attraction_life(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1) {
+sf::Vector2<float> calculate_attraction_life(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1 = 1) {
     sf::Vector2<float> direction_vector = (attractor - particle);
-    return direction_vector.normalized() * (direction_vector.length());
+    sf::Vector2<float> normalized = (direction_vector.length() == 0.f) ? sf::Vector2<float>{0,0} : direction_vector / direction_vector.length();
+    return normalized * (direction_vector.length());
 }
 
 // Newton formula, abit boring
-sf::Vector2<float> calculate_attraction_newton(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1) {
+sf::Vector2<float> calculate_attraction_newton(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1 = 1) {
     sf::Vector2<float> direction_vector = (attractor - particle);
-    return direction_vector.normalized() * direction_vector.lengthSquared()*0.0001f;
+    sf::Vector2<float> normalized = (direction_vector.length() == 0.f) ? sf::Vector2<float>{0,0} : direction_vector / direction_vector.length();
+    return normalized / max(direction_vector.lengthSquared(), 10.f)*10000.f*param_1;
+}
+
+sf::Vector2<float> calculate_attraction_inv_newton(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1 = 1) {
+    sf::Vector2<float> direction_vector = (attractor - particle);
+    sf::Vector2<float> normalized = (direction_vector.length() == 0.f) ? sf::Vector2<float>{0,0} : direction_vector / direction_vector.length();
+    return normalized * direction_vector.lengthSquared()*0.000001f;
 }
 
 // Runs every frame
@@ -47,11 +59,12 @@ void renderer::process() {
     for (int i = 0; i < particles.size(); i++) {
         // Apply velocity
         for (int j = i + 1; j < particles.size(); j++) {
-            particles[i].velocity += calculate_attraction_newton(particles[i].position, particles[j].position, 1);
-            particles[j].velocity += calculate_attraction_newton(particles[j].position, particles[i].position, 1);
+            particles[i].velocity += calculate_attraction_inv_newton(particles[i].position, particles[j].position, 1);
+            particles[j].velocity += calculate_attraction_inv_newton(particles[j].position, particles[i].position, 1);
         }
     }
     for (particle& p : particles) {
+        // p.terminal_velocity(delta, 0.1f);
         p.update(delta);
         p.reflect({0, 0}, {width, height});
     }
