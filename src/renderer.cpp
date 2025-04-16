@@ -26,47 +26,54 @@ void renderer::pre_process() {
     for (int i = 0; i < 500; ++i) {
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}));
     }
-    // particles.push_back(particle({100.0, 300.0}, {-100, 0}));
-    // particles.push_back(particle({500.0, 500.0}, {0, 0}));
-    // particles.push_back(particle({200.0, 500.0}, {0, 0}));
-    // particles.push_back(particle({1000.0, 500.0}, {0, -500}));
 }
 
 // Put this later into other that will have multiple different formulas
 // Param_1 is for making different particles behave slightly differently, based on their type, using formula
 // This one uses this formula
-sf::Vector2<float> calculate_attraction_life(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1 = 1) {
-    sf::Vector2<float> direction_vector = (attractor - particle);
-    sf::Vector2<float> normalized = (direction_vector.length() == 0.f) ? sf::Vector2<float>{0,0} : direction_vector / direction_vector.length();
-    return normalized * (direction_vector.length());
+float calculate_attraction_life(float distance, float param_1 = 1) {
+    float a = 50; // If particles are too close, then they repel slightly
+    float m = 200; // How far does the attraction persist
+    if (distance < a) {
+         return (distance-a)/4;
+    } else if (distance < (m+a)/2) {
+        return (distance-a)*param_1;
+    } else if (distance < m) {
+        return (m-distance)*param_1;
+    } else {
+        return 0.f;
+    }
 }
 
 // Newton formula, abit boring
-sf::Vector2<float> calculate_attraction_newton(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1 = 1) {
-    sf::Vector2<float> direction_vector = (attractor - particle);
-    sf::Vector2<float> normalized = (direction_vector.length() == 0.f) ? sf::Vector2<float>{0,0} : direction_vector / direction_vector.length();
-    return normalized / max(direction_vector.lengthSquared(), 10.f)*10000.f*param_1;
+float calculate_attraction_newton(float distance, float param_1 = 1) {
+    return 1 / distance / distance * 10000.f * param_1;
 }
 
-sf::Vector2<float> calculate_attraction_inv_newton(sf::Vector2<float> particle, sf::Vector2<float> attractor, float param_1 = 1) {
-    sf::Vector2<float> direction_vector = (attractor - particle);
-    sf::Vector2<float> normalized = (direction_vector.length() == 0.f) ? sf::Vector2<float>{0,0} : direction_vector / direction_vector.length();
-    return normalized * direction_vector.lengthSquared()*0.000001f;
+float calculate_attraction_inv_newton(float distance, float param_1 = 1) {
+        return distance * distance * 0.001f * param_1;
 }
 
 // Runs every frame
 void renderer::process() {
+    // Apply velocity
     for (int i = 0; i < particles.size(); i++) {
-        // Apply velocity
         for (int j = i + 1; j < particles.size(); j++) {
-            particles[i].velocity += calculate_attraction_inv_newton(particles[i].position, particles[j].position, 1);
-            particles[j].velocity += calculate_attraction_inv_newton(particles[j].position, particles[i].position, 1);
+            sf::Vector2 transform_vector = (particles[i].position - particles[j].position);
+            float distance = transform_vector.length();
+            sf::Vector2 normal_vector = distance == 0.f ? sf::Vector2 {0.f, 0.f} : transform_vector / distance;
+            particles[j].velocity += calculate_attraction_life(distance, 0.1f) * normal_vector;
+            particles[i].velocity += calculate_attraction_life(distance, 0.1f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+
         }
     }
+
+
     for (particle& p : particles) {
         // p.terminal_velocity(delta, 0.1f);
         p.update(delta);
         p.reflect({0, 0}, {width, height});
+        p.setVelocity({0,0});
     }
 }
 
