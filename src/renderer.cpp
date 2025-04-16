@@ -23,8 +23,9 @@ void renderer::handle_events() {
 void renderer::pre_process() {
     // Creates a few particles particle
     srand(time(0));
-    for (int i = 0; i < 500; ++i) {
-        particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}));
+    for (int i = 0; i < 200; ++i) {
+        particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));
+        particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'b'));
     }
 }
 
@@ -75,8 +76,20 @@ void renderer::process() {
             sf::Vector2 transform_vector = (particles[i].position - particles[j].position);
             float distance = transform_vector.length();
             sf::Vector2 normal_vector = distance == 0.f ? sf::Vector2 {0.f, 0.f} : transform_vector / distance;
-            particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
-            particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+            if (particles[j].type == 'a' && particles[i].type == 'a') {
+                particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
+                particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+            } else if (particles[j].type == 'b' && particles[i].type == 'b') {
+                particles[j].velocity += calculate_smooth_attraction_life(distance, 0.5f) * normal_vector;
+                particles[i].velocity += calculate_smooth_attraction_life(distance, 0.5f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+            } else if (particles[j].type == 'a' && particles[i].type == 'b') {
+                particles[j].velocity += calculate_smooth_attraction_life(distance, -0.5f) * normal_vector;
+                particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+            } else if (particles[j].type == 'b' && particles[i].type == 'a') {
+                particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
+                particles[i].velocity += calculate_smooth_attraction_life(distance, -0.5f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+            }
+
 
         }
     }
@@ -98,7 +111,12 @@ void renderer::render() {
     for (particle& p : particles) {
         float radius = 5.0;
         sf::CircleShape circle(radius);
-        circle.setFillColor(sf::Color(255, 0, 0, 255)); // Crate ParticleTypes class to lookup color, size, other parameters
+        if (p.type == 'a') { // Crate ParticleTypes class to lookup color, size, other parameters
+            circle.setFillColor(sf::Color(255, 0, 0, 255));
+        } else {
+            circle.setFillColor(sf::Color(0, 0, 255, 255));
+        }
+
         circle.setPosition(p.position);
         circle.setOrigin({radius, radius});
         window.draw(circle);
