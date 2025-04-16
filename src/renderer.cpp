@@ -32,14 +32,27 @@ void renderer::pre_process() {
 // Param_1 is for making different particles behave slightly differently, based on their type, using formula
 // This one uses this formula
 float calculate_attraction_life(float distance, float param_1 = 1) {
-    float a = 50; // If particles are too close, then they repel slightly
+    float r= 50; // If particles are too close, then they repel slightly
     float m = 200; // How far does the attraction persist
-    if (distance < a) {
-         return (distance-a)/4;
-    } else if (distance < (m+a)/2) {
-        return (distance-a)*param_1;
+    if (distance < r) {
+         return (distance-r)/4;
+    } else if (distance < (m+r)/2) {
+        return (distance-r)*param_1/10;
     } else if (distance < m) {
-        return (m-distance)*param_1;
+        return (m-distance)*param_1/10;
+    } else {
+        return 0.f;
+    }
+}
+
+float calculate_smooth_attraction_life(float distance, float param_1 = 1) {
+    float r = 50; // If particles are too close, then they repel slightly
+    float m = 200; // How far does the attraction persist
+    if (distance < r) {
+        return (distance*distance-r*r)/r/5;
+    } else if (distance < m) {
+        float g = distance-r;
+        return ( -g*g + g*(m-r) )/( m-r )*param_1/5;
     } else {
         return 0.f;
     }
@@ -62,8 +75,8 @@ void renderer::process() {
             sf::Vector2 transform_vector = (particles[i].position - particles[j].position);
             float distance = transform_vector.length();
             sf::Vector2 normal_vector = distance == 0.f ? sf::Vector2 {0.f, 0.f} : transform_vector / distance;
-            particles[j].velocity += calculate_attraction_life(distance, 0.1f) * normal_vector;
-            particles[i].velocity += calculate_attraction_life(distance, 0.1f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
+            particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
+            particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
 
         }
     }
