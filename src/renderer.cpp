@@ -22,8 +22,9 @@ void renderer::handle_events() {
 // Runs once at the start
 void renderer::pre_process() {
     // Creates a few particles particle
-    srand(time(0));
-    for (int i = 0; i < 100; ++i) {
+    // srand(time(0));
+    srand(0);
+    for (int i = 0; i < 200; ++i) {
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'b'));
     }
@@ -76,26 +77,15 @@ void renderer::process() {
             sf::Vector2 transform_vector = (particles[i].position - particles[j].position);
             float distance = transform_vector.length();
             sf::Vector2 normal_vector = distance == 0.f ? sf::Vector2 {0.f, 0.f} : transform_vector / distance;
-            if (particles[j].type == 'a' && particles[i].type == 'a') {
-                particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
-                particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
-            } else if (particles[j].type == 'b' && particles[i].type == 'b') {
-                particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
-                particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
-            } else if (particles[j].type == 'a' && particles[i].type == 'b') {
-                particles[j].velocity += calculate_smooth_attraction_life(distance, -0.2f) * normal_vector;
-                particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
-            } else if (particles[j].type == 'b' && particles[i].type == 'a') {
-                particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
-                particles[i].velocity += calculate_smooth_attraction_life(distance, -0.2f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
-            }
+            particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
+            particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
         }
     }
 
 
     for (particle& p : particles) {
-        p.terminal_velocity(delta, 10.f);
         p.update(delta);
+        p.terminal_velocity(delta, 10.f);
         p.clamp({0, 0}, {width, height});
         // p.setVelocity({0,0});
     }
