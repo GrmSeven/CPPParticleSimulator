@@ -12,8 +12,9 @@ public:
     renderer(unsigned short width = 1280, unsigned short height = 720);
     vector<particle> particles;
     void run();
-    unsigned short width, height;
-    void set_framerate_limit(unsigned char fps);
+    unsigned int width, height;
+    unsigned int framerate_limit = 30;
+    void set_framerate_limit(unsigned int fps);
 
 private:
     sf::RenderWindow window;

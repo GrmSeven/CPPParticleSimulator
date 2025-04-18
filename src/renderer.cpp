@@ -6,9 +6,8 @@
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
-    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), delta(0),
-      width(width), height(height) {
-    window.setFramerateLimit(60);
+    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), delta(0), width(width), height(height) {
+    window.setFramerateLimit(framerate_limit);
 }
 
 /**
@@ -99,10 +98,11 @@ void renderer::process() {
 
 
     for (particle& p : particles) {
+        // p.terminal_velocity(delta, 1.f);
+        // p.slow_down_velocity(delta, 10.f);
         p.update(delta);
-        p.terminal_velocity(delta, 10.f);
         p.clamp({0, 0}, {width, height});
-        // p.setVelocity({0,0});
+        p.setVelocity({0,0});
     }
 }
 
@@ -127,12 +127,6 @@ void renderer::render() {
         window.draw(circle);
     }
 
-    // UI rendering
-    // const sf::Font font("hih.ttf");
-    // sf::Text text(font, "Hello SFML test", 50);
-    // text.setFillColor(sf::Color(25, 255, 255));
-    // window.draw(text);
-
     window.display();
 }
 
@@ -141,6 +135,7 @@ void renderer::run() {
     pre_process();
     while (window.isOpen()) {
         handle_events();
+        // delta = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
         delta = clock.restart().asSeconds();
         process();
         render();
@@ -155,5 +150,6 @@ void renderer::run() {
  * @param fps limiter
  */
 void renderer::set_framerate_limit(unsigned char fps) {
+    framerate_limit = fps;
     window.setFramerateLimit(fps);
 }

@@ -40,5 +40,11 @@ void particle::reflect(sf::Vector2<unsigned short> l, sf::Vector2<unsigned short
  * Slows down the particle, not sure if its the best approach
  */
 void particle::terminal_velocity(float& delta, float drag) {
+    // velocity *= 1.f - exp(-drag*delta);
     velocity *= std::max(0.0f, 1.0f - drag * delta);
+}
+
+// Slows down particle slow down speed
+void particle::slow_down_velocity(float &delta, float speed) {
+    velocity *= pow(1/speed, delta);
 }

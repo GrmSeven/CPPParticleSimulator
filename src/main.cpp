@@ -4,6 +4,6 @@
 int main()
 {
     renderer r;
-    r.set_framerate_limit(120);
+    r.set_framerate_limit(60);
     r.run();
 }
