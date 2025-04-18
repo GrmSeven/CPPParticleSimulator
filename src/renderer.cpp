@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include <cmath>
 
+#include "mouse.h"
 #include "particle.h"
 using namespace std;
 
@@ -144,6 +145,9 @@ void renderer::run() {
         process();
         render();
     }
+
+    // sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    // CMouse mouse = CMouse(mousePos);
 }
 
 /**

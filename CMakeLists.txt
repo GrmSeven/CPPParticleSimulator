@@ -18,6 +18,8 @@ add_executable(main src/main.cpp
         src/particle.cpp
         src/particle.h
         src/utils.h
+        src/mouse.cpp
+        src/mouse.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
