@@ -14,7 +14,7 @@ public:
     void run();
     unsigned int width, height;
     unsigned int framerate_limit = 30;
-    void set_framerate_limit(unsigned int fps);
+    void set_framerate_limit(unsigned char fps);
 
 private:
     sf::RenderWindow window;

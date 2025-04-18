@@ -19,25 +19,25 @@ public:
     void terminal_velocity(float& delta, float drag);
     void slow_down_velocity(float &delta, float speed);
 
-    // [[nodiscard]] sf::Vector2<float> getPosition() const {
-    //     return position;
-    // }
-    // [[nodiscard]] sf::Vector2<float> getVelocity() const {
-    //     return velocity;
-    // }
-    // [[nodiscard]] unsigned char getType() const {
-    //     return type;
-    // }
+    [[nodiscard]] sf::Vector2<float> getPosition() const {
+        return position;
+    }
+    [[nodiscard]] sf::Vector2<float> getVelocity() const {
+        return velocity;
+    }
+    [[nodiscard]] unsigned char getType() const {
+        return type;
+    }
 
-    // void setPosition(const sf::Vector2<float> &position) {
-    //     this->position = position;
-    // }
+    void setPosition(const sf::Vector2<float> &position) {
+        this->position = position;
+    }
 
-    // void setVelocity(const sf::Vector2<float> &velocity) {
-    //     this->velocity = velocity;
-    // }
+    void setVelocity(const sf::Vector2<float> &velocity) {
+        this->velocity = velocity;
+    }
 
-    // void setType(unsigned char type) {
-    //     this->type = type;
-    // }
+    void setType(unsigned char type) {
+        this->type = type;
+    }
 };
