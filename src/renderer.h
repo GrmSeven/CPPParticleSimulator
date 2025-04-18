@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 #include <SFML/Graphics.hpp>
-#include <vector>;
+#include <vector>
 
 #include "particle.h"
 
@@ -9,11 +9,11 @@ using namespace std;
 
 class renderer {
 public:
-    renderer(unsigned int width = 1280, unsigned int height = 720);
+    renderer(unsigned short width = 1280, unsigned short height = 720);
     vector<particle> particles;
     void run();
-    unsigned int width, height;
-    void set_framerate_limit(unsigned int fps);
+    unsigned short width, height;
+    void set_framerate_limit(unsigned char fps);
 
 private:
     sf::RenderWindow window;

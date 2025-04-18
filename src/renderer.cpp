@@ -1,16 +1,18 @@
 #include "renderer.h"
 #include <cmath>
-#include <iostream>
 
 #include "particle.h"
 using namespace std;
 
-renderer::renderer(unsigned int width, unsigned int height)
-    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), width(width), height(height) {
+renderer::renderer(unsigned short width, unsigned short height)
+    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), delta(0),
+      width(width), height(height) {
     window.setFramerateLimit(60);
 }
 
-// For keyboard and mouse inputs
+/**
+ * For keyboard and mouse inputs
+ */
 void renderer::handle_events() {
     while (const std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
@@ -19,23 +21,28 @@ void renderer::handle_events() {
     }
 }
 
-// Runs once at the start
+/**
+ * Runs once at the start
+ */
 void renderer::pre_process() {
     // Creates a few particles particle
-    // srand(time(0));
+     // srand(time(0));
+    const unsigned short partCount = 170;
     srand(0);
-    for (int i = 0; i < 200; ++i) {
+    for (unsigned short i = 0; i < partCount; ++i) {
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'b'));
     }
 }
-
-// Put this later into other that will have multiple different formulas
-// Param_1 is for making different particles behave slightly differently, based on their type, using formula
-// This one uses this formula
+/**
+ * This one uses this formula
+ * @param distance
+ * @param param_1 is for making different particles behave slightly differently, based on their type, using formula
+ * @return
+ */
 float calculate_attraction_life(float distance, float param_1 = 1) {
-    float r= 50; // If particles are too close, then they repel slightly
-    float m = 200; // How far does the attraction persist
+    unsigned short r= 50; // If particles are too close, then they repel slightly
+    unsigned short m = 200; // How far does the attraction persist
     if (distance < r) {
          return (distance-r)/4;
     } else if (distance < (m+r)/2) {
@@ -48,8 +55,8 @@ float calculate_attraction_life(float distance, float param_1 = 1) {
 }
 
 float calculate_smooth_attraction_life(float distance, float param_1 = 1) {
-    float r = 50; // If particles are too close, then they repel slightly
-    float m = 200; // How far does the attraction persist
+    unsigned short r = 50; // If particles are too close, then they repel slightly
+    unsigned short m = 200; // How far does the attraction persist
     if (distance < r) {
         return (distance*distance-r*r)/r/5;
     } else if (distance < m) {
@@ -60,7 +67,12 @@ float calculate_smooth_attraction_life(float distance, float param_1 = 1) {
     }
 }
 
-// Newton formula, abit boring
+/**
+ * Newton formula, abit boring
+ * @param distance
+ * @param param_1 is for making different particles behave slightly differently, based on their type, using formula
+ * @return
+ */
 float calculate_attraction_newton(float distance, float param_1 = 1) {
     return 1 / distance / distance * 10000.f * param_1;
 }
@@ -69,7 +81,9 @@ float calculate_attraction_inv_newton(float distance, float param_1 = 1) {
         return distance * distance * 0.001f * param_1;
 }
 
-// Runs every frame
+/**
+ * Runs every frame
+ */
 void renderer::process() {
     // Apply velocity
     for (int i = 0; i < particles.size(); i++) {
@@ -91,7 +105,9 @@ void renderer::process() {
     }
 }
 
-// Renders particles and UI
+/**
+ * Renders particles and UI
+ */
 void renderer::render() {
     window.clear();
 
@@ -130,6 +146,10 @@ void renderer::run() {
     }
 }
 
-void renderer::set_framerate_limit(unsigned int fps) {
+/**
+ * 
+ * @param fps limiter
+ */
+void renderer::set_framerate_limit(unsigned char fps) {
     window.setFramerateLimit(fps);
 }
