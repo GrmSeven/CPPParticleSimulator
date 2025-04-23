@@ -11,7 +11,7 @@ public:
 
     particle(sf::Vector2<float> position = {0,0}, sf::Vector2<float> velocity = {0,0},  unsigned char type = 0);
 
-    void update(float& delta);
+    void update(double& delta);
 
 
     void clamp(sf::Vector2<unsigned short> l, sf::Vector2<unsigned short> r);

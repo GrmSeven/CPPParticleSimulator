@@ -6,8 +6,8 @@
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
-    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), delta(0), width(width), height(height) {
-    window.setFramerateLimit(framerate_limit);
+    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), time(0), width(width), height(height) {
+    window.setFramerateLimit(render_fps_limit);
 }
 
 /**
@@ -84,7 +84,7 @@ float calculate_attraction_inv_newton(float distance, float param_1 = 1) {
 /**
  * Runs every frame
  */
-void renderer::process() {
+void renderer::process(double delta) {
     // Apply velocity
     for (int i = 0; i < particles.size(); i++) {
         for (int j = i + 1; j < particles.size(); j++) {
@@ -109,7 +109,7 @@ void renderer::process() {
 /**
  * Renders particles and UI
  */
-void renderer::render() {
+void renderer::render(double delta) {
     window.clear();
 
     // Particle rendering
@@ -135,10 +135,14 @@ void renderer::run() {
     pre_process();
     while (window.isOpen()) {
         handle_events();
-        // delta = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
-        delta = clock.restart().asSeconds();
-        process();
-        render();
+        // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
+        time += clock.restart().asSeconds(); // Fixed physics fps
+        timestamp = 1.0/physics_fps_limit;
+        if (time >= timestamp) {
+            time -= timestamp;
+            process(timestamp);
+        }
+        render(1.0/render_fps_limit);
     }
 
     // sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -149,7 +153,11 @@ void renderer::run() {
  * 
  * @param fps limiter
  */
-void renderer::set_framerate_limit(unsigned char fps) {
-    framerate_limit = fps;
+void renderer::set_render_fps_limit(unsigned char fps) {
+    render_fps_limit = fps;
     window.setFramerateLimit(fps);
+}
+
+void renderer::set_physics_fps_limit(unsigned char fps) {
+    physics_fps_limit = fps;
 }

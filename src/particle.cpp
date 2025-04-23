@@ -5,8 +5,8 @@
 particle::particle(sf::Vector2<float> position, sf::Vector2<float> velocity, unsigned char type) : position(position),  velocity(velocity), type(type) {
 }
 
-void particle::update(float& delta) {
-    position += velocity * delta;
+void particle::update(double& delta) {
+    position += static_cast<sf::Vector2<float>>(static_cast<sf::Vector2<double>>(velocity) * delta);
 };
 
 /**
