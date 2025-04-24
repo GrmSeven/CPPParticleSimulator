@@ -1,6 +1,10 @@
 #include "particle_simulator.h"
 
 void particle_simulator::pre_process() {
+    for (size_t i = 0; i < particle_count; i++) {
+        positions[i] = sf::Vector2f(rand() % width, rand() % height);
+        velocities[i] = sf::Vector2f(0, 0);
+    }
 }
 
 void particle_simulator::process() {

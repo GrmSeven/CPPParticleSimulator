@@ -2,16 +2,16 @@
 
 ### TODO:
 Important optimizations:
-- Spatial Partitioning O(n^2) => O(n)
+- Spatial Partitioning O(n^2) => O(n log n)
 - Multithreading
 - Using Struct-of-Arrays instead of AoS (replace particle class with long arrays of values)
 
 Unimportant optimizations:
-- Fixed Timestep Physics (?, maybe not needed, it kinda already does it)
 - Optimizing calculations (using DistanceSquared, pointers, circle drawing)
-- Delta time cap
 - Rendering to texture buffer using shader or 8 sided polygons
 - (Hard, unnecessary) could use glsl compute shaders to make it all faster
+- Quadtree
+- Hashing of curves
 
 Features:
 - Draggable particles with mouse pointer

@@ -27,7 +27,7 @@ void renderer::handle_events() {
 void renderer::pre_process() {
     // Creates a few particles particle
      // srand(time(0));
-    const unsigned short partCount = 170;
+    const unsigned short partCount = 100;
     srand(0);
     for (unsigned short i = 0; i < partCount; ++i) {
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));

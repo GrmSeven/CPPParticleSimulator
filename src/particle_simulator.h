@@ -8,17 +8,15 @@ class particle_simulator {
 public:
     unsigned int width;
     unsigned int height;
-    unsigned int physics_fps;
-    particle_simulator(unsigned int width, unsigned int height, unsigned int physics_fps)
-        : width(width), height(height), physics_fps(physics_fps) {process();}
+    unsigned short cell_size;
+    double delta;
+    particle_simulator(unsigned short width, unsigned short height, unsigned short cell_size, double delta)
+        : width(width), height(height), cell_size(cell_size), delta(delta) {process();}
 
     size_t particle_count{};
-    std::vector<sf::Glsl::Vec2> positions;
-    std::vector<float> velocities;
+    std::vector<sf::Vector2<float>> positions;
+    std::vector<sf::Vector2<float>> velocities;
     std::vector<unsigned char> types;
-
-    sf::Clock clock;
-    float delta;
 
     void pre_process();
     void process();
