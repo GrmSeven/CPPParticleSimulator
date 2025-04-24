@@ -3,6 +3,7 @@
 
 #include "mouse.h"
 #include "particle.h"
+#include "camera/view.h"
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
@@ -133,7 +134,15 @@ void renderer::render(double delta) {
 // Main loop
 void renderer::run() {
     pre_process();
+
+    Camera camera;
+
     while (window.isOpen()) {
+
+        camera.GetView(window.getSize());
+
+        window.setView(camera.GetView(window.getSize()));
+
         handle_events();
         // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
         time += clock.restart().asSeconds(); // Fixed physics fps

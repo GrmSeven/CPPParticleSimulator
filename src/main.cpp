@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "renderer.h"
+#include "camera/view.h"
 
 int main()
 {
