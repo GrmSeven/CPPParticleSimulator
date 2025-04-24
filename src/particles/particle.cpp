@@ -1,6 +1,6 @@
 #include "particle.h"
-#include "utils.h"
 #include <cmath>
+#include "../utils.h"
 
 particle::particle(sf::Vector2<float> position, sf::Vector2<float> velocity, unsigned char type) : position(position),  velocity(velocity), type(type) {
 }

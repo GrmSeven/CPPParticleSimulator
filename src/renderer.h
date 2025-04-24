@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "particle.h"
+#include "particles/particle.h"
 
 class Camera;
 using namespace std;
