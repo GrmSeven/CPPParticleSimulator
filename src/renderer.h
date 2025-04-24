@@ -5,11 +5,12 @@
 
 #include "particle.h"
 
+class Camera;
 using namespace std;
 
 class renderer {
 public:
-    renderer(unsigned short width = 1280, unsigned short height = 720);
+    explicit renderer(unsigned short width = 1280, unsigned short height = 720);
     vector<particle> particles;
     void run();
     unsigned short width, height;
@@ -24,7 +25,7 @@ private:
     double time{};
     double timestamp = 1.0/physics_fps_limit;
     void pre_process();
-    void handle_events();
+    void handle_events(Camera *camera, const float *deltaTime);
     void process(double delta);
     void render(double delta);
 

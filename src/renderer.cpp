@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include <cmath>
+#include <iostream>
 
 #include "mouse.h"
 #include "particle.h"
@@ -7,14 +8,16 @@
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
-    : window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), time(0), width(width), height(height) {
+    : width(width), height(height), window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), time(0) {
     window.setFramerateLimit(render_fps_limit);
 }
 
 /**
  * For keyboard and mouse inputs
  */
-void renderer::handle_events() {
+void renderer::handle_events(Camera *camera, const float *deltaTime) {
+    camera->update(*deltaTime);
+
     while (const std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
@@ -28,7 +31,7 @@ void renderer::handle_events() {
 void renderer::pre_process() {
     // Creates a few particles particle
      // srand(time(0));
-    const unsigned short partCount = 100;
+    constexpr unsigned short partCount = 100;
     srand(0);
     for (unsigned short i = 0; i < partCount; ++i) {
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));
@@ -42,8 +45,8 @@ void renderer::pre_process() {
  * @return
  */
 float calculate_attraction_life(float distance, float param_1 = 1) {
-    unsigned short r= 50; // If particles are too close, then they repel slightly
-    unsigned short m = 200; // How far does the attraction persist
+    float r= 50; // If particles are too close, then they repel slightly
+    float m = 200; // How far does the attraction persist
     if (distance < r) {
          return (distance-r)/4;
     } else if (distance < (m+r)/2) {
@@ -56,8 +59,8 @@ float calculate_attraction_life(float distance, float param_1 = 1) {
 }
 
 float calculate_smooth_attraction_life(float distance, float param_1 = 1) {
-    unsigned short r = 50; // If particles are too close, then they repel slightly
-    unsigned short m = 200; // How far does the attraction persist
+    float r = 50; // If particles are too close, then they repel slightly
+    float m = 200; // How far does the attraction persist
     if (distance < r) {
         return (distance*distance-r*r)/r/5;
     } else if (distance < m) {
@@ -69,7 +72,7 @@ float calculate_smooth_attraction_life(float distance, float param_1 = 1) {
 }
 
 /**
- * Newton formula, abit boring
+ * Newton formula, a bit boring
  * @param distance
  * @param param_1 is for making different particles behave slightly differently, based on their type, using formula
  * @return
@@ -114,16 +117,16 @@ void renderer::render(double delta) {
     window.clear();
 
     // Particle rendering
-    for (int i = 0; i < particles.size(); i++) {
+    for (auto & particle : particles) {
         float radius = 5.0;
         sf::CircleShape circle(radius);
-        if (particles[i].type == 'a') { // Crate ParticleTypes class to lookup color, size, other parameters
+        if (particle.type == 'a') { // Crate ParticleTypes class to lookup color, size, other parameters
             circle.setFillColor(sf::Color(255, 0, 0, 255));
         } else {
             circle.setFillColor(sf::Color(0, 0, 255, 255));
         }
 
-        circle.setPosition(particles[i].position);
+        circle.setPosition(particle.position);
         circle.setOrigin({radius, radius});
         window.draw(circle);
     }
@@ -138,14 +141,14 @@ void renderer::run() {
     Camera camera;
 
     while (window.isOpen()) {
-
-        camera.GetView(window.getSize());
+        float clockVal = clock.getElapsedTime().asSeconds(); //1 Thread var for physic, need to add independent thread for physic and camera
+        camera.GetView(window.getSize()); //create a view
 
         window.setView(camera.GetView(window.getSize()));
 
-        handle_events();
+        handle_events(&camera, &clockVal);
         // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
-        time += clock.restart().asSeconds(); // Fixed physics fps
+        time += clockVal; // Fixed physics fps
         timestamp = 1.0/physics_fps_limit;
         if (time >= timestamp) {
             time -= timestamp;
