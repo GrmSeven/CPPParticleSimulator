@@ -12,7 +12,7 @@ renderer::renderer(unsigned short width, unsigned short height)
 /**
  * For keyboard and mouse inputs
  */
-void renderer::handle_events(Camera *camera, const float *deltaTime) {
+void renderer::handle_events(Camera *camera, const double *deltaTime) {
     camera->update(*deltaTime);
 
     while (const std::optional event = window.pollEvent()) {
@@ -136,20 +136,18 @@ void renderer::run() {
     pre_process();
 
     Camera camera;
-
     while (window.isOpen()) {
-        float clockVal = clock.getElapsedTime().asSeconds(); //1 Thread var for physic, need to add independent thread for physic and camera
+        double delta = clock.restart().asSeconds(); //1 Thread var for physic, need to add independent thread for physic and camera
         camera.GetView(window.getSize()); //create a view
 
         window.setView(camera.GetView(window.getSize()));
 
-        handle_events(&camera, &clockVal);
-        // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
-        time += clockVal; // Fixed physics fps
-        timestamp = 1.0/physics_fps_limit;
-        if (time >= timestamp) {
-            time -= timestamp;
-            process(timestamp);
+        time += delta; // Fixed physics fps
+        physics_timestamp = 1.0/physics_fps_limit;
+        handle_events(&camera, &delta);
+        if (time >= physics_timestamp) {
+            time -= physics_timestamp;
+            process(physics_timestamp);
         }
         render(1.0/render_fps_limit);
     }
