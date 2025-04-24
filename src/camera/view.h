@@ -7,7 +7,7 @@
 
 class Camera {
 public:
-    Camera(float zoom = 1.0f);
+    Camera(float zoom = .5f);
     sf::View GetView(sf::Vector2u windowSize);
     void update(float deltaTime);
 

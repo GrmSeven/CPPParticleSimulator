@@ -27,7 +27,7 @@ void Camera::update(float deltaTime) {
     //zoom -
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && zoom < 2.3f) {
         zoom *= 1.01f;
-        speed *= 1.005f;
+        speed *= 1.001f;
     }
 }
 
