@@ -1,9 +1,6 @@
 #include "renderer.h"
 #include <cmath>
 #include <iostream>
-
-#include "mouse.h"
-#include "particle.h"
 #include "camera/view.h"
 using namespace std;
 

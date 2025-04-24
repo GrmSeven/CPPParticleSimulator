@@ -15,13 +15,13 @@ FetchContent_MakeAvailable(SFML)
 add_executable(main src/main.cpp
         src/renderer.cpp
         src/renderer.h
-        src/particle.cpp
-        src/particle.h
+        src/particles/particle.cpp
+        src/particles/particle.h
         src/utils.h
-        src/mouse.cpp
-        src/mouse.h
-        src/particle_simulator.cpp
-        src/particle_simulator.h
+        src/mouse/mouse.cpp
+        src/mouse/mouse.h
+        src/particles/particle_simulator.cpp
+        src/particles/particle_simulator.h
         src/camera/view.h
         src/camera/view.cpp
 )
