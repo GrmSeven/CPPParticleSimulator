@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include <cmath>
+#include <iostream>
 
 #include "mouse.h"
 #include "particle.h"
@@ -139,13 +140,15 @@ void renderer::run() {
 
     while (window.isOpen()) {
 
-        camera.GetView(window.getSize());
+        float clockVal = clock.getElapsedTime().asSeconds(); //1 Thread var for psysic, need to add independent thread for physic and camera
+        camera.GetView(window.getSize()); //create a view
+        camera.update(clockVal); // create a handle for Keyboard
 
         window.setView(camera.GetView(window.getSize()));
 
         handle_events();
         // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
-        time += clock.restart().asSeconds(); // Fixed physics fps
+        time += clockVal; // Fixed physics fps
         timestamp = 1.0/physics_fps_limit;
         if (time >= timestamp) {
             time -= timestamp;
