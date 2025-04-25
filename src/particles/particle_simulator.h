@@ -2,12 +2,15 @@
 #include <vector>
 
 #include "SFML/Graphics/Glsl.hpp"
+#include <cmath>
 
 class particle_simulator {
 public: // May make it private and add getters and setters later (OOP)
     unsigned short width;
     unsigned short height;
     unsigned short cell_size;
+    unsigned short cell_count_x;
+    unsigned short cell_count_y;
     double* delta;
 
     float interaction_radius{};
@@ -19,29 +22,26 @@ public: // May make it private and add getters and setters later (OOP)
     std::vector<unsigned char> types;
     std::vector<std::vector<std::vector<size_t>>> particle_grid;
 
-    enum SpaceTypes {
-        WRAPPING,
-        CLAMPED,
-        INFINITE
-    };
-    SpaceTypes space_type = WRAPPING;
-    bool uses_particle_grid = true;
+    bool is_space_wrapping_enabled = true;
+    bool uses_particle_grid = false;
     float terminal_velocity_strength = 0.f;
     size_t attraction_formula_id = 0;
 
-    // Particle velocity
-    void update_position();
     void generate_grid();
+    // Particle velocity
+    void update_particle_velocity(size_t p1, size_t p2);
+    void update_particle_position(size_t p);
     // Particle out of bounds behavior
-    void wrap_around();
-    void clamp();
+    void wrap_around(size_t p);
+    void clamp(size_t p);
     // Particle slow down
-    void terminal_velocity();
-    void slow_down_velocity();
+    void apply_terminal_velocity(size_t p);
 
 public:
     particle_simulator(unsigned short width, unsigned short height, unsigned short cell_size, size_t particle_count, double* delta)
-        : width(width), height(height), cell_size(cell_size), particle_count(particle_count), delta(delta) {}
+        : width(width), height(height), particle_count(particle_count), delta(delta) {
+        resize_cells(cell_size);
+    }
 
     void pre_process();
     void process();
@@ -55,6 +55,7 @@ public:
     void delete_particle(size_t id);
     void change_particle_count(size_t n); // Chooses random particles to delete/spawn
 
+    void resize_cells(unsigned short size);
     // Getters, setters
 
 };
