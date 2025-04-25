@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "mouse/mouse.h"
 #include "particles/particle.h"
 
 class Camera;
@@ -25,7 +26,7 @@ private:
     double time{};
     double timestamp = 1.0/physics_fps_limit;
     void pre_process();
-    void handle_events(Camera *camera, const float *deltaTime);
+    void handle_events(Camera *camera, const float *deltaTime, CMouse *mouse);
     void process(double delta);
     void render(double delta);
 
