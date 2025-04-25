@@ -1,7 +1,11 @@
 #include "view.h"
 
-Camera::Camera(float zoom) : zoom(zoom), position(0.f, 0.f) {}
+#include <iostream>
+#include <ostream>
 
+#include "SFML/Window/Event.hpp"
+
+Camera::Camera(float zoom) : zoom(zoom), position(0.f, 0.f) {}
 void Camera::update(float deltaTime) {
 
     //position transform
@@ -16,18 +20,6 @@ void Camera::update(float deltaTime) {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         position.x += speed * deltaTime;
-    }
-
-    //zoom +
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && zoom > .1f) {
-        zoom *= 0.99f;
-        speed *= 0.99f;
-    }
-
-    //zoom -
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && zoom < 2.3f) {
-        zoom *= 1.01f;
-        speed *= 1.001f;
     }
 }
 

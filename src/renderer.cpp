@@ -16,6 +16,8 @@ renderer::renderer(unsigned short width, unsigned short height)
 void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mouse) {
 
     camera->update(*deltaTime);
+
+
     window.setView(camera->GetView(window.getSize()));
 
     mouse->mousePos = sf::Mouse::getPosition(window);
@@ -23,14 +25,30 @@ void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mou
 
     mouse->cursorParticle->position = worldPos;
 
-    while (const std::optional event = window.pollEvent()) {
+    while (std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
 
-        if (event->is<sf::Event::MouseButtonReleased>()){
-            particles.push_back(*mouse->cursorParticle);
+        else if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
+        {
+            switch (mouseWheelScrolled->wheel)
+            {
+                case sf::Mouse::Wheel::Vertical:
+                    if (mouseWheelScrolled->delta > 0) {
+                        // you may to change val-s by himself, i have a mose trouble
+                        camera->zoom += (1.2f - camera->zoom) * 0.1f;
+                        camera->speed *= 1.02f;
+                    } else {
+                        camera->zoom -= (camera->zoom - 0.8f) * 0.1f;
+                        camera->speed *= 0.8f;
+                    }
+                break;
 
+                case sf::Mouse::Wheel::Horizontal:
+                    //idk
+                        break;
+            }
         }
     }
 
