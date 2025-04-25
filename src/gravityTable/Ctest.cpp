@@ -30,6 +30,8 @@ int main() {
     cout << endl;
     GravityTable *gravityTable2 = new GravityTable();
 
+    gravityTable2->setForce(g1, g2, '9');
+
     gravityTable2->setGravityElements(gravityTable->getGravityElements());
 
     gravityTable2->printConnections();
