@@ -27,11 +27,13 @@ void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mou
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
+
+        if (event->is<sf::Event::MouseButtonReleased>()){
+            particles.push_back(*mouse->cursorParticle);
+
+        }
     }
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-        particles.push_back(*mouse->cursorParticle);
-    }
 }
 
 /**
