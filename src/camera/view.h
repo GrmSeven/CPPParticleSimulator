@@ -13,8 +13,8 @@ public:
 
     float zoom;
     sf::Vector2f position;
-    float speed = 10.f;
-    float zoom_speed = 1.01f;
+    float speed = 1000.f;
+    float zoom_speed = 1.03f;
 };
 
 #endif // VIEW_H
