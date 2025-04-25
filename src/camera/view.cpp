@@ -5,27 +5,17 @@ Camera::Camera(float zoom) : zoom(zoom), position(0.f, 0.f) {}
 void Camera::update(double deltaTime) {
 
     //position transform
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         position.y -= speed * zoom * deltaTime;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
         position.y += speed * zoom * deltaTime;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
         position.x -= speed * zoom * deltaTime;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         position.x += speed * zoom * deltaTime;
-    }
-
-    //zoom +
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && zoom > .1f) {
-        zoom /= zoom_speed;
-    }
-
-    //zoom -
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && zoom < 2.3f) {
-        zoom *= zoom_speed;
     }
 }
 

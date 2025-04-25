@@ -24,6 +24,9 @@ add_executable(main src/main.cpp
         src/particles/particle_simulator.h
         src/camera/view.h
         src/camera/view.cpp
+        src/gravityTable/gravityElement.cpp
+        src/gravityTable/gravityElement.h
+        src/gravityTable/Ctest.cpp
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

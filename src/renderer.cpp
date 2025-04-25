@@ -34,7 +34,7 @@ void renderer::handle_events(Camera *camera, const double *deltaTime, CMouse *mo
             {
                 case sf::Mouse::Wheel::Vertical: //if it was a zoom start tot change zoom
                     if (mouseWheelScrolled->delta > 0) {
-                        // you may to change val-s by himself, i have a mose trouble
+                        // you may change val-s by himself, i have a mose trouble
                         camera->zoom += (1.2f - camera->zoom) * 0.1f;
                         camera->speed *= 1.02f;
                     } else {
