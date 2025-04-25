@@ -5,21 +5,21 @@
 
 using namespace std;
 
-int main1() {
+int main() {
     GravityTable *gravityTable = new GravityTable();
 
-    GravityElement *g1 = new GravityElement('q', '1');
-    GravityElement *g2 = new GravityElement('w', '2');
-    GravityElement *g3 = new GravityElement('e', '3');
+    GravityElement *g1 = new GravityElement('a', '0');
+    GravityElement *g2 = new GravityElement('b', '1');
+    GravityElement *g3 = new GravityElement('c', '1');
 
-    g1->addToElement(g2); //create a net
-    g1->addToElement(g3);
+    g1->addToElement(g2, '1'); //create a net
+    g1->addToElement(g3,'0');
 
-    g2->addToElement(g1);
-    g2->addToElement(g3);
+    g2->addToElement(g1,'0');
+    g2->addToElement(g3,'0');
 
-    g3->addToElement(g1);
-    g3->addToElement(g2);
+    g3->addToElement(g1,'0');
+    g3->addToElement(g2,'1');
 
     gravityTable->addGravityElement(g1); // add all
     gravityTable->addGravityElement(g2);

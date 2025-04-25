@@ -7,12 +7,12 @@
 
 #include <iostream>
 
-GravityElement::GravityElement(char name, char type) : name(name), type(type) {
+GravityElement::GravityElement(char name, unsigned char type) : type(type), name(name) {
     elementsNetwork[name][name] = type;
 }
 
-void GravityElement::addToElement(GravityElement* element) {
-    elementsNetwork[name][element->name] = element->type;
+void GravityElement::addToElement(GravityElement* element, unsigned char force) {
+    elementsNetwork[name][element->name] = force;
 }
 
 void GravityElement::printConnections() const {
@@ -27,4 +27,8 @@ void GravityElement::printConnections() const {
 
 void GravityElement::removeGravityElement(GravityElement *element) {
     elementsNetwork.erase(element->name);
+}
+
+void GravityElement::setForceTo(GravityElement* element, unsigned char force) {
+    elementsNetwork[name][element->name] = force;
 }

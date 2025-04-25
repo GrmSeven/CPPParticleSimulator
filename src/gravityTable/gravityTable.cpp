@@ -31,3 +31,8 @@ void GravityTable::setGravityElements(std::list<GravityElement *> elements) {
     this->elements = std::move(elements);
 }
 
+void GravityTable::setForce(GravityElement* a, GravityElement* b, unsigned char force) {
+    // устанавливаем силу в обоих направлениях
+    a->setForceTo(b, force);
+    b->setForceTo(a, force);
+}

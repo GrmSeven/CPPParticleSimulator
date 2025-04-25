@@ -5,10 +5,13 @@
 
 class GravityElement {
 public:
-    GravityElement(char name, char type);
-    void addToElement(GravityElement* element);
+    GravityElement(char name, unsigned char type);
+    void addToElement(GravityElement* element, unsigned char force);
     void printConnections() const;
     void removeGravityElement(GravityElement* element);
+
+    void setForceTo(GravityElement* element, unsigned char force);
+
 
 private:
     char type;
