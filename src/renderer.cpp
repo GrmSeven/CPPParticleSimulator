@@ -29,12 +29,12 @@ void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mou
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
-
+        //if wheel has been scrolled
         else if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
         {
-            switch (mouseWheelScrolled->wheel)
+            switch (mouseWheelScrolled->wheel) //check type of scroll
             {
-                case sf::Mouse::Wheel::Vertical:
+                case sf::Mouse::Wheel::Vertical: //if it was a zoom start tot change zoom
                     if (mouseWheelScrolled->delta > 0) {
                         // you may to change val-s by himself, i have a mose trouble
                         camera->zoom += (1.2f - camera->zoom) * 0.1f;
