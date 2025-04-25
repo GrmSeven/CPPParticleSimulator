@@ -8,6 +8,7 @@ public:
     GravityElement(char name, char type);
     void addToElement(GravityElement* element);
     void printConnections() const;
+    void removeGravityElement(GravityElement* element);
 
 private:
     char type;

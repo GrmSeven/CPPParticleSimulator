@@ -8,6 +8,7 @@
 #include <iostream>
 
 GravityElement::GravityElement(char name, char type) : name(name), type(type) {
+    elementsNetwork[name][name] = type;
 }
 
 void GravityElement::addToElement(GravityElement* element) {
@@ -22,4 +23,8 @@ void GravityElement::printConnections() const {
         }
         std::cout << std::endl;
     }
+}
+
+void GravityElement::removeGravityElement(GravityElement *element) {
+    elementsNetwork.erase(element->name);
 }
