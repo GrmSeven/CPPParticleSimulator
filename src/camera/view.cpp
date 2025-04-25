@@ -8,18 +8,19 @@
 Camera::Camera(float zoom) : zoom(zoom), position(0.f, 0.f) {}
 void Camera::update(float deltaTime) {
 
+
     //position transform
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        position.y -= speed * deltaTime;
+        position.y -= speed * zoom * deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        position.y += speed * deltaTime;
+        position.y += speed * zoom * deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        position.x -= speed * deltaTime;
+        position.x -= speed * zoom * deltaTime;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-        position.x += speed * deltaTime;
+        position.x += speed * zoom * deltaTime;
     }
 }
 
