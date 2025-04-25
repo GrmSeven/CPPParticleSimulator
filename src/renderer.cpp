@@ -2,7 +2,6 @@
 #include <cmath>
 #include <iostream>
 #include "camera/view.h"
-#include "mouse/mouse.h"
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
@@ -13,44 +12,14 @@ renderer::renderer(unsigned short width, unsigned short height)
 /**
  * For keyboard and mouse inputs
  */
-void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mouse) {
+void renderer::handle_events(Camera *camera, const double *deltaTime) {
+    camera->update(*deltaTime);
 
-
-
-    window.setView(camera->GetView(window.getSize()));
-
-    mouse->mousePos = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mouse->mousePos, window.getView());
-
-    mouse->cursorParticle->position = worldPos;
-
-    while (std::optional event = window.pollEvent()) {
+    while (const std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
-        //if wheel has been scrolled
-        else if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
-        {
-            switch (mouseWheelScrolled->wheel) //check type of scroll
-            {
-                case sf::Mouse::Wheel::Vertical: //if it was a zoom start tot change zoom
-                    if (mouseWheelScrolled->delta > 0) {
-                        // you may to change val-s by himself, i have a mose trouble
-                        camera->zoom += (1.2f - camera->zoom) * 0.1f;
-                        camera->speed *= 1.02f;
-                    } else {
-                        camera->zoom -= (camera->zoom - 0.8f) * 0.1f;
-                        camera->speed *= 0.8f;
-                    }
-                break;
-
-                case sf::Mouse::Wheel::Horizontal:
-                    //idk
-                        break;
-            }
-        }
     }
-
 }
 
 /**
@@ -59,7 +28,7 @@ void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mou
 void renderer::pre_process() {
     // Creates a few particles particle
      // srand(time(0));
-    constexpr unsigned short partCount = 100; // count of particles
+    constexpr unsigned short partCount = 100;
     srand(0);
     for (unsigned short i = 0; i < partCount; ++i) {
         particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));
@@ -168,19 +137,14 @@ void renderer::run() {
 
     Camera camera;
     while (window.isOpen()) {
-        particle cursorParticle = particle({0,0}, {0,0}, 'a');
-        CMouse mouse{ {0,0}, &cursorParticle };
-
         double delta = clock.restart().asSeconds(); //1 Thread var for physic, need to add independent thread for physic and camera
         camera.GetView(window.getSize()); //create a view
 
         window.setView(camera.GetView(window.getSize()));
 
-        // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
         time += delta; // Fixed physics fps
         physics_timestamp = 1.0/physics_fps_limit;
-        timestamp = 1.0/physics_fps_limit;
-        handle_events(&camera, &clockVal, &mouse); //events from user and from physics
+        handle_events(&camera, &delta);
         if (time >= physics_timestamp) {
             time -= physics_timestamp;
             process(physics_timestamp);
