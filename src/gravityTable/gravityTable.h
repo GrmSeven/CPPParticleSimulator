@@ -24,7 +24,7 @@ struct GravityTable {
 
     void setGravityElements(std::list<GravityElement*> elements);
 
-    void setForce(GravityElement* a, GravityElement* b, unsigned char force);
+    void setForce(GravityElement* a, GravityElement* b, float force);
 
     private:
         std::list<GravityElement*> elements;

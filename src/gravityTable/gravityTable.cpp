@@ -31,7 +31,7 @@ void GravityTable::setGravityElements(std::list<GravityElement *> elements) {
     this->elements = std::move(elements);
 }
 
-void GravityTable::setForce(GravityElement* a, GravityElement* b, unsigned char force) {
+void GravityTable::setForce(GravityElement* a, GravityElement* b, float force) {
     //не Нь.тоновкая логика
     a->setForceTo(b, force);
 }
