@@ -15,6 +15,7 @@ renderer::renderer(unsigned short width, unsigned short height)
  */
 void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mouse) {
 
+    camera->update(*deltaTime);
 
 
     window.setView(camera->GetView(window.getSize()));
@@ -49,6 +50,11 @@ void renderer::handle_events(Camera *camera, const float *deltaTime, CMouse *mou
                         break;
             }
         }
+
+        if (event->is<sf::Event::MouseButtonReleased>()){
+            particles.push_back(*mouse->cursorParticle);
+        }
+
     }
 
 }
@@ -167,23 +173,23 @@ void renderer::run() {
     pre_process();
 
     Camera camera;
+
     while (window.isOpen()) {
         particle cursorParticle = particle({0,0}, {0,0}, 'a');
         CMouse mouse{ {0,0}, &cursorParticle };
 
-        double delta = clock.restart().asSeconds(); //1 Thread var for physic, need to add independent thread for physic and camera
+        float clockVal = clock.getElapsedTime().asSeconds(); //1 Thread var for physic, need to add independent thread for physic and camera
         camera.GetView(window.getSize()); //create a view
 
         window.setView(camera.GetView(window.getSize()));
 
-        // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
-        time += delta; // Fixed physics fps
-        physics_timestamp = 1.0/physics_fps_limit;
-        timestamp = 1.0/physics_fps_limit;
         handle_events(&camera, &clockVal, &mouse); //events from user and from physics
-        if (time >= physics_timestamp) {
-            time -= physics_timestamp;
-            process(physics_timestamp);
+        // time = min(clock.restart().asSeconds(), 1/static_cast<float>(framerate_limit));
+        time += clockVal; // Fixed physics fps
+        timestamp = 1.0/physics_fps_limit;
+        if (time >= timestamp) {
+            time -= timestamp;
+            process(timestamp);
         }
         render(1.0/render_fps_limit);
     }

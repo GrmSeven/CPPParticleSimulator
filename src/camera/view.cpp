@@ -6,7 +6,7 @@
 #include "SFML/Window/Event.hpp"
 
 Camera::Camera(float zoom) : zoom(zoom), position(0.f, 0.f) {}
-void Camera::update(float deltaTime) {
+void Camera::update(double deltaTime) {
 
 
     //position transform
