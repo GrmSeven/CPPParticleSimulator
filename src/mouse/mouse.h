@@ -1,20 +1,15 @@
 #ifndef MOUSE_H
 #define MOUSE_H
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Mouse.hpp"
 
+#include "SFML/System/Vector2.hpp"
+#include "../particles/particle.h"
 
 class CMouse {
-    public:
-        sf::Vector2i mousePos;
+public:
+    sf::Vector2i mousePos;
+    particle* cursorParticle;
 
-    CMouse(sf::Vector2i mouse);
-
-    private:
-
+    CMouse(sf::Vector2i mouse, particle* cursor);
 };
-
-
 
 #endif
