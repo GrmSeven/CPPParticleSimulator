@@ -2,11 +2,27 @@
 
 #include <cmath>
 #include "../utils.h"
+#include "behavior_manager.h"
 
-void particle_simulator::update_particle_velocity(size_t p1, size_t p2) {
+void particle_simulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
+    float distance{};
+    float normal_x{};
+    float normal_y{};
+    float new_pos2_x = positions_x[p2] + shift_x * width;
+    float new_pos2_y = positions_y[p2] + shift_y * height;
+    distance = calculate_distance(positions_x[p1], positions_y[p1], new_pos2_x, new_pos2_y);
+    if (distance != 0) {
+        normal_x = (new_pos2_x - positions_x[p1]) / distance;
+        normal_y = (new_pos2_y - positions_y[p1]) / distance;
+    }
+    float force = behavior_manager::calculate_attraction_life(distance, 1.f);
+    velocities_x[p1] += force * normal_x;
+    velocities_y[p1] += force * normal_y;
 }
 
 void particle_simulator::update_particle_position(size_t p) {
+    positions_x[p] += velocities_x[p] * *delta;
+    positions_y[p] += velocities_y[p] * *delta;
 }
 
 void particle_simulator::generate_grid() {
@@ -38,15 +54,22 @@ void particle_simulator::clamp(size_t p) {
     positions_y[p] = abs(utils::abs_mod(positions_y[p] + height, 2.f*height)-height);
 }
 
+float particle_simulator::calculate_distance(float x1, float y1, float x2, float y2) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
 
 void particle_simulator::apply_terminal_velocity(size_t p) {
+    float velocity_multiplier = behavior_manager::calculate_terminal_velocity_change(*delta, 1.f);
+    velocities_x[p] *= velocity_multiplier;
+    velocities_y[p] *= velocity_multiplier;
 }
 
 
 void particle_simulator::pre_process() {
     for (size_t i = 0; i < particle_count; i++) {
-        positions_x[i] = std::rand() % width;
-        positions_y[i] = std::rand() % height;
+        positions_x[i] = rand() % width;
+        positions_y[i] = rand() % height;
         velocities_x[i] = 0;
         velocities_y[i] = 0;
         types[i] = 'a'; // Later change to spawn random type
@@ -58,19 +81,31 @@ void particle_simulator::process() {
         generate_grid();
         for (size_t p_id = 0; p_id < particle_count; p_id++) { // Hash the distance later
             std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
-            size_t cell_radius = ceil(interaction_radius/cell_size);
-            for (size_t x = -cell_radius + cell.first; x >= cell_radius + cell.first; x++) { // Should also account for when cell is cut in half with wrapping
-                for (size_t y = -cell_radius + cell.second; y >= cell_radius + cell.second; y++) {
+
+            int cell_radius = ceil(interaction_radius/cell_size);
+
+            int cell_margin_l = -cell_radius + cell.first;
+            int cell_margin_r = cell_radius + cell.first;
+            int cell_margin_u = -cell_radius + cell.second;
+            int cell_margin_d = cell_radius + cell.second;
+            cell_margin_l -= (cell_margin_l < 0) ? 1 : 0;
+            cell_margin_r += (cell_margin_r > cell_count_x) ? 1 : 0;
+            cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
+            cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
+
+            for (size_t x = cell_margin_l; x >= cell_margin_r; x++) {
+                for (size_t y = cell_margin_u; y >= cell_margin_d; y++) {
                     for (auto& p2_id : get_particles_in_cell(x, y)) {
-                        update_particle_velocity(p_id, p2_id);
+                        update_particle_velocity(p_id, p2_id, floor(x/cell_count_x), floor(y/cell_count_y));
                     };
                 }
             };
         }
-    } else {
+    }
+    else { // Doesnt work with space wrapping
         for (size_t p_id = 0; p_id < particle_count - 1; p_id++) {
             for (size_t p2_id = p_id + 1; p2_id < particle_count; p2_id++) {
-                update_particle_velocity(p_id, p2_id);
+                update_particle_velocity(p_id, p2_id, 0, 0);
             }
         }
     }
@@ -95,16 +130,13 @@ bool particle_simulator::does_cell_exist(size_t x, size_t y) {
 }
 
 std::vector<size_t>& particle_simulator::get_particles_in_cell(size_t x, size_t y) {
-    if (does_cell_exist(x, y)) {
-        return particle_grid[x][y];
+    if (!is_space_wrapping_enabled && !does_cell_exist(x, y)) {
+        std::vector<size_t> empty_vec = std::vector<size_t>();
+        return empty_vec;
     } else {
-        if (is_space_wrapping_enabled) {
-            return particle_grid[utils::abs_mod(x, 2)][y];
-        } else {
-            std::vector<size_t> empty_vec = std::vector<size_t>();
-            return empty_vec;
-        }
+        return particle_grid[utils::abs_mod(x, cell_count_x)][utils::abs_mod(y, cell_count_y)];
     }
+
 }
 
 void particle_simulator::spawn_particle(float x, float y, unsigned char t) {
@@ -141,8 +173,8 @@ void particle_simulator::change_particle_count(size_t n) {
     }
     if (n > particle_count) {
         for (size_t i = particle_count; i < n - 1; i++) {
-            positions_x[i] = std::rand() % width;
-            positions_y[i] = std::rand() % height;
+            positions_x[i] = rand() % width;
+            positions_y[i] = rand() % height;
             velocities_x[i] = 0;
             velocities_y[i] = 0;
             types[i] = 'a'; // Later change to spawn random type

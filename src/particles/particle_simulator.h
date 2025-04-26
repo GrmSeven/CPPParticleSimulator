@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 
-#include "SFML/Graphics/Glsl.hpp"
 #include <cmath>
 
 class particle_simulator {
@@ -29,13 +28,15 @@ public: // May make it private and add getters and setters later (OOP)
 
     void generate_grid();
     // Particle velocity
-    void update_particle_velocity(size_t p1, size_t p2);
+    void update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y);
     void update_particle_position(size_t p);
     // Particle out of bounds behavior
     void wrap_around(size_t p);
     void clamp(size_t p);
     // Particle slow down
     void apply_terminal_velocity(size_t p);
+    // Pythagoros
+    float calculate_distance(float x1, float y1, float x2, float y2);
 
 public:
     particle_simulator(unsigned short width, unsigned short height, unsigned short cell_size, size_t particle_count, double* delta)
