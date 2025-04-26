@@ -12,7 +12,7 @@ public: // May make it private and add getters and setters later (OOP)
     unsigned short cell_count_y;
     double* delta;
 
-    float interaction_radius{};
+    float interaction_radius = 50;
     size_t particle_count{};
     std::vector<float> positions_x;
     std::vector<float> positions_y;
@@ -22,9 +22,11 @@ public: // May make it private and add getters and setters later (OOP)
     std::vector<std::vector<std::vector<size_t>>> particle_grid;
 
     bool is_space_wrapping_enabled = true;
-    bool uses_particle_grid = false;
+    bool uses_particle_grid = true;
     float terminal_velocity_strength = 0.f;
     size_t attraction_formula_id = 0;
+
+    std::vector<size_t> empty_vec = {};
 
     void generate_grid();
     // Particle velocity
@@ -49,7 +51,7 @@ public:
 
     std::pair<size_t, size_t> convert_coords_to_cell(float x, float y);
     bool does_cell_exist(size_t x, size_t y);
-    std::vector<size_t>& get_particles_in_cell(size_t x, size_t y);
+    std::vector<size_t>& get_particles_in_cell(int x, int y);
 
     void spawn_particle(float x, float y, unsigned char t);
     void spawn_particle(float x, float y);

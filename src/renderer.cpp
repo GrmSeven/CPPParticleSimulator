@@ -5,23 +5,25 @@
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
-    : width(width), height(height), window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close), time(0) {
+    : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
+      particle_simulator(width, height, 10, 1000, &physics_timestamp),
+      window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close) {
     window.setFramerateLimit(render_fps_limit);
 }
 
 /**
  * For keyboard and mouse inputs
  */
-void renderer::handle_events(Camera *camera, const double *deltaTime, CMouse *mouse) {
+void renderer::handle_events(Camera *camera, const double *deltaTime) {
     camera->update(*deltaTime);
 
 
     window.setView(camera->GetView(window.getSize()));
 
-    mouse->mousePos = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mouse->mousePos, window.getView());
+    // mouse->mousePos = sf::Mouse::getPosition(window);
+    // sf::Vector2f worldPos = window.mapPixelToCoords(mouse->mousePos, window.getView());
 
-    mouse->cursorParticle->position = worldPos;
+    // mouse->cursorParticle->position = worldPos;
 
     while (std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
@@ -49,9 +51,9 @@ void renderer::handle_events(Camera *camera, const double *deltaTime, CMouse *mo
             }
         }
 
-        if (event->is<sf::Event::MouseButtonReleased>()){
-            particles.push_back(*mouse->cursorParticle);
-        }
+        // if (event->is<sf::Event::MouseButtonReleased>()){
+        //     particles.push_back(*mouse->cursorParticle);
+        // }
 
     }
 }
@@ -60,85 +62,14 @@ void renderer::handle_events(Camera *camera, const double *deltaTime, CMouse *mo
  * Runs once at the start
  */
 void renderer::pre_process() {
-    // Creates a few particles particle
-     // srand(time(0));
-    constexpr unsigned short partCount = 100;
     srand(0);
-    for (unsigned short i = 0; i < partCount; ++i) {
-        particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'a'));
-        particles.push_back(particle({static_cast<float>(rand() % width), static_cast<float>(rand() % height)}, {0,0}, 'b'));
-    }
+    particle_simulator.pre_process();
 }
-/**
- * This one uses this formula
- * @param distance
- * @param param_1 is for making different particles behave slightly differently, based on their type, using formula
- * @return
- */
-float calculate_attraction_life(float distance, float param_1 = 1) {
-    float r= 50; // If particles are too close, then they repel slightly
-    float m = 200; // How far does the attraction persist
-    if (distance < r) {
-         return (distance-r)/4;
-    } else if (distance < (m+r)/2) {
-        return (distance-r)*param_1/10;
-    } else if (distance < m) {
-        return (m-distance)*param_1/10;
-    } else {
-        return 0.f;
-    }
-}
-
-float calculate_smooth_attraction_life(float distance, float param_1 = 1) {
-    float r = 50; // If particles are too close, then they repel slightly
-    float m = 200; // How far does the attraction persist
-    if (distance < r) {
-        return (distance*distance-r*r)/r/5;
-    } else if (distance < m) {
-        float g = distance-r;
-        return ( -g*g + g*(m-r) )/( m-r )*param_1/5;
-    } else {
-        return 0.f;
-    }
-}
-
-/**
- * Newton formula, a bit boring
- * @param distance
- * @param param_1 is for making different particles behave slightly differently, based on their type, using formula
- * @return
- */
-float calculate_attraction_newton(float distance, float param_1 = 1) {
-    return 1 / distance / distance * 10000.f * param_1;
-}
-
-float calculate_attraction_inv_newton(float distance, float param_1 = 1) {
-        return distance * distance * 0.001f * param_1;
-}
-
 /**
  * Runs every frame
  */
 void renderer::process(double delta) {
-    // Apply velocity
-    for (int i = 0; i < particles.size(); i++) {
-        for (int j = i + 1; j < particles.size(); j++) {
-            sf::Vector2 transform_vector = (particles[i].position - particles[j].position);
-            float distance = transform_vector.length();
-            sf::Vector2 normal_vector = distance == 0.f ? sf::Vector2 {0.f, 0.f} : transform_vector / distance;
-            particles[j].velocity += calculate_smooth_attraction_life(distance, 1.f) * normal_vector;
-            particles[i].velocity += calculate_smooth_attraction_life(distance, 1.f) * (sf::Vector2 {0.f, 0.f} - normal_vector);
-        }
-    }
-
-
-    for (particle& p : particles) {
-        // p.terminal_velocity(delta, 1.f);
-        // p.slow_down_velocity(delta, 10.f);
-        p.update(delta);
-        p.clamp({0, 0}, {width, height});
-        p.setVelocity({0,0});
-    }
+    particle_simulator.process();
 }
 
 /**
@@ -148,16 +79,13 @@ void renderer::render(double delta) {
     window.clear();
 
     // Particle rendering
-    for (auto & particle : particles) {
+    for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
         float radius = 5.0;
         sf::CircleShape circle(radius);
-        if (particle.type == 'a') { // Crate ParticleTypes class to lookup color, size, other parameters
-            circle.setFillColor(sf::Color(255, 0, 0, 255));
-        } else {
-            circle.setFillColor(sf::Color(0, 0, 255, 255));
-        }
 
-        circle.setPosition(particle.position);
+        circle.setFillColor(sf::Color(255, 0, 0, 255));
+
+        circle.setPosition(sf::Vector2f{particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]});
         circle.setOrigin({radius, radius});
         window.draw(circle);
     }
@@ -167,21 +95,22 @@ void renderer::render(double delta) {
 
 // Main loop
 void renderer::run() {
+    physics_timestamp = 1.0/physics_fps_limit;
     pre_process();
 
     Camera camera;
 
     while (window.isOpen()) {
-        particle cursorParticle = particle({0,0}, {0,0}, 'a');
-        CMouse mouse{ {0,0}, &cursorParticle };
         double delta = clock.restart().asSeconds();
-        camera.GetView(window.getSize()); //create a view
+        time += delta; // Fixed physics fps
 
+        // Mouse and camera
+        // particle cursorParticle = particle({0,0}, {0,0}, 'a');
+        // CMouse mouse{ {0,0}, &cursorParticle };
+        camera.GetView(window.getSize()); //create a view
         window.setView(camera.GetView(window.getSize()));
 
-        time += delta; // Fixed physics fps
-        physics_timestamp = 1.0/physics_fps_limit;
-        handle_events(&camera, &delta, &mouse);
+        handle_events(&camera, &delta);
         if (time >= physics_timestamp) {
             time -= physics_timestamp;
             process(physics_timestamp);

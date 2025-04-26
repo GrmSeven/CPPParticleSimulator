@@ -1,6 +1,7 @@
 #include "particle_simulator.h"
 
 #include <cmath>
+#include <iostream>
 #include "../utils.h"
 #include "behavior_manager.h"
 
@@ -27,19 +28,22 @@ void particle_simulator::update_particle_position(size_t p) {
 
 void particle_simulator::generate_grid() {
     // Clears and resizes current particle_grid
-    particle_grid.resize(ceil(height/cell_size));
+    particle_grid.resize(cell_count_y);
     for (auto& y_vec : particle_grid) {
-        y_vec.resize(ceil(width/cell_size));
+        y_vec.resize(cell_count_x);
         for (auto& x_vec : y_vec) {
             x_vec = std::vector<size_t>();
         }
     }
 
     // Adds particles into the grid
+    std::pair<size_t, size_t> cell;
     for (size_t p_id = 0; p_id < particle_count; p_id++) {
-        std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
-        particle_grid[cell.first][cell.second].push_back(p_id);
+        cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
+        // cout << positions_x[p_id] << ":" << positions_y[p_id] << " " << cell.first << " " << cell.second << endl;
+        particle_grid[cell.second][cell.first].push_back(p_id);
     }
+
 }
 
 void particle_simulator::wrap_around(size_t p) {
@@ -68,11 +72,11 @@ void particle_simulator::apply_terminal_velocity(size_t p) {
 
 void particle_simulator::pre_process() {
     for (size_t i = 0; i < particle_count; i++) {
-        positions_x[i] = rand() % width;
-        positions_y[i] = rand() % height;
-        velocities_x[i] = 0;
-        velocities_y[i] = 0;
-        types[i] = 'a'; // Later change to spawn random type
+        positions_x.push_back(rand() % width);
+        positions_y.push_back(rand() % height);
+        velocities_x.push_back(0);
+        velocities_y.push_back(0);
+        types.push_back('a'); // Later change to spawn random type
     }
 }
 
@@ -83,7 +87,6 @@ void particle_simulator::process() {
             std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
 
             int cell_radius = ceil(interaction_radius/cell_size);
-
             int cell_margin_l = -cell_radius + cell.first;
             int cell_margin_r = cell_radius + cell.first;
             int cell_margin_u = -cell_radius + cell.second;
@@ -93,26 +96,29 @@ void particle_simulator::process() {
             cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
             cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
 
-            for (size_t x = cell_margin_l; x >= cell_margin_r; x++) {
-                for (size_t y = cell_margin_u; y >= cell_margin_d; y++) {
+            // cout << cell_margin_l << ":" << cell_margin_r << " " << cell_margin_u << ":" << cell_margin_d << endl;
+
+            for (int x = cell_margin_l; x < cell_margin_r; x++) {
+                for (int y = cell_margin_u; y < cell_margin_d; y++) {
                     for (auto& p2_id : get_particles_in_cell(x, y)) {
                         update_particle_velocity(p_id, p2_id, floor(x/cell_count_x), floor(y/cell_count_y));
-                    };
+                    }
                 }
-            };
+            }
         }
-    }
-    else { // Doesnt work with space wrapping
-        for (size_t p_id = 0; p_id < particle_count - 1; p_id++) {
-            for (size_t p2_id = p_id + 1; p2_id < particle_count; p2_id++) {
-                update_particle_velocity(p_id, p2_id, 0, 0);
+    } else { // Doesnt work with space wrapping
+        for (size_t p_id = 0; p_id < particle_count; p_id++) {
+            for (size_t p2_id = 0; p2_id < particle_count; p2_id++) {
+                if (p_id != p2_id) {
+                    update_particle_velocity(p_id, p2_id, 0, 0);
+                }
             }
         }
     }
 
     for (size_t p_id = 0; p_id < particle_count; p_id++) {
+        update_particle_position(p_id);
         apply_terminal_velocity(p_id);
-        update_particle_position(particle_count);
         if (is_space_wrapping_enabled) {
             wrap_around(p_id);
         } else {
@@ -129,12 +135,11 @@ bool particle_simulator::does_cell_exist(size_t x, size_t y) {
     return ceil(width/cell_size) > x && ceil(height/cell_size) > y;
 }
 
-std::vector<size_t>& particle_simulator::get_particles_in_cell(size_t x, size_t y) {
+std::vector<size_t>& particle_simulator::get_particles_in_cell(int x, int y) {
     if (!is_space_wrapping_enabled && !does_cell_exist(x, y)) {
-        std::vector<size_t> empty_vec = std::vector<size_t>();
         return empty_vec;
     } else {
-        return particle_grid[utils::abs_mod(x, cell_count_x)][utils::abs_mod(y, cell_count_y)];
+        return particle_grid[utils::abs_mod(y, cell_count_y)][utils::abs_mod(x, cell_count_x)];
     }
 
 }
@@ -184,6 +189,6 @@ void particle_simulator::change_particle_count(size_t n) {
 
 void particle_simulator::resize_cells(unsigned short size) {
     cell_size = size;
-    cell_count_x = ceil(width/cell_size);
-    cell_count_y = ceil(height/cell_size);
+    cell_count_x = ceil(static_cast<float>(width)/cell_size);
+    cell_count_y = ceil(static_cast<float>(height)/cell_size);
 }
