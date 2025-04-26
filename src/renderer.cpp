@@ -6,7 +6,7 @@ using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
-      particle_simulator(width, height, 10, 1000, &physics_timestamp),
+      particle_simulator(width, height, 50, 5000, &physics_timestamp),
       window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close) {
     window.setFramerateLimit(render_fps_limit);
 }
@@ -80,7 +80,7 @@ void renderer::render(double delta) {
 
     // Particle rendering
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
-        float radius = 5.0;
+        float radius = 1.0;
         sf::CircleShape circle(radius);
 
         circle.setFillColor(sf::Color(255, 0, 0, 255));

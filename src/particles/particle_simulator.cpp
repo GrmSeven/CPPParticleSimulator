@@ -96,10 +96,8 @@ void particle_simulator::process() {
             cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
             cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
 
-            // cout << cell_margin_l << ":" << cell_margin_r << " " << cell_margin_u << ":" << cell_margin_d << endl;
-
-            for (int x = cell_margin_l; x < cell_margin_r; x++) {
-                for (int y = cell_margin_u; y < cell_margin_d; y++) {
+            for (int x = cell_margin_l; x <= cell_margin_r; x++) {
+                for (int y = cell_margin_u; y <= cell_margin_d; y++) {
                     for (auto& p2_id : get_particles_in_cell(x, y)) {
                         update_particle_velocity(p_id, p2_id, floor(x/cell_count_x), floor(y/cell_count_y));
                     }
