@@ -16,7 +16,7 @@ public:
 
     // Attraction formulas
     static float calculate_attraction_life(float distance, float param_1 = 1) {
-        float r = 5; // If particles are too close, then they repel slightly
+        float r = 20; // If particles are too close, then they repel slightly
         float m = 50; // How far does the attraction persist
         if (distance < r) {
             return (distance*distance-r*r)/r/5;

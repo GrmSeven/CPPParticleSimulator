@@ -6,7 +6,7 @@ using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
-      particle_simulator(width, height, 50, 5000, &physics_timestamp),
+      particle_simulator(width, height, 25, 6000, &physics_timestamp),
       window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close) {
     window.setFramerateLimit(render_fps_limit);
 }
@@ -59,36 +59,30 @@ void renderer::handle_events(Camera *camera, const double *deltaTime) {
 }
 
 /**
- * Runs once at the start
- */
-void renderer::pre_process() {
-    srand(0);
-    particle_simulator.pre_process();
-}
-/**
- * Runs every frame
- */
-void renderer::process(double delta) {
-    particle_simulator.process();
-}
-
-/**
  * Renders particles and UI
  */
 void renderer::render(double delta) {
     window.clear();
 
     // Particle rendering
+    int vertex_count = 8;
+    float p_radius = 2.f;
+    sf::VertexArray particle_vertices(sf::PrimitiveType::Triangles, 3*(vertex_count-2)*particle_simulator.particle_count);
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
-        float radius = 1.0;
-        sf::CircleShape circle(radius);
-
-        circle.setFillColor(sf::Color(255, 0, 0, 255));
-
-        circle.setPosition(sf::Vector2f{particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]});
-        circle.setOrigin({radius, radius});
-        window.draw(circle);
+        sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
+        sf::Color particle_color = sf::Color::White;
+        for (int i = 0; i < vertex_count-2; i++) {
+            float angle = (i+1) * 2 * M_PI / vertex_count;
+            float angle2 = (i+2) * 2 * M_PI / vertex_count;
+            particle_vertices[i*3+p_id*3*(vertex_count-2)].position = sf::Vector2f(p_radius, 0) + shift;
+            particle_vertices[i*3+p_id*3*(vertex_count-2)+1].position = sf::Vector2f(cos(angle) * p_radius, sin(angle) * p_radius) + shift;
+            particle_vertices[i*3+p_id*3*(vertex_count-2)+2].position = sf::Vector2f(cos(angle2) * p_radius, sin(angle2) * p_radius) + shift;
+            particle_vertices[i*3+p_id*3*(vertex_count-2)].color = particle_color;
+            particle_vertices[i*3+p_id*3*(vertex_count-2)+1].color = particle_color;
+            particle_vertices[i*3+p_id*3*(vertex_count-2)+2].color = particle_color;
+        }
     }
+    window.draw(particle_vertices);
 
     window.display();
 }
@@ -96,10 +90,11 @@ void renderer::render(double delta) {
 // Main loop
 void renderer::run() {
     physics_timestamp = 1.0/physics_fps_limit;
-    pre_process();
+
+    // srand(0);
+    particle_simulator.pre_process();
 
     Camera camera;
-
     while (window.isOpen()) {
         double delta = clock.restart().asSeconds();
         time += delta; // Fixed physics fps
@@ -113,7 +108,8 @@ void renderer::run() {
         handle_events(&camera, &delta);
         if (time >= physics_timestamp) {
             time -= physics_timestamp;
-            process(physics_timestamp);
+            particle_simulator.process();
+            // cout << 1.f/delta << endl;
         }
         render(1.0/render_fps_limit);
     }

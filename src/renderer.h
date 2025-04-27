@@ -10,8 +10,8 @@ using namespace std;
 class renderer {
 public:
     unsigned short width, height;
-    unsigned int render_fps_limit = 30;
-    unsigned int physics_fps_limit = 30;
+    unsigned int render_fps_limit = 60;
+    unsigned int physics_fps_limit = 60;
     double physics_timestamp;
     particle_simulator particle_simulator;
     explicit renderer(unsigned short width = 1280, unsigned short height = 720);
@@ -24,9 +24,7 @@ private:
     sf::Clock clock;
     double time{};
 
-    void pre_process();
     void handle_events(Camera *camera, const double *deltaTime);
-    void process(double delta);
     void render(double delta);
 
 

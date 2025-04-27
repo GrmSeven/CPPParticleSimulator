@@ -95,11 +95,12 @@ void particle_simulator::process() {
             cell_margin_r += (cell_margin_r > cell_count_x) ? 1 : 0;
             cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
             cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
-
             for (int x = cell_margin_l; x <= cell_margin_r; x++) {
                 for (int y = cell_margin_u; y <= cell_margin_d; y++) {
                     for (auto& p2_id : get_particles_in_cell(x, y)) {
-                        update_particle_velocity(p_id, p2_id, floor(x/cell_count_x), floor(y/cell_count_y));
+                        int shift_x = floor(static_cast<float>(x)/cell_count_x);
+                        int shift_y = floor(static_cast<float>(y)/cell_count_y);
+                        update_particle_velocity(p_id, p2_id, shift_x, shift_y);
                     }
                 }
             }
