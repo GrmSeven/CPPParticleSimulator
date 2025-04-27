@@ -23,6 +23,11 @@ add_executable(main src/main.cpp
         src/camera/view.h
         src/camera/view.cpp
         src/particles/behavior_manager.h
+        src/gravityTable/gravityElement.cpp
+        src/gravityTable/gravityElement.h
+        src/gravityTable/Ctest.cpp
+        src/gravityTable/gravityTable.cpp
+        src/gravityTable/gravityTable.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
