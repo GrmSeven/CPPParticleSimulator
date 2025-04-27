@@ -6,7 +6,7 @@ using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
-      particle_simulator(width, height, 25, 5000, &physics_timestamp),
+      particle_simulator(width, height, 25, 2000, &physics_timestamp),
       window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close) {
     window.setFramerateLimit(render_fps_limit);
 }
@@ -14,54 +14,41 @@ renderer::renderer(unsigned short width, unsigned short height)
 /**
  * For keyboard and mouse inputs
  */
-void renderer::handle_events(Camera *camera, const double *deltaTime) {
-    camera->update(*deltaTime);
+void renderer::handle_events(const double *deltaTime) {
+    camera.update(*deltaTime);
+    sf::View view = camera.GetView(window.getSize());
 
-
-    window.setView(camera->GetView(window.getSize()));
-
-    // mouse->mousePos = sf::Mouse::getPosition(window);
-    // sf::Vector2f worldPos = window.mapPixelToCoords(mouse->mousePos, window.getView());
-
-    // mouse->cursorParticle->position = worldPos;
-
+    auto mouse_pos = sf::Mouse::getPosition(window);
+    sf::Vector2f global_mouse_pos = window.mapPixelToCoords(mouse_pos, window.getView());
     while (std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
-        //if wheel has been scrolled
-        else if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
-        {
-            switch (mouseWheelScrolled->wheel) //check type of scroll
-            {
-                case sf::Mouse::Wheel::Vertical: //if it was a zoom start tot change zoom
-                    if (mouseWheelScrolled->delta > 0) {
-                        // you may to change val-s by himself, i have a mose trouble
-                        camera->zoom += (1.2f - camera->zoom) * 0.1f;
-                        camera->speed *= 1.02f;
-                    } else {
-                        camera->zoom -= (camera->zoom - 0.8f) * 0.1f;
-                        camera->speed *= 0.8f;
-                    }
-                break;
 
-                case sf::Mouse::Wheel::Horizontal:
-                    //idk
-                        break;
+        // Mouse scroll
+        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
+        {
+            if (mouseWheelScrolled->delta > 0) {
+                camera.change_zoom(-1);
+                // camera.zoomViewAt(view, { mouseWheelScrolled->position }, window, 1.2f);
+            } else {
+                camera.change_zoom(1);
             }
         }
 
-        // if (event->is<sf::Event::MouseButtonReleased>()){
-        //     particles.push_back(*mouse->cursorParticle);
-        // }
-
+        // Mouse relase
+        if (event->is<sf::Event::MouseButtonPressed>()){
+            particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 'a');
+        }
     }
+    window.setView(view);
 }
+
 
 /**
  * Renders particles and UI
  */
-void renderer::render(double delta) {
+void renderer::render() {
     window.clear();
 
     // Particle rendering
@@ -93,35 +80,20 @@ void renderer::run() {
 
     // srand(0);
     particle_simulator.pre_process();
-
-    Camera camera;
     while (window.isOpen()) {
         double delta = clock.restart().asSeconds();
         time += delta; // Fixed physics fps
 
-        // Mouse and camera
-        // particle cursorParticle = particle({0,0}, {0,0}, 'a');
-        // CMouse mouse{ {0,0}, &cursorParticle };
-        camera.GetView(window.getSize()); //create a view
-        window.setView(camera.GetView(window.getSize()));
-
-        handle_events(&camera, &delta);
+        handle_events(&delta);
         if (time >= physics_timestamp) {
             time -= physics_timestamp;
             particle_simulator.process();
             // cout << 1.f/delta << endl;
         }
-        render(1.0/render_fps_limit);
+        render();
     }
-
-    // sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    // CMouse mouse = CMouse(mousePos);
 }
 
-/**
- * 
- * @param fps limiter
- */
 void renderer::set_render_fps_limit(unsigned char fps) {
     render_fps_limit = fps;
     window.setFramerateLimit(fps);

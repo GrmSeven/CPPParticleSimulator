@@ -18,8 +18,6 @@ add_executable(main src/main.cpp
         src/particles/particle.cpp
         src/particles/particle.h
         src/utils.h
-        src/mouse/mouse.cpp
-        src/mouse/mouse.h
         src/particles/particle_simulator.cpp
         src/particles/particle_simulator.h
         src/camera/view.h

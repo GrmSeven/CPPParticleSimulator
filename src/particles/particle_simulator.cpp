@@ -5,7 +5,7 @@
 #include "../utils.h"
 #include "behavior_manager.h"
 
-void particle_simulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
+void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
     float distance{};
     float normal_x{};
     float normal_y{};
@@ -21,12 +21,12 @@ void particle_simulator::update_particle_velocity(size_t p1, size_t p2, int shif
     velocities_y[p1] += force * normal_y;
 }
 
-void particle_simulator::update_particle_position(size_t p) {
+void ParticleSimulator::update_particle_position(size_t p) {
     positions_x[p] += velocities_x[p] * *delta;
     positions_y[p] += velocities_y[p] * *delta;
 }
 
-void particle_simulator::generate_grid() {
+void ParticleSimulator::generate_grid() {
     // Clears and resizes current particle_grid
     particle_grid.resize(cell_count_y);
     for (auto& y_vec : particle_grid) {
@@ -46,31 +46,31 @@ void particle_simulator::generate_grid() {
 
 }
 
-void particle_simulator::wrap_around(size_t p) {
+void ParticleSimulator::wrap_around(size_t p) {
     positions_x[p] = utils::abs_mod(positions_x[p], width); //we dont need to use abs because we havent a negativ vars
     positions_y[p] = utils::abs_mod(positions_y[p], height);;
 }
 
-void particle_simulator::clamp(size_t p) {
+void ParticleSimulator::clamp(size_t p) {
     if (utils::abs_mod(positions_x[p],2.f*width) > width) velocities_x[p] = -velocities_x[p];
     if (utils::abs_mod(positions_y[p],2.f*height) > height) velocities_y[p] = -velocities_y[p];
     positions_x[p] = abs(utils::abs_mod(positions_x[p] + width, 2.f*width)-width);
     positions_y[p] = abs(utils::abs_mod(positions_y[p] + height, 2.f*height)-height);
 }
 
-float particle_simulator::calculate_distance(float x1, float y1, float x2, float y2) {
+float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float y2) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
 
-void particle_simulator::apply_terminal_velocity(size_t p) {
+void ParticleSimulator::apply_terminal_velocity(size_t p) {
     float velocity_multiplier = behavior_manager::calculate_terminal_velocity_change(*delta, 0.9f);
     velocities_x[p] *= velocity_multiplier;
     velocities_y[p] *= velocity_multiplier;
 }
 
 
-void particle_simulator::pre_process() {
+void ParticleSimulator::pre_process() {
     for (size_t i = 0; i < particle_count; i++) {
         positions_x.push_back(rand() % width);
         positions_y.push_back(rand() % height);
@@ -80,7 +80,7 @@ void particle_simulator::pre_process() {
     }
 }
 
-void particle_simulator::process() {
+void ParticleSimulator::process() {
     if (uses_particle_grid) {
         generate_grid();
         for (size_t p_id = 0; p_id < particle_count; p_id++) { // Hash the distance later
@@ -126,15 +126,15 @@ void particle_simulator::process() {
     }
 }
 
-std::pair<size_t, size_t> particle_simulator::convert_coords_to_cell(float x, float y) {
+std::pair<size_t, size_t> ParticleSimulator::convert_coords_to_cell(float x, float y) {
     return std::make_pair(static_cast<size_t>(floor(x/cell_size)), static_cast<size_t>(floor(y/cell_size)));
 }
 
-bool particle_simulator::does_cell_exist(size_t x, size_t y) {
+bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {
     return ceil(width/cell_size) > x && ceil(height/cell_size) > y;
 }
 
-std::vector<size_t>& particle_simulator::get_particles_in_cell(int x, int y) {
+std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
     if (!is_space_wrapping_enabled && !does_cell_exist(x, y)) {
         return empty_vec;
     } else {
@@ -143,7 +143,7 @@ std::vector<size_t>& particle_simulator::get_particles_in_cell(int x, int y) {
 
 }
 
-void particle_simulator::spawn_particle(float x, float y, unsigned char t) {
+void ParticleSimulator::spawn_particle(float x, float y, unsigned char t) {
     particle_count++;
     positions_x.push_back(x);
     positions_y.push_back(y);
@@ -152,11 +152,11 @@ void particle_simulator::spawn_particle(float x, float y, unsigned char t) {
     types.push_back(t);
 }
 
-void particle_simulator::spawn_particle(float x, float y) {
+void ParticleSimulator::spawn_particle(float x, float y) {
     spawn_particle(x, y, 'a');
 }
 
-void particle_simulator::delete_particle(size_t id) {
+void ParticleSimulator::delete_particle(size_t id) {
     particle_count--;
     positions_x.erase(positions_x.begin() + id);
     positions_y.erase(positions_y.begin() + id);
@@ -165,7 +165,7 @@ void particle_simulator::delete_particle(size_t id) {
     types.erase(types.begin() + id);
 }
 
-void particle_simulator::change_particle_count(size_t n) {
+void ParticleSimulator::change_particle_count(size_t n) {
     if (n == particle_count) return;
     if (n < particle_count) {
         particle_count = n;
@@ -186,7 +186,7 @@ void particle_simulator::change_particle_count(size_t n) {
     }
 }
 
-void particle_simulator::resize_cells(unsigned short size) {
+void ParticleSimulator::resize_cells(unsigned short size) {
     cell_size = size;
     cell_count_x = ceil(static_cast<float>(width)/cell_size);
     cell_count_y = ceil(static_cast<float>(height)/cell_size);

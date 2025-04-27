@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-class particle_simulator {
+class ParticleSimulator {
 public: // May make it private and add getters and setters later (OOP)
     unsigned short width;
     unsigned short height;
@@ -41,7 +41,7 @@ public: // May make it private and add getters and setters later (OOP)
     float calculate_distance(float x1, float y1, float x2, float y2);
 
 public:
-    particle_simulator(unsigned short width, unsigned short height, unsigned short cell_size, size_t particle_count, double* delta)
+    ParticleSimulator(unsigned short width, unsigned short height, unsigned short cell_size, size_t particle_count, double* delta)
         : width(width), height(height), particle_count(particle_count), delta(delta) {
         resize_cells(cell_size);
     }

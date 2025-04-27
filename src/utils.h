@@ -25,4 +25,8 @@ public:
     static bool damp(float a, float b, float l, float delta) {
         return lerp(a, b, 1.f - exp(-l * delta));
     }
+
+    static float clamp(float value, float min_value, float max_value) {
+        return min(max(value, min_value), max_value);
+    }
 };
