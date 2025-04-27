@@ -64,7 +64,7 @@ float particle_simulator::calculate_distance(float x1, float y1, float x2, float
 
 
 void particle_simulator::apply_terminal_velocity(size_t p) {
-    float velocity_multiplier = behavior_manager::calculate_terminal_velocity_change(*delta, 1.f);
+    float velocity_multiplier = behavior_manager::calculate_terminal_velocity_change(*delta, 0.9f);
     velocities_x[p] *= velocity_multiplier;
     velocities_y[p] *= velocity_multiplier;
 }

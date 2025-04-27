@@ -6,7 +6,7 @@ using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
-      particle_simulator(width, height, 25, 6000, &physics_timestamp),
+      particle_simulator(width, height, 25, 5000, &physics_timestamp),
       window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close) {
     window.setFramerateLimit(render_fps_limit);
 }

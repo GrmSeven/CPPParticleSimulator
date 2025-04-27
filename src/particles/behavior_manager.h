@@ -15,24 +15,36 @@ public:
     }
 
     // Attraction formulas
-    static float calculate_attraction_life(float distance, float param_1 = 1) {
+    static float calculate_attraction_life(float distance, float param) {
         float r = 20; // If particles are too close, then they repel slightly
         float m = 50; // How far does the attraction persist
         if (distance < r) {
             return (distance*distance-r*r)/r/5;
-        } else if (distance < m) {
-            float g = distance-r;
-            return ( -g*g + g*(m-r) )/( m-r )*param_1/5;
-        } else {
-            return 0.f;
         }
+        if (distance < m) {
+            float g = distance-r;
+            return ( -g*g + g*(m-r) )/( m-r )*param/5;
+        }
+        return 0.f;
     }
 
-    static float calculate_attraction_newton(float distance, float param_1 = 1) {
-        return 1 / distance / distance * 10000.f * param_1;
+    static float calculate_attraction_linear_life(float distance, float param) {
+        float r = 20;
+        float m = 50;
+        if (distance < r) {
+            return (distance - r)/5;
+        }
+        if (distance < m) {
+            return param * ((m-r)/2.f - abs(distance - (m+r)/2.f))/5;
+        }
+        return 0.f;
     }
 
-    static float calculate_attraction_inv_newton(float distance, float param_1 = 1) {
-        return distance * distance * 0.001f * param_1;
+    static float calculate_attraction_newton(float distance, float param = 1) {
+        return 1 / distance / distance * 10000.f * param;
+    }
+
+    static float calculate_attraction_inv_newton(float distance, float param = 1) {
+        return distance * distance * 0.001f * param;
     }
 };
