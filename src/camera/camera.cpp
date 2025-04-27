@@ -1,12 +1,17 @@
-#include "view.h"
+#include "camera.h"
 #include "../utils.h"
 #include <cmath>
+#include <iostream>
+#include <ostream>
 
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Window/Mouse.hpp"
 
-Camera::Camera(float zoom) : zoom(zoom), position(0.f, 0.f) {}
+Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : windowSize(windowSize) {
+    view.setSize(sf::Vector2(windowSize * zoom));
+    view.setCenter(position + windowSize / 2.f);
+}
 
 void Camera::update(double deltaTime) {
 
@@ -23,9 +28,13 @@ void Camera::update(double deltaTime) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         move_camera(1, 0, deltaTime);
     }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+    {
+        cout << "left" << endl;
+    }
 }
 
-void Camera::zoomViewAt(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom)
+void Camera::mouse_zoom(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom)
 {
     const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel, view) };
     view.zoom(zoom);
@@ -35,18 +44,12 @@ void Camera::zoomViewAt(sf::View& view, sf::Vector2i pixel, const sf::RenderWind
 }
 
 void Camera::move_camera(float x, float y, double deltaTime) {
-    position.x += x * speed * zoom * deltaTime;
-    position.y += y * speed * zoom * deltaTime;
+    float zoom = getViewZoom();
+    view.move(sf::Vector2f(x * speed * zoom * deltaTime, y * speed * zoom * deltaTime));
 }
 
-void Camera::change_zoom(float step) {
-    zoom = utils::clamp(zoom * pow(zoom_speed, step), 0.1f, 3.f);
+float Camera::getViewZoom() {
+    return view.getSize().x / windowSize.x;
 }
 
-//main position
-sf::View Camera::GetView(sf::Vector2u windowSize) {
-    sf::View view;
-    view.setSize(sf::Vector2(windowSize.x * zoom, windowSize.y * zoom));
-    view.setCenter(position + sf::Vector2f(windowSize.x / 2.f, windowSize.y / 2.f));
-    return view;
-}
+

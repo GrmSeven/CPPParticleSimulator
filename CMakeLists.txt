@@ -20,8 +20,8 @@ add_executable(main src/main.cpp
         src/utils.h
         src/particles/particle_simulator.cpp
         src/particles/particle_simulator.h
-        src/camera/view.h
-        src/camera/view.cpp
+        src/camera/camera.h
+        src/camera/camera.cpp
         src/particles/behavior_manager.h
         src/gravityTable/gravityElement.cpp
         src/gravityTable/gravityElement.h

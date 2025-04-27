@@ -35,4 +35,7 @@ int main1() {
     gravityTable2->setGravityElements(gravityTable->getGravityElements());
 
     gravityTable2->printConnections();
+
+
+
 }

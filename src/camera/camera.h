@@ -8,18 +8,16 @@
 
 class Camera {
 public:
-    Camera(float zoom = 1.f);
-
-    sf::View GetView(sf::Vector2u windowSize);
+    Camera(float zoom,sf::Vector2f position, sf::Vector2f windowSize);
+    sf::View view;
     void update(double deltaTime);
-    void change_zoom(float step);
     void move_camera(float x, float y, double deltaTime);
-    void zoomViewAt(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom);
+    void mouse_zoom(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom);
 
-    float zoom;
-    sf::Vector2f position;
+    sf::Vector2f windowSize;
     float speed = 1000.f;
     float zoom_speed = 1.1f;
+    float getViewZoom();
 };
 
 #endif // VIEW_H

@@ -2,7 +2,7 @@
 #include <random>
 #include <SFML/Graphics.hpp>
 #include "particles/particle_simulator.h"
-#include "camera/view.h"
+#include "camera/camera.h"
 
 using namespace std;
 

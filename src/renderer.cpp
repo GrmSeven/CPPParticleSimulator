@@ -1,13 +1,15 @@
 #include "renderer.h"
 #include <cmath>
 #include <iostream>
-#include "camera/view.h"
+#include "camera/camera.h"
 using namespace std;
 
 renderer::renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
-      particle_simulator(width, height, 25, 2000, &physics_timestamp),
-      window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close) {
+    particle_simulator(width, height, 25, 2000, &physics_timestamp),
+    window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close),
+    camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize()))
+{
     window.setFramerateLimit(render_fps_limit);
 }
 
@@ -16,7 +18,7 @@ renderer::renderer(unsigned short width, unsigned short height)
  */
 void renderer::handle_events(const double *deltaTime) {
     camera.update(*deltaTime);
-    sf::View view = camera.GetView(window.getSize());
+    window.setView(camera.view);
 
     auto mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f global_mouse_pos = window.mapPixelToCoords(mouse_pos, window.getView());
@@ -26,22 +28,21 @@ void renderer::handle_events(const double *deltaTime) {
         }
 
         // Mouse scroll
-        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
+        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) // Put into camera.cpp if possible
         {
             if (mouseWheelScrolled->delta > 0) {
-                camera.change_zoom(-1);
-                // camera.zoomViewAt(view, { mouseWheelScrolled->position }, window, 1.2f);
+                camera.mouse_zoom(camera.view, { mouseWheelScrolled->position }, window, 1/1.05f);
             } else {
-                camera.change_zoom(1);
+                camera.mouse_zoom(camera.view, { mouseWheelScrolled->position }, window, 1.05f);
             }
         }
 
-        // Mouse relase
-        if (event->is<sf::Event::MouseButtonPressed>()){
+        // Mouse press
+        if (event->is<sf::Event::MouseButtonPressed>()) {
             particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 'a');
         }
     }
-    window.setView(view);
+
 }
 
 
@@ -77,7 +78,6 @@ void renderer::render() {
 // Main loop
 void renderer::run() {
     physics_timestamp = 1.0/physics_fps_limit;
-
     // srand(0);
     particle_simulator.pre_process();
     while (window.isOpen()) {
