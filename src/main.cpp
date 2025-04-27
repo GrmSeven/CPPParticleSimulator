@@ -1,26 +1,9 @@
-#include <SFML/Graphics.hpp>
+#include "renderer.h"
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
-    window.setFramerateLimit(144);
-
-    while (window.isOpen())
-    {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                window.close();
-            }
-        }
-
-        const sf::Font font("hih.ttf");
-        sf::Text text(font, "Hello SFML test", 50);
-        text.setFillColor(sf::Color(25,255,255));
-
-        window.clear();
-        window.draw(text);
-        window.display();
-    }
+    renderer r;
+    r.set_render_fps_limit(60);
+    r.set_physics_fps_limit(30);
+    r.run();
 }

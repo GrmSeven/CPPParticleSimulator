@@ -12,6 +12,22 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp)
+add_executable(main src/main.cpp
+        src/renderer.cpp
+        src/renderer.h
+        src/particles/particle.cpp
+        src/particles/particle.h
+        src/utils.h
+        src/particles/particle_simulator.cpp
+        src/particles/particle_simulator.h
+        src/camera/camera.h
+        src/camera/camera.cpp
+        src/particles/behavior_manager.h
+        src/gravityTable/gravityElement.cpp
+        src/gravityTable/gravityElement.h
+        src/gravityTable/Ctest.cpp
+        src/gravityTable/gravityTable.cpp
+        src/gravityTable/gravityTable.h
+)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
