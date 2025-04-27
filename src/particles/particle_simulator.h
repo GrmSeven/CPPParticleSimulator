@@ -14,6 +14,7 @@ public: // May make it private and add getters and setters later (OOP)
 
     float interaction_radius = 50;
     size_t particle_count{};
+    size_t particle_type_count = 1;
     std::vector<float> positions_x;
     std::vector<float> positions_y;
     std::vector<float> velocities_x;

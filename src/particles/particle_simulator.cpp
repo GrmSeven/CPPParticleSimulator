@@ -16,7 +16,7 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
         normal_x = (new_pos2_x - positions_x[p1]) / distance;
         normal_y = (new_pos2_y - positions_y[p1]) / distance;
     }
-    float force = behavior_manager::calculate_attraction_life(distance, 1.f);
+    float force = behavior_manager::calculate_attraction_life(distance, temp_attraction_table[types[p1] - 'a'][types[p2] - 'a']);
     velocities_x[p1] += force * normal_x;
     velocities_y[p1] += force * normal_y;
 }
@@ -76,7 +76,7 @@ void ParticleSimulator::pre_process() {
         positions_y.push_back(rand() % height);
         velocities_x.push_back(0);
         velocities_y.push_back(0);
-        types.push_back('a'); // Later change to spawn random type
+        types.push_back(char(rand()%2) + 'a'); // Later change to spawn random type
     }
 }
 

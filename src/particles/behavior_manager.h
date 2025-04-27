@@ -1,6 +1,9 @@
 #pragma once
 #include <cmath>
 
+
+inline vector<vector<float>> temp_attraction_table = {{1, 0}, {0.5, 1}};
+
 class behavior_manager {
 public:
 
@@ -10,6 +13,8 @@ public:
      * @param intensity Value 0..1 that determines how fast velocity dampens
      * @return Returns multiplier that has to be multiplied with velocity
      */
+
+
     static float calculate_terminal_velocity_change(double delta, float intensity) {
         return std::pow(1-intensity, delta*2.f);
     }
