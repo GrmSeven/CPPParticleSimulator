@@ -5,7 +5,9 @@
 #include "gravityElement.h"
 
 
+#include <chrono>
 #include <iostream>
+#include <random>
 
 GravityElement::GravityElement(char name, float type) : type(type), name(name) {
     elementsNetwork[name][name] = type;
@@ -22,6 +24,19 @@ void GravityElement::printConnections() const {
             std::cout << "(" << to << ", " << type << ") ";
         }
         std::cout << std::endl;
+    }
+}
+
+void GravityElement::randomizeNet() {
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::mt19937 gen(seed);
+    std::uniform_real_distribution<> dis(-1.0, 1.0); //standart code to create a random number between -1f and 1f
+
+    //        from -> groupName connections-> map<secondGroupName, Force>
+    for (auto& [from, connections] : elementsNetwork) { //start to iterate all connections inside of element
+        for (auto& [to, type] : connections) { //get all stenches
+             type = dis(gen); // force random
+        }
     }
 }
 

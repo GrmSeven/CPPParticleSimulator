@@ -3,11 +3,15 @@
 
 #include <map>
 
+
 class GravityElement {
 public:
     GravityElement(char name, float type);
     void addToElement(GravityElement* element, float force);
     void printConnections() const;
+
+    void randomizeNet();
+
     void removeGravityElement(GravityElement* element);
 
     void setForceTo(GravityElement* element, float force);

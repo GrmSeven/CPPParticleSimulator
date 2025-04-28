@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-int main()
+int main1()
 {
     renderer r;
     r.set_render_fps_limit(60);

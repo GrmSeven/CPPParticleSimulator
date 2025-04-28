@@ -1,6 +1,5 @@
 #include "renderer.h"
 #include <cmath>
-#include <iostream>
 #include "camera/camera.h"
 using namespace std;
 

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main1() {
+int main() {
     GravityTable *gravityTable = new GravityTable();
 
     GravityElement *g1 = new GravityElement('a', 0);
@@ -36,6 +36,10 @@ int main1() {
 
     gravityTable2->printConnections();
 
+    cout << "______________________" << endl;
 
+    gravityTable2->randomize();
+
+    gravityTable2->printConnections();
 
 }
