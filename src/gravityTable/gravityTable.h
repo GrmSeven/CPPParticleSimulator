@@ -31,11 +31,13 @@ struct GravityTable {
 
     std::list<GravityElement*> getGravityElements();
 
-    void setGravityElements(std::list<GravityElement*> elements);
+    void setGravityElements(std::list<GravityElement *> elements);
 
-    void setForce(GravityElement* a, GravityElement* b, float force);
+    static void setForce(GravityElement* a, GravityElement* b, float force);
 
     void randomize() const; //inside this method you can look, how to work with map
+
+    [[nodiscard]] GravityElement* getGravityElement(char gropName) const;
 
     private:
         std::list<GravityElement*> elements;

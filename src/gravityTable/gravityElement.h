@@ -16,6 +16,7 @@ public:
 
     void setForceTo(GravityElement* element, float force);
 
+    [[nodiscard]] char getName() const;
 
 private:
     char type;

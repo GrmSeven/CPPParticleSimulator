@@ -27,19 +27,21 @@ int main() {
 
     gravityTable->printConnections();
 
-    cout << endl;
-    GravityTable *gravityTable2 = new GravityTable();
+    cout << "______________________" << endl;
 
-    gravityTable2->setForce(g1, g2, 9);
+    GravityTable::setForce(g1, g2, 9); //do not use a copyof Table
 
-    gravityTable2->setGravityElements(gravityTable->getGravityElements());
-
-    gravityTable2->printConnections();
+    gravityTable->printConnections();
 
     cout << "______________________" << endl;
 
-    gravityTable2->randomize();
+    gravityTable->randomize();
 
-    gravityTable2->printConnections();
+    gravityTable->printConnections();
+
+    cout << "______________________" << endl;
+
+    //example how to get all forces from 1 group
+    gravityTable->getGravityElement('a')->printConnections();
 
 }

@@ -1,7 +1,3 @@
-//
-// Created by root on 25.04.2025.
-//
-
 #include "gravityElement.h"
 
 
@@ -46,4 +42,8 @@ void GravityElement::removeGravityElement(GravityElement *element) {
 
 void GravityElement::setForceTo(GravityElement* element, float force) {
     elementsNetwork[name][element->name] = force;
+}
+
+char GravityElement::getName() const {
+    return name;
 }
