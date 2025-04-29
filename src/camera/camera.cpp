@@ -16,6 +16,9 @@ Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : win
 
 void Camera::update(sf::RenderWindow& window, double deltaTime) {
     while (std::optional event = window.pollEvent()) {
+        if (event->is<sf::Event::Closed>()) {
+            window.close();
+        }
 
         // Mouse scroll
         if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
