@@ -48,7 +48,7 @@ void renderer::render() {
     sf::VertexArray particle_vertices(sf::PrimitiveType::Triangles, 3*(vertex_count-2)*particle_simulator.particle_count);
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
         sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
-        sf::Color particle_color = particle_simulator.types[p_id] == 'a' ? sf::Color::Red : sf::Color::Blue;
+        sf::Color particle_color = particle_simulator.behavior_manager.get_particle_color(particle_simulator.types[p_id]);
         for (int i = 0; i < vertex_count-2; i++) {
             float angle = (i+1) * 2 * M_PI / vertex_count;
             float angle2 = (i+2) * 2 * M_PI / vertex_count;

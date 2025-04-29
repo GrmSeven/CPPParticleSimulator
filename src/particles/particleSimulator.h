@@ -27,13 +27,16 @@ public: // May make it private and add getters and setters later (OOP)
 
     bool is_space_wrapping_enabled = true;
     bool uses_particle_grid = true;
-    float terminal_velocity_strength = 0.f;
+    float terminal_velocity_strength = 0.5f;
+    // float max_velocity = 100.f;
     size_t attraction_formula_id = 0;
+
 
     std::vector<size_t> empty_vec = {};
 
     void generate_grid();
     // Particle velocity
+    void handle_particle_velocity();
     void update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y);
     void update_particle_position(size_t p);
     // Particle out of bounds behavior
