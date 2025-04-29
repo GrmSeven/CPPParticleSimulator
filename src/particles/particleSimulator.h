@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+#include "behaviorManager.h"
+
 class ParticleSimulator {
 public: // May make it private and add getters and setters later (OOP)
     unsigned short width;
@@ -21,6 +23,7 @@ public: // May make it private and add getters and setters later (OOP)
     std::vector<float> velocities_y;
     std::vector<unsigned char> types;
     std::vector<std::vector<std::vector<size_t>>> particle_grid;
+    behaviorManager behavior_manager;
 
     bool is_space_wrapping_enabled = true;
     bool uses_particle_grid = true;

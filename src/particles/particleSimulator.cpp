@@ -1,9 +1,9 @@
-#include "particle_simulator.h"
+#include "particleSimulator.h"
 
 #include <cmath>
 #include <iostream>
 #include "../utils.h"
-#include "behavior_manager.h"
+#include "behaviorManager.h"
 
 void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
     float distance{};
@@ -16,7 +16,7 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
         normal_x = (new_pos2_x - positions_x[p1]) / distance;
         normal_y = (new_pos2_y - positions_y[p1]) / distance;
     }
-    float force = behavior_manager::calculate_attraction_life(distance, temp_attraction_table[types[p1] - 'a'][types[p2] - 'a']);
+    float force = behaviorManager::calculate_attraction_life(distance, behavior_manager.temp_attraction_table[types[p1] - 'a'][types[p2] - 'a']);
     velocities_x[p1] += force * normal_x;
     velocities_y[p1] += force * normal_y;
 }
@@ -64,7 +64,7 @@ float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float 
 
 
 void ParticleSimulator::apply_terminal_velocity(size_t p) {
-    float velocity_multiplier = behavior_manager::calculate_terminal_velocity_change(*delta, 0.9f);
+    float velocity_multiplier = behaviorManager::calculate_terminal_velocity_change(*delta, 0.9f);
     velocities_x[p] *= velocity_multiplier;
     velocities_y[p] *= velocity_multiplier;
 }

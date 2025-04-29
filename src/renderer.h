@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 #include <SFML/Graphics.hpp>
-#include "particles/particle_simulator.h"
+#include "particles/particleSimulator.h"
 #include "camera/camera.h"
 
 using namespace std;

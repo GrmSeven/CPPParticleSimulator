@@ -1,20 +1,17 @@
 #pragma once
 #include <cmath>
+#include <vector>
 
-
-inline vector<vector<float>> temp_attraction_table = {{1, 0}, {0.5, 1}};
-
-class behavior_manager {
+class behaviorManager {
 public:
+    size_t particle_type_count;
+    std::vector<std::vector<float>> temp_attraction_table = {{1, 0}, {0.5, 1}};
 
     /**
-     *
      * @param delta Delta time
      * @param intensity Value 0..1 that determines how fast velocity dampens
      * @return Returns multiplier that has to be multiplied with velocity
      */
-
-
     static float calculate_terminal_velocity_change(double delta, float intensity) {
         return std::pow(1-intensity, delta*2.f);
     }
