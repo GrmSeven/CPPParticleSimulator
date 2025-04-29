@@ -10,9 +10,12 @@ class Camera {
 public:
     Camera(float zoom,sf::Vector2f position, sf::Vector2f windowSize);
     sf::View view;
-    void update(double deltaTime);
+    void update(sf::RenderWindow& window, double deltaTime);
     void move_camera(float x, float y, double deltaTime);
     void mouse_zoom(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom);
+
+    sf::Vector2i prev_mouse_pos;
+    bool is_dragging;
 
     sf::Vector2f windowSize;
     float speed = 1000.f;

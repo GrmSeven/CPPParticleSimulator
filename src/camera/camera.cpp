@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ostream>
 
+#include "../../cmake-build-debug/_deps/sfml-src/src/SFML/Window/InputImpl.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Window/Mouse.hpp"
@@ -13,24 +14,53 @@ Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : win
     view.setCenter(position + windowSize / 2.f);
 }
 
-void Camera::update(double deltaTime) {
+void Camera::update(sf::RenderWindow& window, double deltaTime) {
+    while (std::optional event = window.pollEvent()) {
+        // Mouse scroll
+        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
+            if (mouseWheelScrolled->delta > 0) {
+                mouse_zoom(view, { mouseWheelScrolled->position }, window, 1/1.05f);
+            } else {
+                mouse_zoom(view, { mouseWheelScrolled->position }, window, 1.05f);
+            }
+        }
+
+        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+        {
+            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
+            {
+                prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
+                is_dragging = true;
+            }
+        }
+
+        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
+        {
+            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
+            {
+                is_dragging = false;
+            }
+        }
+    }
+
+    if (is_dragging) {
+        auto mouse_pos = sf::Mouse::getPosition(window);
+        move_camera(prev_mouse_pos.x - mouse_pos.x, prev_mouse_pos.y - mouse_pos.y, 1.f);
+        prev_mouse_pos = mouse_pos;
+    }
 
     //position transform
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        move_camera(0, -1, deltaTime);
+        move_camera(0, -1, deltaTime*speed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        move_camera(0, 1, deltaTime);
+        move_camera(0, 1, deltaTime*speed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        move_camera(-1, 0, deltaTime);
+        move_camera(-1, 0, deltaTime*speed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        move_camera(1, 0, deltaTime);
-    }
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-    {
-        cout << "left" << endl;
+        move_camera(1, 0, deltaTime*speed);
     }
 }
 
@@ -45,7 +75,7 @@ void Camera::mouse_zoom(sf::View& view, sf::Vector2i pixel, const sf::RenderWind
 
 void Camera::move_camera(float x, float y, double deltaTime) {
     float zoom = getViewZoom();
-    view.move(sf::Vector2f(x * speed * zoom * deltaTime, y * speed * zoom * deltaTime));
+    view.move(sf::Vector2f(x * zoom * deltaTime, y * zoom * deltaTime));
 }
 
 float Camera::getViewZoom() {
