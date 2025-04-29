@@ -9,7 +9,7 @@
 #include "SFML/Window/Event.hpp"
 #include "SFML/Window/Mouse.hpp"
 
-Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : windowSize(windowSize), zoom(zoom) {
+Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : windowSize(windowSize), zoom(zoom), wanted_zoom(zoom) {
     view.setSize(sf::Vector2(windowSize * zoom));
     view.setCenter(position + windowSize / 2.f);
 }
@@ -20,9 +20,11 @@ void Camera::update(sf::RenderWindow& window, double deltaTime) {
         // Mouse scroll
         if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
             if (mouseWheelScrolled->delta > 0) {
-                mouse_zoom({ mouseWheelScrolled->position }, window, zoom*1.1);
+                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
+                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom*zoom_sensitivity);
             } else {
-                mouse_zoom({ mouseWheelScrolled->position }, window, zoom/1.1);
+                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
+                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom/zoom_sensitivity);
             }
         }
 
@@ -63,9 +65,18 @@ void Camera::update(sf::RenderWindow& window, double deltaTime) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         move_camera(speed, 0, deltaTime);
     }
+
+    mouse_set_zoom(wanted_position, window, utils::lerp(wanted_zoom, zoom, pow(zoom_speed, 60*deltaTime)));
 }
 
-void Camera::mouse_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level) {
+void Camera::mouse_smooth_zoom_set(sf::Vector2i pixel, float level) {
+    wanted_position = pixel;
+    wanted_zoom = level;
+}
+
+
+void Camera::mouse_set_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level) {
+    zoom = level;
     const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel, view) };
     set_zoom(level);
     const sf::Vector2f afterCoord{ window.mapPixelToCoords(pixel, view) };
