@@ -12,15 +12,15 @@ public:
     sf::View view;
     void update(sf::RenderWindow& window, double deltaTime);
     void move_camera(float x, float y, double deltaTime);
-    void mouse_zoom(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom);
+    void mouse_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level);
+    void set_zoom(float level);
 
     sf::Vector2i prev_mouse_pos;
     bool is_dragging;
 
     sf::Vector2f windowSize;
     float speed = 1000.f;
-    float zoom_speed = 1.1f;
-    float getViewZoom();
+    float zoom;
 };
 
 #endif // VIEW_H

@@ -9,19 +9,20 @@
 #include "SFML/Window/Event.hpp"
 #include "SFML/Window/Mouse.hpp"
 
-Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : windowSize(windowSize) {
+Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : windowSize(windowSize), zoom(zoom) {
     view.setSize(sf::Vector2(windowSize * zoom));
     view.setCenter(position + windowSize / 2.f);
 }
 
 void Camera::update(sf::RenderWindow& window, double deltaTime) {
     while (std::optional event = window.pollEvent()) {
+
         // Mouse scroll
         if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
             if (mouseWheelScrolled->delta > 0) {
-                mouse_zoom(view, { mouseWheelScrolled->position }, window, 1/1.05f);
+                mouse_zoom({ mouseWheelScrolled->position }, window, zoom*1.1);
             } else {
-                mouse_zoom(view, { mouseWheelScrolled->position }, window, 1.05f);
+                mouse_zoom({ mouseWheelScrolled->position }, window, zoom/1.1);
             }
         }
 
@@ -51,35 +52,33 @@ void Camera::update(sf::RenderWindow& window, double deltaTime) {
 
     //position transform
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        move_camera(0, -1, deltaTime*speed);
+        move_camera(0, -speed, deltaTime*speed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        move_camera(0, 1, deltaTime*speed);
+        move_camera(0, speed, deltaTime*speed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        move_camera(-1, 0, deltaTime*speed);
+        move_camera(-speed, 0, deltaTime*speed);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        move_camera(1, 0, deltaTime*speed);
+        move_camera(speed, 0, deltaTime);
     }
 }
 
-void Camera::mouse_zoom(sf::View& view, sf::Vector2i pixel, const sf::RenderWindow& window, float zoom)
-{
+void Camera::mouse_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level) {
     const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel, view) };
-    view.zoom(zoom);
+    set_zoom(level);
     const sf::Vector2f afterCoord{ window.mapPixelToCoords(pixel, view) };
     const sf::Vector2f offsetCoords{ beforeCoord - afterCoord };
     view.move(offsetCoords);
 }
 
+void Camera::set_zoom(float level) {
+    zoom = level;
+    view.setSize(windowSize / zoom);
+}
+
 void Camera::move_camera(float x, float y, double deltaTime) {
-    float zoom = getViewZoom();
-    view.move(sf::Vector2f(x * zoom * deltaTime, y * zoom * deltaTime));
+    view.move(sf::Vector2f(x / zoom * deltaTime, y / zoom * deltaTime));
 }
-
-float Camera::getViewZoom() {
-    return view.getSize().x / windowSize.x;
-}
-
 
