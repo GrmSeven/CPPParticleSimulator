@@ -62,8 +62,8 @@ public:
     bool does_cell_exist(size_t x, size_t y);
     std::vector<size_t>& get_particles_in_cell(int x, int y);
 
-    void spawn_particle(float x, float y, unsigned char t);
-    void spawn_particle(float x, float y);
+    void spawn_particle(float x, float y, size_t count, unsigned char t);
+    void spawn_particle(float x, float y, size_t count = 1);
     void delete_particle(size_t id);
     void set_particle_count(int n); // Chooses random particles to delete/spawn
 

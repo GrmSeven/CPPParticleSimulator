@@ -162,18 +162,20 @@ std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
 
 }
 
-void ParticleSimulator::spawn_particle(float x, float y, unsigned char t) {
-    particle_count++;
-    positions_x.push_back(x);
-    positions_y.push_back(y);
-    velocities_x.push_back(0);
-    velocities_y.push_back(0);
-    types.push_back(t);
-    handle_out_of_bounds(particle_count-1);
+void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned char t) {
+    for (int i = 0; i < count; i++) {
+        particle_count++;
+        positions_x.push_back(x + fmod(rand()/10000000.f, 1.f));
+        positions_y.push_back(y + fmod(rand()/10000000.f, 1.f));
+        velocities_x.push_back(0);
+        velocities_y.push_back(0);
+        types.push_back(fmod(t - 'a' + i, behavior_manager.particle_type_count) + 'a');
+        handle_out_of_bounds(particle_count-1);
+    }
 }
 
-void ParticleSimulator::spawn_particle(float x, float y) {
-    spawn_particle(x + (rand() % 10000)/100000.f, y + (rand() % 10000)/100000.f, rand() % behavior_manager.particle_type_count + 'a');
+void ParticleSimulator::spawn_particle(float x, float y, size_t count) {
+    spawn_particle(x, y, count,rand() % behavior_manager.particle_type_count + 'a');
 }
 
 void ParticleSimulator::delete_particle(size_t id) {

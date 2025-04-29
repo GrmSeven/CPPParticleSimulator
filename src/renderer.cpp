@@ -41,9 +41,10 @@ void renderer::handle_events(const double *deltaTime) {
             if (spacePressed->code == sf::Keyboard::Key::S) {
                 particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
             }
+            if (spacePressed->code == sf::Keyboard::Key::Q) {
+                particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 100);
+            }
         }
-
-        // if ()
 
         // Particle spawning
         if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
@@ -53,6 +54,7 @@ void renderer::handle_events(const double *deltaTime) {
                 particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
             }
         }
+
 
         // // Particle dragging
         // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
