@@ -14,6 +14,7 @@ public:
     float zoom;
     float speed = 1000.f;
 
+    void handle_events(std::optional<sf::Event>& event);
     void update(sf::RenderWindow& window, double deltaTime);
     void move_camera(float x, float y, double deltaTime);
     void mouse_smooth_zoom_set(sf::Vector2i pixel, float level);

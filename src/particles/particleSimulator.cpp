@@ -173,7 +173,7 @@ void ParticleSimulator::spawn_particle(float x, float y, unsigned char t) {
 }
 
 void ParticleSimulator::spawn_particle(float x, float y) {
-    spawn_particle(x, y, rand() % behavior_manager.particle_type_count + 'a');
+    spawn_particle(x + (rand() % 10000)/100000.f, y + (rand() % 10000)/100000.f, rand() % behavior_manager.particle_type_count + 'a');
 }
 
 void ParticleSimulator::delete_particle(size_t id) {
@@ -185,8 +185,17 @@ void ParticleSimulator::delete_particle(size_t id) {
     types.erase(types.begin() + id);
 }
 
-void ParticleSimulator::change_particle_count(size_t n) {
+void ParticleSimulator::set_particle_count(int n) {
     if (n == particle_count) return;
+    if (n <= 0) {
+        particle_count = 0;
+        positions_x.resize(0);
+        positions_y.resize(0);
+        velocities_x.resize(0);
+        velocities_y.resize(0);
+        types.resize(0);
+        return;
+    }
     if (n < particle_count) {
         particle_count = n;
         positions_x.resize(n);
@@ -194,11 +203,13 @@ void ParticleSimulator::change_particle_count(size_t n) {
         velocities_x.resize(n);
         velocities_y.resize(n);
         types.resize(n);
+        return;
     }
     if (n > particle_count) {
-        for (size_t i = particle_count; i < n - 1; i++) {
+        for (size_t i = particle_count; i < n; i++) {
             spawn_particle(rand() % width, rand() % height);
         }
+        return;
     }
 }
 

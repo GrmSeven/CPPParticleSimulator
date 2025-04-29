@@ -65,7 +65,7 @@ public:
     void spawn_particle(float x, float y, unsigned char t);
     void spawn_particle(float x, float y);
     void delete_particle(size_t id);
-    void change_particle_count(size_t n); // Chooses random particles to delete/spawn
+    void set_particle_count(int n); // Chooses random particles to delete/spawn
 
     void resize_cells(unsigned short size);
     // Getters, setters

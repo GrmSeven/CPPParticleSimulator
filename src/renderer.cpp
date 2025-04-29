@@ -17,21 +17,33 @@ renderer::renderer(unsigned short width, unsigned short height)
  */
 void renderer::handle_events(const double *deltaTime) {
     window.setView(camera.view);
-    camera.update(window, *deltaTime);
+
 
     auto mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f global_mouse_pos = window.mapPixelToCoords(mouse_pos, window.getView());
 
-    while (std::optional event = window.pollEvent()) {
+    while (std::optional<sf::Event> event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
 
+
         if (const auto* spacePressed = event->getIf<sf::Event::KeyPressed>()) {
+            // Pause
             if (spacePressed->code == sf::Keyboard::Key::Space) {
                 particle_simulator.paused = !particle_simulator.paused;
             }
+
+            // Spawn/Despawn particles
+            if (spacePressed->code == sf::Keyboard::Key::W) {
+                particle_simulator.set_particle_count(particle_simulator.particle_count + 100);
+            }
+            if (spacePressed->code == sf::Keyboard::Key::S) {
+                particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
+            }
         }
+
+        // if ()
 
         // Particle spawning
         if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
@@ -83,8 +95,9 @@ void renderer::handle_events(const double *deltaTime) {
                 camera.is_dragging = false;
             }
         }
+        camera.handle_events(event);
     }
-
+    camera.update(window, *deltaTime);
 }
 
 

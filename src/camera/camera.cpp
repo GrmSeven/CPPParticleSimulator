@@ -14,6 +14,10 @@ Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : win
     view.setCenter(position + windowSize / 2.f);
 }
 
+void Camera::handle_events(std::optional<sf::Event>& event) {
+    // But stuff here from renderer later for organisation
+}
+
 void Camera::update(sf::RenderWindow& window, double deltaTime) {
     if (is_dragging) {
         auto mouse_pos = sf::Mouse::getPosition(window);
