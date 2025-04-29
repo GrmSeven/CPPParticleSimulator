@@ -27,9 +27,61 @@ void renderer::handle_events(const double *deltaTime) {
             window.close();
         }
 
-        // Mouse press
-        if (event->is<sf::Event::MouseButtonPressed>()) {
-            particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 'a');
+        if (const auto* spacePressed = event->getIf<sf::Event::KeyPressed>()) {
+            if (spacePressed->code == sf::Keyboard::Key::Space) {
+                particle_simulator.paused = !particle_simulator.paused;
+            }
+        }
+
+        // Particle spawning
+        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+        {
+            if (mouseButtonPressed->button == sf::Mouse::Button::Right)
+            {
+                particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
+            }
+        }
+
+        // // Particle dragging
+        // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+        // {
+        //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
+        //     {
+        //     }
+        // }
+        // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
+        // {
+        //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
+        //     {
+        //     }
+        // }
+
+        // Canvas zooming
+        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
+            if (mouseWheelScrolled->delta > 0) {
+                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
+                camera.mouse_smooth_zoom_set({ mouseWheelScrolled->position }, camera.wanted_zoom*camera.zoom_sensitivity);
+            } else {
+                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
+                camera.mouse_smooth_zoom_set({ mouseWheelScrolled->position }, camera.wanted_zoom/camera.zoom_sensitivity);
+            }
+        }
+
+        // Canvas dragging
+        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+        {
+            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
+            {
+                camera.prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
+                camera.is_dragging = true;
+            }
+        }
+        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
+        {
+            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
+            {
+                camera.is_dragging = false;
+            }
         }
     }
 

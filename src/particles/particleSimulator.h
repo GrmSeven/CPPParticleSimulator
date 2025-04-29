@@ -7,6 +7,7 @@
 
 class ParticleSimulator {
 public: // May make it private and add getters and setters later (OOP)
+    bool paused{};
     unsigned short width;
     unsigned short height;
     unsigned short cell_size;
@@ -40,6 +41,7 @@ public: // May make it private and add getters and setters later (OOP)
     void update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y);
     void update_particle_position(size_t p);
     // Particle out of bounds behavior
+    void handle_out_of_bounds(size_t id);
     void wrap_around(size_t p);
     void clamp(size_t p);
     // Particle slow down

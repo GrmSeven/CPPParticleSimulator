@@ -23,7 +23,7 @@ public:
 
     // Dragging
     sf::Vector2i prev_mouse_pos;
-    bool is_dragging;
+    bool is_dragging{};
     // Smooth zooming
     sf::Vector2i wanted_position;
     float wanted_zoom;

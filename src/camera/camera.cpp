@@ -15,40 +15,6 @@ Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : win
 }
 
 void Camera::update(sf::RenderWindow& window, double deltaTime) {
-    while (std::optional event = window.pollEvent()) {
-        if (event->is<sf::Event::Closed>()) {
-            window.close();
-        }
-
-        // Mouse scroll
-        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
-            if (mouseWheelScrolled->delta > 0) {
-                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
-                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom*zoom_sensitivity);
-            } else {
-                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
-                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom/zoom_sensitivity);
-            }
-        }
-
-        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-        {
-            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
-            {
-                prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
-                is_dragging = true;
-            }
-        }
-
-        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
-        {
-            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
-            {
-                is_dragging = false;
-            }
-        }
-    }
-
     if (is_dragging) {
         auto mouse_pos = sf::Mouse::getPosition(window);
         move_camera(prev_mouse_pos.x - mouse_pos.x, prev_mouse_pos.y - mouse_pos.y, 1.f);

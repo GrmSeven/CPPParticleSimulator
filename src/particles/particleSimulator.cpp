@@ -18,14 +18,13 @@ void ParticleSimulator::pre_process() {
 }
 
 void ParticleSimulator::process() {
-    handle_particle_velocity();
-    for (size_t p_id = 0; p_id < particle_count; p_id++) {
-        update_particle_position(p_id);
-        apply_terminal_velocity(p_id);
-        if (is_space_wrapping_enabled) {
-            wrap_around(p_id);
-        } else {
-            clamp(p_id);
+    if (!paused) {
+        // If game is unpaused
+        handle_particle_velocity();
+        for (size_t p_id = 0; p_id < particle_count; p_id++) {
+            update_particle_position(p_id);
+            apply_terminal_velocity(p_id);
+            handle_out_of_bounds(p_id);
         }
     }
 }
@@ -115,6 +114,14 @@ void ParticleSimulator::generate_grid() {
 
 }
 
+void ParticleSimulator::handle_out_of_bounds(size_t id) {
+    if (is_space_wrapping_enabled) {
+        wrap_around(id);
+    } else {
+        clamp(id);
+    }
+}
+
 void ParticleSimulator::wrap_around(size_t p) {
     positions_x[p] = utils::abs_mod(positions_x[p], width); //we dont need to use abs because we havent a negativ vars
     positions_y[p] = utils::abs_mod(positions_y[p], height);;
@@ -162,10 +169,11 @@ void ParticleSimulator::spawn_particle(float x, float y, unsigned char t) {
     velocities_x.push_back(0);
     velocities_y.push_back(0);
     types.push_back(t);
+    handle_out_of_bounds(particle_count-1);
 }
 
 void ParticleSimulator::spawn_particle(float x, float y) {
-    spawn_particle(x, y, 'a');
+    spawn_particle(x, y, rand() % behavior_manager.particle_type_count + 'a');
 }
 
 void ParticleSimulator::delete_particle(size_t id) {
@@ -189,11 +197,7 @@ void ParticleSimulator::change_particle_count(size_t n) {
     }
     if (n > particle_count) {
         for (size_t i = particle_count; i < n - 1; i++) {
-            positions_x[i] = rand() % width;
-            positions_y[i] = rand() % height;
-            velocities_x[i] = 0;
-            velocities_y[i] = 0;
-            types[i] = 'a'; // Later change to spawn random type
+            spawn_particle(rand() % width, rand() % height);
         }
     }
 }
