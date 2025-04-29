@@ -11,8 +11,17 @@ using namespace std;
 
 class behaviorManager {
 public:
-    size_t particle_type_count = 3;
-    std::vector<std::vector<float>> particle_interaction_matrix = {{1, 0, 0.5}, {0.5, 1, 0}, {0, 0.5, 1}};
+    size_t particle_type_count = 8;
+    std::vector<std::vector<float>> particle_interaction_matrix = {
+        {1, 0, 0, 0, 0, 0, 0, 0.5},
+        {0.5, 1, 0, 0, 0, 0, 0, 0},
+        {0, 0.5, 1, 0, 0, 0, 0, 0},
+        {0, 0, 0.5, 1, 0, 0, 0, 0},
+        {0, 0, 0, 0.5, 1, 0, 0, 0},
+        {0, 0, 0, 0, 0.5, 1, 0, 0},
+        {0, 0, 0, 0, 0, 0.5, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0.5, 1}
+    };
 
     void resize_matrix(size_t s) {
         if (particle_type_count == s) return;
@@ -43,7 +52,7 @@ public:
     }
 
     sf::Color get_particle_color(size_t type) {
-        return get_palette_color(fmod(type/static_cast<float>(particle_type_count), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {0.00, 0.33, 0.67});
+        return get_palette_color(fmod(type/static_cast<float>(particle_type_count), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {0.00, 0.67, 0.33});
     }
 
     sf::Color get_palette_color(float t, sf::Vector3f a, sf::Vector3f b, sf::Vector3f c, sf::Vector3f d) {

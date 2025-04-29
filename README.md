@@ -19,6 +19,11 @@ UI and final features:
 - UI equivalent in console
 - UI (later)
 
+UI settings:
+- Max Velocity
+- Velocity check (sets velocity to zero AFTER it gets applied)
+- Max radius, Min radius
+
 Unimportant optimizations:
 - Optimizing calculations (using DistanceSquared, pointers)
 - Quadtree

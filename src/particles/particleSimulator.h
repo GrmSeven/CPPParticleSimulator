@@ -28,7 +28,7 @@ public: // May make it private and add getters and setters later (OOP)
     bool is_space_wrapping_enabled = true;
     bool uses_particle_grid = true;
     float terminal_velocity_strength = 0.5f;
-    // float max_velocity = 100.f;
+    float max_velocity = 1000.f;
     size_t attraction_formula_id = 0;
 
 

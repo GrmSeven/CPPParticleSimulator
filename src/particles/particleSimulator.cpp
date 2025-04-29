@@ -81,6 +81,13 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
     velocities_x[p1] += force * normal_x;
     velocities_y[p1] += force * normal_y;
 
+    // Max velocity
+    float curr_velocity = hypot(velocities_x[p1], velocities_y[p1]);
+    if (curr_velocity > max_velocity) {
+        float val_scale = max_velocity / curr_velocity;
+        velocities_x[p1] *= val_scale;
+        velocities_y[p1] *= val_scale;
+    }
 }
 
 void ParticleSimulator::update_particle_position(size_t p) {
