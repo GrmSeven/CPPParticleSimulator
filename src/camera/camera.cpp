@@ -56,16 +56,16 @@ void Camera::update(sf::RenderWindow& window, double deltaTime) {
     }
 
     //position transform
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        move_camera(0, -speed, deltaTime*speed);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) { // sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+        move_camera(0, -speed, deltaTime);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        move_camera(0, speed, deltaTime*speed);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) { // sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+        move_camera(0, speed, deltaTime);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        move_camera(-speed, 0, deltaTime*speed);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) { // sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
+        move_camera(-speed, 0, deltaTime);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) { // sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
         move_camera(speed, 0, deltaTime);
     }
 
