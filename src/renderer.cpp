@@ -1,6 +1,5 @@
 #include "renderer.h"
 #include <cmath>
-#include <iostream>
 #include "camera/camera.h"
 using namespace std;
 
@@ -17,24 +16,15 @@ renderer::renderer(unsigned short width, unsigned short height)
  * For keyboard and mouse inputs
  */
 void renderer::handle_events(const double *deltaTime) {
-    camera.update(*deltaTime);
     window.setView(camera.view);
+    camera.update(window, *deltaTime);
 
     auto mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f global_mouse_pos = window.mapPixelToCoords(mouse_pos, window.getView());
+
     while (std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
-        }
-
-        // Mouse scroll
-        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) // Put into camera.cpp if possible
-        {
-            if (mouseWheelScrolled->delta > 0) {
-                camera.mouse_zoom(camera.view, { mouseWheelScrolled->position }, window, 1/1.05f);
-            } else {
-                camera.mouse_zoom(camera.view, { mouseWheelScrolled->position }, window, 1.05f);
-            }
         }
 
         // Mouse press

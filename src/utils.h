@@ -1,5 +1,7 @@
 #pragma once
 #include <cmath>
+
+#include "SFML/System/Vector2.hpp"
 using namespace std;
 
 class utils {
@@ -18,7 +20,13 @@ public:
         return fabs(a-b) <= 1.19e-7f;
     }
 
-    static bool lerp(float a, float b, float l) {
+    template <typename T>
+    static sf::Vector2<T> lerp(sf::Vector2<T> a, sf::Vector2<T> b, float l) {
+        return sf::Vector2(a.x+b.x, a.y+b.y) * l;
+    }
+
+    template <typename T>
+    static T lerp(T a, T b, float l) {
         return a+(b-a)*l;
     }
 
