@@ -39,9 +39,11 @@ int main() {
 
     gravityTable->printConnections();
 
-    cout << "______________________" << endl;
+    cout << "______________________a" << endl;
 
     //example how to get all forces from 1 group
-    gravityTable->getGravityElement('a')->printConnections();
+    for ( auto[i, force]: gravityTable->getGravityElement('a')->getForcesFrom()) {
+        cout << "element: " << i << " with force: " <<force << endl;
+    }
 
 }

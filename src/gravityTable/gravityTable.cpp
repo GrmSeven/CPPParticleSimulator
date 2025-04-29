@@ -55,4 +55,4 @@ GravityElement *GravityTable::getGravityElement(char gropName) const {
         }
     }
     return nullptr; //idk will be dangerous
-};
+}

@@ -47,3 +47,7 @@ void GravityElement::setForceTo(GravityElement* element, float force) {
 char GravityElement::getName() const {
     return name;
 }
+
+std::map<char, float> GravityElement::getForcesFrom() const {
+    return this->elementsNetwork.at(name);
+}

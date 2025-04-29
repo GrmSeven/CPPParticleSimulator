@@ -18,6 +18,9 @@ public:
 
     [[nodiscard]] char getName() const;
 
+    std::map<char, float> getForcesFrom() const;
+
+
 private:
     char type;
     char name;
