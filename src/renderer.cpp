@@ -98,7 +98,9 @@ void renderer::handle_events(const double *deltaTime) {
             camera.handle_events(event);
         }
     }
-    camera.update(window, *deltaTime);
+    if (is_focused) {
+        camera.update(window, *deltaTime);
+    }
 }
 
 
