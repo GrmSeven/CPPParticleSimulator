@@ -1,9 +1,9 @@
-#include "renderer.h"
+#include "Renderer.h"
 #include <cmath>
 #include "camera/camera.h"
 using namespace std;
 
-renderer::renderer(unsigned short width, unsigned short height)
+Renderer::Renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
     particle_simulator(width, height, 25, 1000, &physics_timestamp),
     window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize),
@@ -15,7 +15,7 @@ renderer::renderer(unsigned short width, unsigned short height)
 /**
  * For keyboard and mouse inputs
  */
-void renderer::handle_events(const double *deltaTime) {
+void Renderer::handle_events(const double *deltaTime) {
     window.setView(camera.view);
     sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
     global_mouse_pos = window.mapPixelToCoords(sf::Vector2i(mouse_pos), window.getView());
@@ -105,7 +105,6 @@ void renderer::handle_events(const double *deltaTime) {
                 }
             }
             camera.handle_events(event);
-            UI.handle_events(event);
         }
     }
     if (is_focused) {
@@ -122,7 +121,7 @@ void renderer::handle_events(const double *deltaTime) {
 /**
  * Renders particles and UIx
  */
-void renderer::render() {
+void Renderer::render() {
     window.clear();
 
     // Particle rendering
@@ -179,12 +178,11 @@ void renderer::render() {
         window.draw(mouse_circle);
     }
 
-    UI.render();
     window.display();
 }
 
 // Main loop
-void renderer::run() {
+void Renderer::run() {
     physics_timestamp = 1.0/physics_fps_limit;
     // srand(0);
     particle_simulator.pre_process();
@@ -202,11 +200,11 @@ void renderer::run() {
     }
 }
 
-void renderer::set_render_fps_limit(unsigned char fps) {
+void Renderer::set_render_fps_limit(unsigned char fps) {
     render_fps_limit = fps;
     window.setFramerateLimit(fps);
 }
 
-void renderer::set_physics_fps_limit(unsigned char fps) {
+void Renderer::set_physics_fps_limit(unsigned char fps) {
     physics_fps_limit = fps;
 }
