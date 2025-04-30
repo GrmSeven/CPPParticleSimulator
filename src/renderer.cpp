@@ -43,30 +43,47 @@ void renderer::handle_events(const double *deltaTime) {
         }
 
         if (is_focused) {
-            if (const auto* spacePressed = event->getIf<sf::Event::KeyPressed>()) {
+            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
                 // Pause
-                if (spacePressed->code == sf::Keyboard::Key::Space) {
+                if (keyPressed->code == sf::Keyboard::Key::Space) {
                     particle_simulator.paused = !particle_simulator.paused;
                 }
 
                 // Spawn/Despawn particles
-                if (spacePressed->code == sf::Keyboard::Key::W) {
+                if (keyPressed->code == sf::Keyboard::Key::W) {
                     particle_simulator.set_particle_count(particle_simulator.particle_count + 100);
                 }
-                if (spacePressed->code == sf::Keyboard::Key::S) {
+                if (keyPressed->code == sf::Keyboard::Key::S) {
                     particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
                 }
-                if (spacePressed->code == sf::Keyboard::Key::Q) {
+                if (keyPressed->code == sf::Keyboard::Key::Q) {
                     particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 100);
                 }
-                if (spacePressed->code == sf::Keyboard::Key::R) {
+                if (keyPressed->code == sf::Keyboard::Key::R) {
                     particle_simulator.behavior_manager.randomize_matrix();
                 }
-                if (spacePressed->code == sf::Keyboard::Key::E) {
+                if (keyPressed->code == sf::Keyboard::Key::E) {
                     particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count + 1);
                 }
-                if (spacePressed->code == sf::Keyboard::Key::D) {
+                if (keyPressed->code == sf::Keyboard::Key::D) {
                     particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count - 1);
+                }
+                // Circle around mouse
+                if (keyPressed->code == sf::Keyboard::Key::LControl) {
+                    draw_mouse_radius = true;
+                }
+                // Toggles grid
+                if (keyPressed->code == sf::Keyboard::Key::LAlt) {
+                    draw_particle_grid = true;
+                }
+            }
+            // Circle around mouse
+            if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
+                if (keyRelased->code == sf::Keyboard::Key::LControl) {
+                    draw_mouse_radius = false;
+                }
+                if (keyRelased->code == sf::Keyboard::Key::LAlt) {
+                    draw_particle_grid = false;
                 }
             }
 
@@ -76,7 +93,6 @@ void renderer::handle_events(const double *deltaTime) {
                     particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
                 }
             }
-
 
             // // Particle dragging
             if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
@@ -142,15 +158,15 @@ void renderer::render() {
 
     // Draw grid
     if (draw_particle_grid) {
-        sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2);
+        sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2 - 4);
         unsigned short& cell_size = particle_simulator.cell_size;
-        for (int i = 0; i < particle_simulator.cell_count_x; i++) {
-            grid[i*2].position = sf::Vector2f(i*cell_size, 0.f);
-            grid[i*2+1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
+        for (int i = 1; i < particle_simulator.cell_count_x; i++) {
+            grid[i*2 - 2].position = sf::Vector2f(i*cell_size, 0.f);
+            grid[i*2 - 1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
         }
-        for (int i = 0; i < particle_simulator.cell_count_y; i++) {
-            grid[particle_simulator.cell_count_x*2 + i*2].position = sf::Vector2f(0.f, i*cell_size);
-            grid[particle_simulator.cell_count_x*2 + i*2+1].position = sf::Vector2f(particle_simulator.width, i*cell_size);
+        for (int i = 1; i < particle_simulator.cell_count_y; i++) {
+            grid[particle_simulator.cell_count_x*2 + i*2 - 4].position = sf::Vector2f(0.f, i*cell_size);
+            grid[particle_simulator.cell_count_x*2 + i*2 - 3].position = sf::Vector2f(particle_simulator.width, i*cell_size);
         }
         window.draw(grid);
     }

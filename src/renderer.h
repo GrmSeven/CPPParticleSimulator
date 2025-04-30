@@ -28,8 +28,8 @@ private:
     bool is_focused = true;
     bool particle_drag_enabled{};
     float particle_drag_radius = 100.f;
-    bool draw_particle_grid = true;
-    bool draw_mouse_radius = true;
+    bool draw_particle_grid = false;
+    bool draw_mouse_radius = false;
 
     void handle_events(const double *deltaTime);
     void render();
