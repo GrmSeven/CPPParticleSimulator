@@ -142,7 +142,17 @@ void renderer::render() {
 
     // Draw grid
     if (draw_particle_grid) {
-
+        sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2);
+        unsigned short& cell_size = particle_simulator.cell_size;
+        for (int i = 0; i < particle_simulator.cell_count_x; i++) {
+            grid[i*2].position = sf::Vector2f(i*cell_size, 0.f);
+            grid[i*2+1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
+        }
+        for (int i = 0; i < particle_simulator.cell_count_y; i++) {
+            grid[particle_simulator.cell_count_x*2 + i*2].position = sf::Vector2f(0.f, i*cell_size);
+            grid[particle_simulator.cell_count_x*2 + i*2+1].position = sf::Vector2f(particle_simulator.width, i*cell_size);
+        }
+        window.draw(grid);
     }
 
     // Draw circle around the mouse
