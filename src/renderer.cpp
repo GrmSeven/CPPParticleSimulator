@@ -26,67 +26,84 @@ void renderer::handle_events(const double *deltaTime) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
-
-
-        if (const auto* spacePressed = event->getIf<sf::Event::KeyPressed>()) {
-            // Pause
-            if (spacePressed->code == sf::Keyboard::Key::Space) {
-                particle_simulator.paused = !particle_simulator.paused;
-            }
-
-            // Spawn/Despawn particles
-            if (spacePressed->code == sf::Keyboard::Key::W) {
-                particle_simulator.set_particle_count(particle_simulator.particle_count + 100);
-            }
-            if (spacePressed->code == sf::Keyboard::Key::S) {
-                particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
-            }
-            if (spacePressed->code == sf::Keyboard::Key::Q) {
-                particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 100);
-            }
-            if (spacePressed->code == sf::Keyboard::Key::R) {
-                particle_simulator.behavior_manager.randomize_matrix();
-            }
-            if (spacePressed->code == sf::Keyboard::Key::E) {
-                particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count + 1);
-            }
-            if (spacePressed->code == sf::Keyboard::Key::D) {
-                particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count - 1);
-            }
+        if (event->is<sf::Event::FocusLost>()) {
+            is_focused = false;
+            camera.is_dragging = false;
         }
 
-        // Particle spawning
-        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+        if (event->is<sf::Event::FocusGained>()) {
+            is_focused = true;
+        }
+
+        if (const auto* resized = event->getIf<sf::Event::Resized>())
         {
-            if (mouseButtonPressed->button == sf::Mouse::Button::Right)
-            {
-                particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
-            }
+            width = resized->size.x;
+            height = resized->size.y;
+            camera.resize_window(sf::Vector2f(width, height));
         }
 
+        if (is_focused) {
+            if (const auto* spacePressed = event->getIf<sf::Event::KeyPressed>()) {
+                // Pause
+                if (spacePressed->code == sf::Keyboard::Key::Space) {
+                    particle_simulator.paused = !particle_simulator.paused;
+                }
 
-        // // Particle dragging
-        // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-        // {
-        //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
-        //     {
-        //     }
-        // }
-        // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
-        // {
-        //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
-        //     {
-        //     }
-        // }
+                // Spawn/Despawn particles
+                if (spacePressed->code == sf::Keyboard::Key::W) {
+                    particle_simulator.set_particle_count(particle_simulator.particle_count + 100);
+                }
+                if (spacePressed->code == sf::Keyboard::Key::S) {
+                    particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
+                }
+                if (spacePressed->code == sf::Keyboard::Key::Q) {
+                    particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 100);
+                }
+                if (spacePressed->code == sf::Keyboard::Key::R) {
+                    particle_simulator.behavior_manager.randomize_matrix();
+                }
+                if (spacePressed->code == sf::Keyboard::Key::E) {
+                    particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count + 1);
+                }
+                if (spacePressed->code == sf::Keyboard::Key::D) {
+                    particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count - 1);
+                }
+            }
 
-        camera.handle_events(event);
+            // Particle spawning
+            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+            {
+                if (mouseButtonPressed->button == sf::Mouse::Button::Right)
+                {
+                    particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
+                }
+            }
+
+
+            // // Particle dragging
+            // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+            // {
+            //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
+            //     {
+            //     }
+            // }
+            // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
+            // {
+            //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
+            //     {
+            //     }
+            // }
+
+
+            camera.handle_events(event);
+        }
     }
     camera.update(window, *deltaTime);
 }
 
 
 /**
- * Renders particles and UI
+ * Renders particles and UIx
  */
 void renderer::render() {
     window.clear();

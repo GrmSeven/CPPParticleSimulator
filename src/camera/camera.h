@@ -21,6 +21,7 @@ public:
     void mouse_smooth_zoom_update(sf::Vector2i pixel, const sf::RenderWindow& window, float level);
     void mouse_set_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level);
     void set_zoom(float level);
+    void resize_window(sf::Vector2f newWindosSize);
 
     // Dragging
     sf::Vector2i prev_mouse_pos;

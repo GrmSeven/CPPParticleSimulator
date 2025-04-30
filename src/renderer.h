@@ -23,6 +23,7 @@ private:
     sf::Clock clock;
     Camera camera;
     double time{};
+    bool is_focused = true;
 
     void handle_events(const double *deltaTime);
     void render();

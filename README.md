@@ -12,8 +12,6 @@ S - Despawn 100 random particles
 
 ### TODO:
 Bugs:
-- Add method for changomg particle type count
-- Mouse zooming should use the delta, instead of (delta < 0)
 - When warpping is enabled, sometimes particles on the far right on pre-previous cell, dont react to particles that are in the last cell (still on the right side)
 
 Important optimizations:
