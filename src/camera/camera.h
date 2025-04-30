@@ -18,9 +18,7 @@ public:
     void update(sf::RenderWindow& window, double deltaTime);
     void move_camera(float x, float y, double deltaTime);
     void mouse_smooth_zoom_set(sf::Vector2i pixel, float level);
-    void mouse_smooth_zoom_update(sf::Vector2i pixel, const sf::RenderWindow& window, float level);
     void mouse_set_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level);
-    void set_zoom(float level);
     void resize_window(sf::Vector2f newWindosSize);
 
     // Dragging
