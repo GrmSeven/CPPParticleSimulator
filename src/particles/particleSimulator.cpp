@@ -6,14 +6,12 @@
 #include "behaviorManager.h"
 
 void ParticleSimulator::pre_process() {
-    // behavior_manager.resize_matrix(2);
-    // behavior_manager.randomize_matrix();
     for (size_t i = 0; i < particle_count; i++) {
         positions_x.push_back(rand() % width);
         positions_y.push_back(rand() % height);
         velocities_x.push_back(0);
         velocities_y.push_back(0);
-        types.push_back(char(rand()%behavior_manager.particle_type_count) + 'a'); // Later change to spawn random type
+        types.push_back(char(rand()%behavior_manager.particle_type_count)); // Later change to spawn random type
     }
 }
 
@@ -76,7 +74,7 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
         normal_x = (new_pos2_x - positions_x[p1]) / distance;
         normal_y = (new_pos2_y - positions_y[p1]) / distance;
     }
-    float force = behavior_manager.calculate_attraction(0, distance, behavior_manager.particle_interaction_matrix[types[p1] - 'a'][types[p2] - 'a']);
+    float force = behavior_manager.calculate_attraction(0, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
     velocities_x[p1] += force * normal_x;
     velocities_y[p1] += force * normal_y;
 
@@ -162,20 +160,20 @@ std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
 
 }
 
-void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned char t) {
+void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned short t) {
     for (int i = 0; i < count; i++) {
         particle_count++;
         positions_x.push_back(x + fmod(rand()/10000000.f, 1.f));
         positions_y.push_back(y + fmod(rand()/10000000.f, 1.f));
         velocities_x.push_back(0);
         velocities_y.push_back(0);
-        types.push_back(fmod(t - 'a' + i, behavior_manager.particle_type_count) + 'a');
+        types.push_back(fmod(t + i, behavior_manager.particle_type_count));
         handle_out_of_bounds(particle_count-1);
     }
 }
 
 void ParticleSimulator::spawn_particle(float x, float y, size_t count) {
-    spawn_particle(x, y, count,rand() % behavior_manager.particle_type_count + 'a');
+    spawn_particle(x, y, count,rand() % behavior_manager.particle_type_count);
 }
 
 void ParticleSimulator::delete_particle(size_t id) {
@@ -219,4 +217,15 @@ void ParticleSimulator::resize_cells(unsigned short size) {
     cell_size = size;
     cell_count_x = ceil(static_cast<float>(width)/cell_size);
     cell_count_y = ceil(static_cast<float>(height)/cell_size);
+}
+
+void ParticleSimulator::set_particle_type_count(int n) {
+    if (n == behavior_manager.particle_type_count) return;
+    if (n <= 0) {
+        n = 1;
+    };
+    behavior_manager.resize_matrix(n);
+    for (size_t i = 0; i < particle_count; i++) {
+        types[i] = rand() % n;
+    }
 }

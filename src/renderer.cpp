@@ -48,10 +48,10 @@ void renderer::handle_events(const double *deltaTime) {
                 particle_simulator.behavior_manager.randomize_matrix();
             }
             if (spacePressed->code == sf::Keyboard::Key::E) {
-                particle_simulator.behavior_manager.resize_matrix(particle_simulator.behavior_manager.particle_type_count + 1);
+                particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count + 1);
             }
             if (spacePressed->code == sf::Keyboard::Key::D) {
-                particle_simulator.behavior_manager.resize_matrix(particle_simulator.behavior_manager.particle_type_count - 1);
+                particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count - 1);
             }
         }
 

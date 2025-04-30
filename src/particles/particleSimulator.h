@@ -22,7 +22,7 @@ public: // May make it private and add getters and setters later (OOP)
     std::vector<float> positions_y;
     std::vector<float> velocities_x;
     std::vector<float> velocities_y;
-    std::vector<unsigned char> types;
+    std::vector<unsigned short> types;
     std::vector<std::vector<std::vector<size_t>>> particle_grid;
     behaviorManager behavior_manager;
 
@@ -62,10 +62,11 @@ public:
     bool does_cell_exist(size_t x, size_t y);
     std::vector<size_t>& get_particles_in_cell(int x, int y);
 
-    void spawn_particle(float x, float y, size_t count, unsigned char t);
+    void spawn_particle(float x, float y, size_t count, unsigned short t);
     void spawn_particle(float x, float y, size_t count = 1);
     void delete_particle(size_t id);
     void set_particle_count(int n); // Chooses random particles to delete/spawn
+    void set_particle_type_count(int n);
 
     void resize_cells(unsigned short size);
     // Getters, setters
