@@ -6,7 +6,7 @@ using namespace std;
 renderer::renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
     particle_simulator(width, height, 25, 1000, &physics_timestamp),
-    window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close),
+    window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize),
     camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize()))
 {
     window.setFramerateLimit(render_fps_limit);
@@ -43,6 +43,15 @@ void renderer::handle_events(const double *deltaTime) {
             }
             if (spacePressed->code == sf::Keyboard::Key::Q) {
                 particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 100);
+            }
+            if (spacePressed->code == sf::Keyboard::Key::R) {
+                particle_simulator.behavior_manager.randomize_matrix();
+            }
+            if (spacePressed->code == sf::Keyboard::Key::E) {
+                particle_simulator.behavior_manager.resize_matrix(particle_simulator.behavior_manager.particle_type_count + 1);
+            }
+            if (spacePressed->code == sf::Keyboard::Key::D) {
+                particle_simulator.behavior_manager.resize_matrix(particle_simulator.behavior_manager.particle_type_count - 1);
             }
         }
 

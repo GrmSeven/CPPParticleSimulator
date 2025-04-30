@@ -35,7 +35,7 @@ public:
     void randomize_matrix() {
         for (size_t i = 0; i < particle_type_count; i++) {
             for (size_t j = 0; j < particle_type_count; j++) {
-                particle_interaction_matrix[i][j] = (rand() % 20)/10.f - 1;
+                particle_interaction_matrix[i][j] = (rand() % 5)/2.5f - 1;
             }
         }
     }
