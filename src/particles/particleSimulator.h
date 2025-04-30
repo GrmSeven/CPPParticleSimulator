@@ -28,7 +28,7 @@ public: // May make it private and add getters and setters later (OOP)
 
     bool is_space_wrapping_enabled = true;
     bool uses_particle_grid = true;
-    float terminal_velocity_strength = 0.5f;
+    float terminal_velocity_strength = 0.9f;
     float max_velocity = 1000.f;
     size_t attraction_formula_id = 0;
 
@@ -46,8 +46,10 @@ public: // May make it private and add getters and setters later (OOP)
     void clamp(size_t p);
     // Particle slow down
     void apply_terminal_velocity(size_t p);
-    // Pythagoros
+    // Hypot
     float calculate_distance(float x1, float y1, float x2, float y2);
+    // Particle mouse dragging
+    void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature);
 
 public:
     ParticleSimulator(unsigned short width, unsigned short height, unsigned short cell_size, size_t particle_count, double* delta)

@@ -136,6 +136,27 @@ float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float 
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
+void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature) {
+    // Attracts particles
+    for (size_t i = 0; i < particle_count; i++) {
+        sf::Vector2f normal = from - sf::Vector2f(positions_x[i], positions_y[i]);
+        float distance = normal.length();
+        normal = distance!=0 ? normal/distance : sf::Vector2f(0.f, 0.f);
+        if (paused) {
+            if (distance < radius) {
+                positions_x[i] += pow((radius - distance)/radius, drag_curvature) * (to.x - from.x);
+                positions_y[i] += pow((radius - distance)/radius, drag_curvature) * (to.y - from.y);
+                handle_out_of_bounds(i);
+            }
+        } else {
+            if (distance < radius) {
+                velocities_x[i] += normal.x * min(pow(radius - distance, 2.f), attraction_force);
+                velocities_y[i] += normal.y * min(pow(radius - distance, 2.f), attraction_force);
+                handle_out_of_bounds(i);
+            }
+        }
+    }
+}
 
 void ParticleSimulator::apply_terminal_velocity(size_t p) {
     float velocity_multiplier = behavior_manager.calculate_terminal_velocity_change(*delta, terminal_velocity_strength);

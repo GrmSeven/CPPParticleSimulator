@@ -21,9 +21,15 @@ public:
 private:
     sf::RenderWindow window;
     sf::Clock clock;
+    sf::Vector2f global_mouse_pos;
+    sf::Vector2f last_mouse_pos;
     Camera camera;
     double time{};
     bool is_focused = true;
+    bool particle_drag_enabled{};
+    float particle_drag_radius = 100.f;
+    bool draw_particle_grid = true;
+    bool draw_mouse_radius = true;
 
     void handle_events(const double *deltaTime);
     void render();

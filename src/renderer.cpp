@@ -19,8 +19,8 @@ void renderer::handle_events(const double *deltaTime) {
     window.setView(camera.view);
 
 
-    auto mouse_pos = sf::Mouse::getPosition(window);
-    sf::Vector2f global_mouse_pos = window.mapPixelToCoords(mouse_pos, window.getView());
+    sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
+    global_mouse_pos = window.mapPixelToCoords(sf::Vector2i(mouse_pos), window.getView());
 
     while (std::optional<sf::Event> event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
@@ -71,36 +71,38 @@ void renderer::handle_events(const double *deltaTime) {
             }
 
             // Particle spawning
-            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-            {
-                if (mouseButtonPressed->button == sf::Mouse::Button::Right)
-                {
+            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (mouseButtonPressed->button == sf::Mouse::Button::Right) {
                     particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
                 }
             }
 
 
             // // Particle dragging
-            // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-            // {
-            //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
-            //     {
-            //     }
-            // }
-            // if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
-            // {
-            //     if (mouseButtonPressed->button == sf::Mouse::Button::Left)
-            //     {
-            //     }
-            // }
+            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    particle_drag_enabled = true;
+                    last_mouse_pos = global_mouse_pos;
+                }
+            }
+            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
+                if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    particle_drag_enabled = false;
+                }
+            }
 
 
             camera.handle_events(event);
         }
     }
     if (is_focused) {
+        if (particle_drag_enabled) {
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 25.f, 1.f);
+            last_mouse_pos = global_mouse_pos;
+        }
         camera.update(window, *deltaTime);
     }
+
 }
 
 
@@ -113,7 +115,7 @@ void renderer::render() {
     // Particle rendering
     int vertex_count = 8;
     float p_radius = 2.f;
-
+    // Create particle shape preset
     sf::VertexArray particle_shape(sf::PrimitiveType::Triangles, 3*(vertex_count-2));
     for (int i = 0; i < vertex_count-2; i++) {
         float angle = (i+1) * 2 * M_PI / vertex_count;
@@ -122,6 +124,7 @@ void renderer::render() {
         particle_shape[i*3+1].position = sf::Vector2f(cos(angle) * p_radius, sin(angle) * p_radius);
         particle_shape[i*3+2].position = sf::Vector2f(cos(angle2) * p_radius, sin(angle2) * p_radius);
     }
+    // Draw particles
     sf::VertexArray particle_vertices(sf::PrimitiveType::Triangles, 3*(vertex_count-2)*particle_simulator.particle_count);
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
         sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
@@ -136,6 +139,22 @@ void renderer::render() {
         }
     }
     window.draw(particle_vertices);
+
+    // Draw grid
+    if (draw_particle_grid) {
+
+    }
+
+    // Draw circle around the mouse
+    if (draw_mouse_radius) {
+        sf::CircleShape mouse_circle(particle_drag_radius);
+        mouse_circle.setFillColor(sf::Color(0, 0, 0, 0));
+        mouse_circle.setOutlineThickness(1.0f);
+        mouse_circle.setOutlineColor(sf::Color(255, 255, 255));
+        mouse_circle.setPointCount(64);
+        mouse_circle.setPosition(global_mouse_pos - sf::Vector2f(particle_drag_radius, particle_drag_radius));
+        window.draw(mouse_circle);
+    }
 
     window.display();
 }
