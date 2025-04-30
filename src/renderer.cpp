@@ -17,8 +17,6 @@ renderer::renderer(unsigned short width, unsigned short height)
  */
 void renderer::handle_events(const double *deltaTime) {
     window.setView(camera.view);
-
-
     sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
     global_mouse_pos = window.mapPixelToCoords(sf::Vector2i(mouse_pos), window.getView());
 
@@ -106,9 +104,8 @@ void renderer::handle_events(const double *deltaTime) {
                     particle_drag_enabled = false;
                 }
             }
-
-
             camera.handle_events(event);
+            UI.handle_events(event);
         }
     }
     if (is_focused) {
@@ -182,6 +179,7 @@ void renderer::render() {
         window.draw(mouse_circle);
     }
 
+    UI.render();
     window.display();
 }
 

@@ -26,6 +26,8 @@ add_executable(main src/main.cpp
         src/gravityTable/Ctest.cpp
         src/gravityTable/gravityTable.cpp
         src/gravityTable/gravityTable.h
+        src/userInterface/UI.cpp
+        src/userInterface/UI.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

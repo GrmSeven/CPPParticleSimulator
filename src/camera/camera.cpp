@@ -4,7 +4,6 @@
 #include <iostream>
 #include <ostream>
 
-#include "../../cmake-build-debug/_deps/sfml-src/src/SFML/Window/InputImpl.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Window/Mouse.hpp"
