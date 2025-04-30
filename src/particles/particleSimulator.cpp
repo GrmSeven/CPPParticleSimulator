@@ -139,8 +139,17 @@ float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float 
 void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature) {
     // Attracts particles
     for (size_t i = 0; i < particle_count; i++) {
-        sf::Vector2f normal = from - sf::Vector2f(positions_x[i], positions_y[i]);
+        sf::Vector2f normal = utils::abs_mod(from - sf::Vector2f(positions_x[i], positions_y[i]), sf::Vector2f(width, height));
         float distance = normal.length();
+        if (is_space_wrapping_enabled) {
+            if (abs(normal.x) > width/2.f) {
+                normal.x -= utils::sign(normal.x) * width;
+            }
+            if (abs(normal.y) > height/2.f) {
+                normal.y -= utils::sign(normal.y) * height;
+            }
+            distance = normal.length();
+        }
         normal = distance!=0 ? normal/distance : sf::Vector2f(0.f, 0.f);
         if (paused) {
             if (distance < radius) {

@@ -33,6 +33,4 @@ private:
 
     void handle_events(const double *deltaTime);
     void render();
-
-
 };

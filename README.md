@@ -15,9 +15,6 @@ D- Decrease particle type count\
 R - Randomize type interaction matrix
 
 ### TODO:
-Bugs:
-- Particle dragging doesnt work with warping
-
 Important optimizations:
 - Multithreading
 

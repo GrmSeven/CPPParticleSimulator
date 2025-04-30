@@ -12,6 +12,10 @@ public:
         return fmod(fmod(a, b)+b, b);
     }
 
+    static sf::Vector2f abs_mod(const sf::Vector2f& a, const sf::Vector2f& b) {
+        return {abs_mod(a.x, b.x), abs_mod(a.y, b.y)};
+    }
+
     static int sign(float a) {
         return a>0 ? 1 : (a<0 ? -1 : 0);
     }
