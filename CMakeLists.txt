@@ -15,8 +15,6 @@ FetchContent_MakeAvailable(SFML)
 add_executable(main src/main.cpp
         src/renderer.cpp
         src/renderer.h
-        src/particles/particle.cpp
-        src/particles/particle.h
         src/utils.h
         src/particles/particleSimulator.cpp
         src/particles/particleSimulator.h

@@ -79,33 +79,6 @@ void renderer::handle_events(const double *deltaTime) {
         //     }
         // }
 
-        // Canvas zooming
-        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
-            if (mouseWheelScrolled->delta > 0) {
-                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
-                camera.mouse_smooth_zoom_set({ mouseWheelScrolled->position }, camera.wanted_zoom*camera.zoom_sensitivity);
-            } else {
-                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
-                camera.mouse_smooth_zoom_set({ mouseWheelScrolled->position }, camera.wanted_zoom/camera.zoom_sensitivity);
-            }
-        }
-
-        // Canvas dragging
-        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-        {
-            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
-            {
-                camera.prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
-                camera.is_dragging = true;
-            }
-        }
-        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
-        {
-            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
-            {
-                camera.is_dragging = false;
-            }
-        }
         camera.handle_events(event);
     }
     camera.update(window, *deltaTime);
@@ -119,7 +92,7 @@ void renderer::render() {
     window.clear();
 
     // Particle rendering
-    int vertex_count = 8;
+    int vertex_count = 4;
     float p_radius = 2.f;
     sf::VertexArray particle_vertices(sf::PrimitiveType::Triangles, 3*(vertex_count-2)*particle_simulator.particle_count);
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
