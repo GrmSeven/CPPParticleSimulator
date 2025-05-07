@@ -11,53 +11,58 @@ void ParticleSimulator::pre_process() {
         positions_y.push_back(rand() % height);
         velocities_x.push_back(0);
         velocities_y.push_back(0);
-        types.push_back(char(rand()%behavior_manager.particle_type_count)); // Later change to spawn random type
+        types.push_back(char(rand()%behavior_manager.particle_type_count));
     }
 }
 
 void ParticleSimulator::process() {
     if (!paused) {
-        // If game is unpaused
-        handle_particle_velocity();
+        if (uses_particle_grid) prepare_grid();
+
+        for (size_t p_id = 0; p_id < particle_count; p_id++) { // Multiple for loops are very important
+            if (uses_particle_grid) generate_grid(p_id);
+        }
+
+        for (size_t p_id = 0; p_id < particle_count; p_id++) {
+            if (!uses_terminal_velocity) apply_terminal_velocity(p_id, 1.f);
+            handle_particle_velocity(p_id);
+            if (uses_terminal_velocity) apply_terminal_velocity(p_id, terminal_velocity_strength);
+        }
+
         for (size_t p_id = 0; p_id < particle_count; p_id++) {
             update_particle_position(p_id);
-            apply_terminal_velocity(p_id);
             handle_out_of_bounds(p_id);
         }
     }
 }
 
-void ParticleSimulator::handle_particle_velocity() {
+void ParticleSimulator::handle_particle_velocity(size_t p_id) {
     if (uses_particle_grid) {
-        generate_grid();
-        for (size_t p_id = 0; p_id < particle_count; p_id++) { // Hash the distance later
-            std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
+        std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
 
-            int cell_radius = ceil(interaction_radius/cell_size);
-            int cell_margin_l = -cell_radius + cell.first;
-            int cell_margin_r = cell_radius + cell.first;
-            int cell_margin_u = -cell_radius + cell.second;
-            int cell_margin_d = cell_radius + cell.second;
-            cell_margin_l -= (cell_margin_l < 0) ? 1 : 0;
-            cell_margin_r += (cell_margin_r > cell_count_x) ? 1 : 0;
-            cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
-            cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
-            for (int x = cell_margin_l; x <= cell_margin_r; x++) {
-                for (int y = cell_margin_u; y <= cell_margin_d; y++) {
-                    for (auto& p2_id : get_particles_in_cell(x, y)) {
-                        int shift_x = floor(static_cast<float>(x)/cell_count_x);
-                        int shift_y = floor(static_cast<float>(y)/cell_count_y);
-                        update_particle_velocity(p_id, p2_id, shift_x, shift_y);
-                    }
+        int cell_radius = ceil(interaction_radius/cell_size);
+        int cell_margin_l = -cell_radius + cell.first;
+        int cell_margin_r = cell_radius + cell.first;
+        int cell_margin_u = -cell_radius + cell.second;
+        int cell_margin_d = cell_radius + cell.second;
+        cell_margin_l -= (cell_margin_l < 0) ? 1 : 0;
+        cell_margin_r += (cell_margin_r > cell_count_x) ? 1 : 0;
+        cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
+        cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
+
+        for (int x = cell_margin_l; x <= cell_margin_r; x++) {
+            for (int y = cell_margin_u; y <= cell_margin_d; y++) {
+                for (auto& p2_id : get_particles_in_cell(x, y)) {
+                    int shift_x = floor(static_cast<float>(x)/cell_count_x);
+                    int shift_y = floor(static_cast<float>(y)/cell_count_y);
+                    update_particle_velocity(p_id, p2_id, shift_x, shift_y);
                 }
             }
         }
-    } else { // Doesnt work with space wrapping
-        for (size_t p_id = 0; p_id < particle_count; p_id++) {
-            for (size_t p2_id = 0; p2_id < particle_count; p2_id++) {
-                if (p_id != p2_id) {
-                    update_particle_velocity(p_id, p2_id, 0, 0);
-                }
+    } else {
+        for (size_t p2_id = 0; p2_id < particle_count; p2_id++) {
+            if (p_id != p2_id) {
+                update_particle_velocity(p_id, p2_id, 0, 0);
             }
         }
     }
@@ -92,7 +97,7 @@ void ParticleSimulator::update_particle_position(size_t p) {
     positions_y[p] += velocities_y[p] * *delta;
 }
 
-void ParticleSimulator::generate_grid() {
+void ParticleSimulator::prepare_grid() {
     // Clears and resizes current particle_grid
     particle_grid.resize(cell_count_y);
     for (auto& y_vec : particle_grid) {
@@ -101,15 +106,12 @@ void ParticleSimulator::generate_grid() {
             x_vec = std::vector<size_t>();
         }
     }
+}
 
+void ParticleSimulator::generate_grid(size_t p_id) {
     // Adds particles into the grid
-    std::pair<size_t, size_t> cell;
-    for (size_t p_id = 0; p_id < particle_count; p_id++) {
-        cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
-        // cout << positions_x[p_id] << ":" << positions_y[p_id] << " " << cell.first << " " << cell.second << endl;
-        particle_grid[cell.second][cell.first].push_back(p_id);
-    }
-
+    std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
+    particle_grid[cell.second][cell.first].push_back(p_id);
 }
 
 void ParticleSimulator::handle_out_of_bounds(size_t id) {
@@ -139,7 +141,10 @@ float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float 
 void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature) {
     // Attracts particles
     for (size_t i = 0; i < particle_count; i++) {
-        sf::Vector2f normal = utils::abs_mod(from - sf::Vector2f(positions_x[i], positions_y[i]), sf::Vector2f(width, height));
+        sf::Vector2f normal = from - sf::Vector2f(positions_x[i], positions_y[i]);
+        if (is_space_wrapping_enabled) {
+            normal = utils::abs_mod(normal, sf::Vector2f(width, height));
+        }
         float distance = normal.length();
         if (is_space_wrapping_enabled) {
             if (abs(normal.x) > width/2.f) {
@@ -167,8 +172,8 @@ void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float
     }
 }
 
-void ParticleSimulator::apply_terminal_velocity(size_t p) {
-    float velocity_multiplier = behavior_manager.calculate_terminal_velocity_change(*delta, terminal_velocity_strength);
+void ParticleSimulator::apply_terminal_velocity(size_t p, float strength) {
+    float velocity_multiplier = behavior_manager.calculate_terminal_velocity_change(*delta, strength);
     velocities_x[p] *= velocity_multiplier;
     velocities_y[p] *= velocity_multiplier;
 }

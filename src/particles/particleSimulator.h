@@ -28,16 +28,18 @@ public: // May make it private and add getters and setters later (OOP)
 
     bool is_space_wrapping_enabled = true;
     bool uses_particle_grid = true;
+    bool uses_terminal_velocity = true;
     float terminal_velocity_strength = 0.9f;
     float max_velocity = 1000.f;
+    float force_multiplier = 1.f;
     size_t attraction_formula_id = 0;
-
 
     std::vector<size_t> empty_vec = {};
 
-    void generate_grid();
+    void prepare_grid();
+    void generate_grid(size_t p_id);
     // Particle velocity
-    void handle_particle_velocity();
+    void handle_particle_velocity(size_t p_id);
     void update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y);
     void update_particle_position(size_t p);
     // Particle out of bounds behavior
@@ -45,7 +47,7 @@ public: // May make it private and add getters and setters later (OOP)
     void wrap_around(size_t p);
     void clamp(size_t p);
     // Particle slow down
-    void apply_terminal_velocity(size_t p);
+    void apply_terminal_velocity(size_t p, float strength);
     // Hypot
     float calculate_distance(float x1, float y1, float x2, float y2);
     // Particle mouse dragging

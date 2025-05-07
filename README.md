@@ -27,3 +27,4 @@ Less optimizations:
 - Optimizing calculations (using DistanceSquared, pointers)
 - Quadtree
 - Hashing of curves
+- Particle simulation distance hashing
