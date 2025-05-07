@@ -13,7 +13,7 @@ public: // May make it private and add getters and setters later (OOP)
     unsigned short cell_size = 25;
     unsigned short cell_count_x;
     unsigned short cell_count_y;
-    double* delta;
+    float* delta;
 
     float interaction_radius = 50;
     size_t particle_count = 1000;;
@@ -54,7 +54,7 @@ public: // May make it private and add getters and setters later (OOP)
     void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature);
 
 public:
-    ParticleSimulator(unsigned short width, unsigned short height, double* delta)
+    ParticleSimulator(unsigned short width, unsigned short height, float* delta)
         : width(width), height(height), delta(delta) {
         pre_process();
     }

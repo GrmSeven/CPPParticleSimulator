@@ -11,7 +11,6 @@ public:
     unsigned short width, height;
     unsigned int fps_limit = 60;
     float delta{};
-    double physics_timestamp;
     ParticleSimulator particle_simulator;
     explicit Renderer(unsigned short width = 1280, unsigned short height = 720);
     void run();

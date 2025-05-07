@@ -17,6 +17,8 @@ R - Randomize type interaction matrix
 ### TODO:
 Important optimizations:
 - Multithreading
+- Fix delta thing on drag by looking at pollEvent or adding multithreading
+- Set all input variables to false when focus is lost
 
 UI:
 - Max Velocity
