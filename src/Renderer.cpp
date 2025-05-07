@@ -4,18 +4,18 @@
 using namespace std;
 
 Renderer::Renderer(unsigned short width, unsigned short height)
-    : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
+    : physics_timestamp(1.0/fps_limit), width(width), height(height),
     particle_simulator(width, height, &physics_timestamp),
     window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize),
     camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize()))
 {
-    window.setFramerateLimit(render_fps_limit);
+    window.setFramerateLimit(fps_limit);
 }
 
 /**
  * For keyboard and mouse inputs
  */
-void Renderer::handle_events(const double *deltaTime) {
+void Renderer::handle_events() {
     window.setView(camera.view);
     sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
     global_mouse_pos = window.mapPixelToCoords(sf::Vector2i(mouse_pos), window.getView());
@@ -112,7 +112,7 @@ void Renderer::handle_events(const double *deltaTime) {
             particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 25.f, 1.f);
             last_mouse_pos = global_mouse_pos;
         }
-        camera.update(window, *deltaTime);
+        camera.update(window, delta);
     }
 
 }
@@ -183,26 +183,17 @@ void Renderer::render() {
 
 // Main loop
 void Renderer::run() {
-    physics_timestamp = 1.0/physics_fps_limit;
     // srand(0);
     while (window.isOpen()) {
-        double delta = clock.restart().asSeconds();
-        time += delta; // Fixed physics fps
-
-        handle_events(&delta);
-        if (time >= physics_timestamp) {
-            time -= physics_timestamp;
-            particle_simulator.process();
-        }
+        delta = clock.restart().asSeconds();
+        handle_events();
+        physics_timestamp = min(delta, static_cast<float>(1.0/fps_limit));
+        particle_simulator.process();
         render();
     }
 }
 
-void Renderer::set_render_fps_limit(unsigned char fps) {
-    render_fps_limit = fps;
+void Renderer::set_fps_limit(unsigned char fps) {
+    fps_limit = fps;
     window.setFramerateLimit(fps);
-}
-
-void Renderer::set_physics_fps_limit(unsigned char fps) {
-    physics_fps_limit = fps;
 }
