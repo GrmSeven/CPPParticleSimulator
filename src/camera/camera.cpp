@@ -69,7 +69,7 @@ void Camera::update(sf::RenderWindow& window, double deltaTime) {
 }
 
 void Camera::move_camera(float x, float y, double deltaTime) {
-    view.move(sf::Vector2f(x / zoom * deltaTime, y / zoom * deltaTime));
+    view.move(sf::Vector2f(x * zoom * deltaTime, y * zoom * deltaTime));
 }
 
 void Camera::mouse_smooth_zoom_set(sf::Vector2i pixel, float level) {
