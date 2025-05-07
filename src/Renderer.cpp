@@ -185,7 +185,6 @@ void Renderer::render() {
 void Renderer::run() {
     physics_timestamp = 1.0/physics_fps_limit;
     // srand(0);
-    particle_simulator.pre_process();
     while (window.isOpen()) {
         double delta = clock.restart().asSeconds();
         time += delta; // Fixed physics fps
@@ -194,7 +193,6 @@ void Renderer::run() {
         if (time >= physics_timestamp) {
             time -= physics_timestamp;
             particle_simulator.process();
-            // cout << 1.f/delta << endl;
         }
         render();
     }

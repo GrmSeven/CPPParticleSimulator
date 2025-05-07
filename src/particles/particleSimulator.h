@@ -55,7 +55,9 @@ public: // May make it private and add getters and setters later (OOP)
 
 public:
     ParticleSimulator(unsigned short width, unsigned short height, double* delta)
-        : width(width), height(height), delta(delta) {}
+        : width(width), height(height), delta(delta) {
+        pre_process();
+    }
 
     void pre_process();
     void process();
