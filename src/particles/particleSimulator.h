@@ -10,13 +10,13 @@ public: // May make it private and add getters and setters later (OOP)
     bool paused{};
     unsigned short width;
     unsigned short height;
-    unsigned short cell_size;
+    unsigned short cell_size = 25;
     unsigned short cell_count_x;
     unsigned short cell_count_y;
     double* delta;
 
     float interaction_radius = 50;
-    size_t particle_count{};
+    size_t particle_count = 1000;;
     size_t particle_type_count = 1;
     std::vector<float> positions_x;
     std::vector<float> positions_y;
@@ -54,10 +54,8 @@ public: // May make it private and add getters and setters later (OOP)
     void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature);
 
 public:
-    ParticleSimulator(unsigned short width, unsigned short height, unsigned short cell_size, size_t particle_count, double* delta)
-        : width(width), height(height), particle_count(particle_count), delta(delta) {
-        resize_cells(cell_size);
-    }
+    ParticleSimulator(unsigned short width, unsigned short height, double* delta)
+        : width(width), height(height), delta(delta) {}
 
     void pre_process();
     void process();

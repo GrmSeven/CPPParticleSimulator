@@ -6,6 +6,7 @@
 #include "behaviorManager.h"
 
 void ParticleSimulator::pre_process() {
+    resize_cells(cell_size);
     for (size_t i = 0; i < particle_count; i++) {
         positions_x.push_back(rand() % width);
         positions_y.push_back(rand() % height);
@@ -40,7 +41,7 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
     if (uses_particle_grid) {
         std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
 
-        int cell_radius = ceil(interaction_radius/cell_size);
+        int cell_radius = ceil(behavior_manager.interaction_radius/cell_size);
         int cell_margin_l = -cell_radius + cell.first;
         int cell_margin_r = cell_radius + cell.first;
         int cell_margin_u = -cell_radius + cell.second;
@@ -80,6 +81,7 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
         normal_y = (new_pos2_y - positions_y[p1]) / distance;
     }
     float force = behavior_manager.calculate_attraction(0, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
+    force *= force_multiplier;
     velocities_x[p1] += force * normal_x;
     velocities_y[p1] += force * normal_y;
 

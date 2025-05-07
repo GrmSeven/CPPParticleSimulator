@@ -23,6 +23,9 @@ public:
         {0, 0, 0, 0, 0, 0, 0.5, 1}
     };
 
+    float min_distance = 20.f;  // If particles are too close, then they repel slightly
+    float interaction_radius = 50.f;  // How far does the attraction persist
+
     void resize_matrix(size_t s) {
         if (particle_type_count == s) return;
         for (size_t i = 0; i < particle_type_count; i++) {
@@ -71,26 +74,22 @@ public:
 private:
     // Attraction formulas
     float calculate_attraction_life(float distance, float param) {
-        float r = 20; // If particles are too close, then they repel slightly
-        float m = 50; // How far does the attraction persist
-        if (distance < r) {
-            return (distance*distance-r*r)/r/5;
+        if (distance < min_distance) {
+            return (distance*distance-min_distance*min_distance)/min_distance/5;
         }
-        if (distance < m) {
-            float g = distance-r;
-            return ( -g*g + g*(m-r) )/( m-r )*param/5;
+        if (distance < interaction_radius) {
+            float g = distance-min_distance;
+            return ( -g*g + g*(interaction_radius-min_distance) )/( interaction_radius-min_distance )*param/5;
         }
         return 0.f;
     }
 
     float calculate_attraction_linear_life(float distance, float param) {
-        float r = 20;
-        float m = 50;
-        if (distance < r) {
-            return (distance - r)/5;
+        if (distance < min_distance) {
+            return (distance - min_distance)/5;
         }
-        if (distance < m) {
-            return param * ((m-r)/2.f - abs(distance - (m+r)/2.f))/5;
+        if (distance < interaction_radius) {
+            return param * ((interaction_radius-min_distance)/2.f - abs(distance - (interaction_radius+min_distance)/2.f))/5;
         }
         return 0.f;
     }

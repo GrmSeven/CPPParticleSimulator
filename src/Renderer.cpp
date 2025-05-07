@@ -5,7 +5,7 @@ using namespace std;
 
 Renderer::Renderer(unsigned short width, unsigned short height)
     : physics_timestamp(1.0/physics_fps_limit), width(width), height(height),
-    particle_simulator(width, height, 25, 1000, &physics_timestamp),
+    particle_simulator(width, height, &physics_timestamp),
     window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize),
     camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize()))
 {
