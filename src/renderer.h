@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "particles/particleSimulator.h"
 #include "camera/camera.h"
+#include "userInterface/userInterface.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ private:
     sf::RenderWindow window;
     sf::Clock clock;
     Camera camera;
+    UserInterface user_interface;
     sf::Vector2f global_mouse_pos;
     sf::Vector2f last_mouse_pos;
     bool is_focused = true;

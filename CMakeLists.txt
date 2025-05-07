@@ -13,8 +13,8 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(main src/main.cpp
-        src/renderer.cpp
-        src/renderer.h
+        src/Renderer.cpp
+        src/Renderer.h
         src/utils.h
         src/particles/particleSimulator.cpp
         src/particles/particleSimulator.h
@@ -26,6 +26,8 @@ add_executable(main src/main.cpp
         src/gravityTable/Ctest.cpp
         src/gravityTable/gravityTable.cpp
         src/gravityTable/gravityTable.h
+        src/userInterface/userInterface.cpp
+        src/userInterface/userInterface.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

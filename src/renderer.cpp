@@ -1,4 +1,4 @@
-#include "Renderer.h"
+#include "renderer.h"
 #include <cmath>
 #include "camera/camera.h"
 using namespace std;
@@ -7,7 +7,8 @@ Renderer::Renderer(unsigned short width, unsigned short height)
     : width(width), height(height),
     particle_simulator(width, height, &delta),
     window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize),
-    camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize()))
+    camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize())),
+    user_interface(sf::Vector2f(window.getSize()))
 {
     window.setFramerateLimit(fps_limit);
 }
@@ -178,12 +179,17 @@ void Renderer::render() {
         window.draw(mouse_circle);
     }
 
+    // User interface
+    user_interface.render(window);
+
     window.display();
 }
 
 // Main loop
 void Renderer::run() {
-    // srand(0);
+    // Thread for rendering
+    // Thread for particle (copy settings from global settings -> run buffered methods -> particle simulation -> repeat)
+    // handle events (view and particle stuff save to global settings)
     while (window.isOpen()) {
         delta = clock.restart().asSeconds();
         handle_events();

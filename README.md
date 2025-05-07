@@ -15,15 +15,14 @@ D- Decrease particle type count\
 R - Randomize type interaction matrix
 
 ### TODO:
-Important optimizations:
-- Multithreading
-- Fix delta thing on drag by looking at pollEvent or adding multithreading
+Important:
+- Fix delta thing on drag by looking at pollEvent (probably redundant after multithreading)
 - Set all input variables to false when focus is lost
+- ~~Separate view events and particle events~~ Create callback buffer for particle events
+- Create separate settings class that gets updated during events, later when synced particle simulator will copy those over
 
-UI:
-- Max Velocity
-- Velocity check (sets velocity to zero AFTER it gets applied)
-- Max radius, Min radius
+- Multithreading
+- UI
 
 Less optimizations:
 - Optimizing calculations (using DistanceSquared, pointers)
