@@ -26,7 +26,7 @@ void Renderer::handle_events() {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
-        
+
         if (event->is<sf::Event::FocusLost>()) {
             is_focused = false;
             camera.is_dragging = false;
@@ -117,16 +117,17 @@ void Renderer::handle_events() {
 
             if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (mouseButton->button == sf::Mouse::Button::Left) {
-                    particle_drag_enabled = true;
-                    last_mouse_pos = global_mouse_pos;
                     user_interface.mouse_pressed(mouseButton->position);
                 }
             }
             if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
                 if (mouseButton->button == sf::Mouse::Button::Left) {
-                    particle_drag_enabled = false;
                     user_interface.mouse_released(mouseButton->position);
                 }
+            }
+
+            if (const auto* mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
+                user_interface.mouse_scrolled(mouseWheel->position, mouseWheel->delta);
             }
 
             camera.is_active = simulator_focused;

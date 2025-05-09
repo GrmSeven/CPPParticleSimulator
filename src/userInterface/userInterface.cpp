@@ -11,7 +11,9 @@ UserInterface::UserInterface(sf::Vector2f windowSize) {
     create_elements();
 }
 
-
+void UserInterface::create_elements() {
+    elements.push_back(new Element({0, 0}, {20, 30}));
+}
 
 void UserInterface::render(sf::RenderWindow& window) {
     window.setView(view);
@@ -43,10 +45,6 @@ void UserInterface::render(sf::RenderWindow& window) {
     window.draw(text);
 }
 
-void UserInterface::create_elements() {
-    elements.push_back(new Element({0, 0}, {20, 30}));
-}
-
 template <typename T>
 bool UserInterface::is_element_touching(Element* element, sf::Vector2<T> pos) {
     return element->contains(static_cast<sf::Vector2f>(pos));
@@ -60,15 +58,30 @@ Element* UserInterface::get_element_at(sf::Vector2i pos) {
 }
 
 void UserInterface::mouse_moved(sf::Vector2i pos) {
-    // cout << pos.x << " " << pos.y << endl;
     for (auto& element : elements) {
-
+        if (is_element_touching(element, pos)) {
+            if (is_mouse_held) {
+                Element* press_element = get_element_at(first_press_pos);
+                Element* release_element = get_element_at(pos);
+                if (release_element != nullptr) {
+                    if (press_element == release_element) {
+                        release_element->press();
+                    } else {
+                        release_element->hover();
+                    }
+                }
+            } else {
+                element->hover();
+            }
+        } else {
+            element->normal();
+        }
     }
-    get_element_at(pos)->mouse_over();
 }
 
 void UserInterface::mouse_pressed(sf::Vector2i pos) {
     first_press_pos = pos;
+    is_mouse_held = true;
     Element* press_element = get_element_at(first_press_pos);
     if (press_element != nullptr) {
         press_element->press();
@@ -76,10 +89,28 @@ void UserInterface::mouse_pressed(sf::Vector2i pos) {
 }
 
 void UserInterface::mouse_released(sf::Vector2i pos) {
+    is_mouse_held = false;
     Element* press_element = get_element_at(first_press_pos);
     Element* release_element = get_element_at(pos);
-    if (press_element == release_element && press_element != nullptr) {
-        press_element->click();
+    if (release_element != nullptr) {
+        if (press_element == release_element) {
+            release_element->hover();
+            release_element->click();
+        } else {
+            release_element->hover();
+        }
+    }
+}
+
+void UserInterface::mouse_scrolled(sf::Vector2i pos, float scroll_delta) {
+    Element* element = get_element_at(first_press_pos);
+    if (element != nullptr) {
+        element->hover();
+        if (scroll_delta > 0) {
+            element->scroll_down();
+        } else {
+            element->scroll_up();
+        }
     }
 }
 

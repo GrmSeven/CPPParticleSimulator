@@ -10,6 +10,7 @@ public:
     float sidebar_size = 200.f;
 
     sf::Vector2i first_press_pos;
+    bool is_mouse_held{};
 
     std::vector<Element*> elements;
 
@@ -24,6 +25,7 @@ public:
     void mouse_moved(sf::Vector2i pos);
     void mouse_pressed(sf::Vector2i pos);
     void mouse_released(sf::Vector2i pos);
+    void mouse_scrolled(sf::Vector2i pos, float scroll_delta);
 
     void resize(sf::Vector2f newWindowSize);
 };

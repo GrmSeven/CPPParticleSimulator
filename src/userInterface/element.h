@@ -23,18 +23,26 @@ public:
     }
 
     void normal() {
-        // rect.setFillColor(sf::Color(150, 150, 150));
+        rect.setFillColor(sf::Color(150, 150, 150));
     }
 
-    void mouse_over() {
-        // rect.setFillColor(sf::Color(150, 150, 150));
+    void hover() {
+        rect.setFillColor(sf::Color(200, 200, 200));
     }
 
     void press() {
-        // rect.setFillColor(sf::Color(50, 50, 50));
+        rect.setFillColor(sf::Color(50, 50, 50));
     }
 
     void click() {
         cout << "CLICK" << endl;
     };
+
+    void scroll_down() {
+        cout << "UP" << endl;
+    }
+
+    void scroll_up() {
+        cout << "DOWN" << endl;
+    }
 };
