@@ -14,29 +14,31 @@ Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : win
 }
 
 void Camera::handle_events(std::optional<sf::Event>& event) {
-    // Canvas zooming
-    if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
-        float scroll_delta = mouseWheelScrolled->delta;
-        if (scroll_delta > 0) {
-            // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
-            mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom/zoom_sensitivity);
-        } else {
-            // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
-            mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom*zoom_sensitivity);
+    if (is_active) {
+        // Canvas zooming
+        if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
+            float scroll_delta = mouseWheelScrolled->delta;
+            if (scroll_delta > 0) {
+                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
+                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom/zoom_sensitivity);
+            } else {
+                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
+                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom*zoom_sensitivity);
+            }
+        }
+
+        // Canvas dragging
+        if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+            if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
+            {
+                prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
+                is_dragging = true;
+            }
         }
     }
 
-    // Canvas dragging
-    if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-    {
-        if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
-        {
-            prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
-            is_dragging = true;
-        }
-    }
-    if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>())
-    {
+    // Dragging
+    if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
         if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
         {
             is_dragging = false;

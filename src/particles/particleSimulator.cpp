@@ -160,8 +160,8 @@ void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float
         normal = distance!=0 ? normal/distance : sf::Vector2f(0.f, 0.f);
         if (paused) {
             if (distance < radius) {
-                positions_x[i] += pow((radius - distance)/radius, drag_curvature) * (to.x - from.x) * *delta * 60.f;
-                positions_y[i] += pow((radius - distance)/radius, drag_curvature) * (to.y - from.y) * *delta * 60.f;
+                positions_x[i] += pow((radius - distance)/radius, drag_curvature) * (to.x - from.x);
+                positions_y[i] += pow((radius - distance)/radius, drag_curvature) * (to.y - from.y);
                 handle_out_of_bounds(i);
             }
         } else {

@@ -26,6 +26,7 @@ private:
     sf::Vector2f global_mouse_pos;
     sf::Vector2f last_mouse_pos;
     bool is_focused = true;
+    bool simulator_focused = false;
     bool particle_drag_enabled{};
     float particle_drag_radius = 100.f;
     bool draw_particle_grid = false;

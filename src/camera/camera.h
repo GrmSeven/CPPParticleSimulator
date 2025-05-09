@@ -13,6 +13,7 @@ public:
     sf::Vector2f windowSize;
     float zoom;
     float speed = 1000.f;
+    bool is_active = true;
 
     void handle_events(std::optional<sf::Event>& event);
     void update(sf::RenderWindow& window, double deltaTime);

@@ -2,44 +2,28 @@
 
 #include <iostream>
 #include <cmath>
-#include <regex>
 
 using namespace std;
 
 UserInterface::UserInterface(sf::Vector2f windowSize) {
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
+    create_elements();
 }
+
+
 
 void UserInterface::render(sf::RenderWindow& window) {
     window.setView(view);
-    mouse_pos = sf::Mouse::getPosition(window);
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-    {
-        if (!mouse_down) {
-            mouse_just_pressed = true;
-        } else {
-            mouse_just_pressed = false;
-        }
-        mouse_down = true;
-    } else {
-        if (mouse_down) {
-            mouse_just_relased = true;
-        } else {
-            mouse_just_relased = false;
-        }
-        mouse_down = false;
+
+    sf::RectangleShape sidebar;
+    sidebar.setSize({sidebar_size, view.getSize().y});
+    sidebar.setFillColor(sf::Color(20, 20, 20));
+    window.draw(sidebar);
+
+    for (auto& element : elements) {
+        element->draw(&window);
     }
-    if (mouse_just_pressed) { cout << "press" << endl;}
-    if (mouse_just_relased) { cout << "relase" << endl;}
-    // sf::RectangleShape rect;
-    // rect.setFillColor(sf::Color(20, 20, 20));
-    // rect.setSize(sf::Vector2f(200, 4000));
-    // window.draw(rect);
-
-
-
-
 
     // FPS counter
     sf::Font font("hih.ttf");
@@ -53,11 +37,50 @@ void UserInterface::render(sf::RenderWindow& window) {
 
     text.setPosition({view.getSize().x - text.getLocalBounds().size.x - 10.f, 0});
 
-
     text.setFillColor(sf::Color(255, 255, 255));
     text.setStyle(sf::Text::Bold);
 
     window.draw(text);
+}
+
+void UserInterface::create_elements() {
+    elements.push_back(new Element({0, 0}, {20, 30}));
+}
+
+template <typename T>
+bool UserInterface::is_element_touching(Element* element, sf::Vector2<T> pos) {
+    return element->contains(static_cast<sf::Vector2f>(pos));
+}
+
+Element* UserInterface::get_element_at(sf::Vector2i pos) {
+    for (auto& element : elements) {
+        if (is_element_touching(element, pos)) return element;
+    }
+    return nullptr;
+}
+
+void UserInterface::mouse_moved(sf::Vector2i pos) {
+    // cout << pos.x << " " << pos.y << endl;
+    for (auto& element : elements) {
+
+    }
+    get_element_at(pos)->mouse_over();
+}
+
+void UserInterface::mouse_pressed(sf::Vector2i pos) {
+    first_press_pos = pos;
+    Element* press_element = get_element_at(first_press_pos);
+    if (press_element != nullptr) {
+        press_element->press();
+    }
+}
+
+void UserInterface::mouse_released(sf::Vector2i pos) {
+    Element* press_element = get_element_at(first_press_pos);
+    Element* release_element = get_element_at(pos);
+    if (press_element == release_element && press_element != nullptr) {
+        press_element->click();
+    }
 }
 
 void UserInterface::resize(sf::Vector2f newWindowSize) {

@@ -20,11 +20,13 @@ void Renderer::handle_events() {
     window.setView(camera.view);
     sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
     global_mouse_pos = window.mapPixelToCoords(sf::Vector2i(mouse_pos), window.getView());
+    simulator_focused = mouse_pos.x > user_interface.sidebar_size;
 
     while (std::optional<sf::Event> event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             window.close();
         }
+        
         if (event->is<sf::Event::FocusLost>()) {
             is_focused = false;
             camera.is_dragging = false;
@@ -77,7 +79,7 @@ void Renderer::handle_events() {
                     draw_particle_grid = true;
                 }
             }
-            // Circle around mouse
+
             if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
                 if (keyRelased->code == sf::Keyboard::Key::LControl) {
                     draw_mouse_radius = false;
@@ -87,30 +89,52 @@ void Renderer::handle_events() {
                 }
             }
 
-            // Particle spawning
-            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                if (mouseButtonPressed->button == sf::Mouse::Button::Right) {
-                    particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
+            // Particle spawning/moving
+            if (simulator_focused) {
+                if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
+                    if (mouseButton->button == sf::Mouse::Button::Right) {
+                        particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
+                    }
                 }
-            }
 
-            // // Particle dragging
-            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-                if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
-                    particle_drag_enabled = true;
-                    last_mouse_pos = global_mouse_pos;
+                if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
+                    if (mouseButton->button == sf::Mouse::Button::Left) {
+                        particle_drag_enabled = true;
+                        last_mouse_pos = global_mouse_pos;
+                    }
                 }
             }
-            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
-                if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+            if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
+                if (mouseButton->button == sf::Mouse::Button::Left) {
                     particle_drag_enabled = false;
                 }
             }
+
+            // UI
+            if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
+                user_interface.mouse_moved(mouseMove->position);
+            }
+
+            if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (mouseButton->button == sf::Mouse::Button::Left) {
+                    particle_drag_enabled = true;
+                    last_mouse_pos = global_mouse_pos;
+                    user_interface.mouse_pressed(mouseButton->position);
+                }
+            }
+            if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
+                if (mouseButton->button == sf::Mouse::Button::Left) {
+                    particle_drag_enabled = false;
+                    user_interface.mouse_released(mouseButton->position);
+                }
+            }
+
+            camera.is_active = simulator_focused;
             camera.handle_events(event);
         }
     }
     if (is_focused) {
-        if (particle_drag_enabled) {
+        if (particle_drag_enabled && simulator_focused) {
             particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 25.f, 1.f);
             last_mouse_pos = global_mouse_pos;
         }
