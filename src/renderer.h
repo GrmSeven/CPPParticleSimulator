@@ -25,6 +25,7 @@ private:
     UserInterface user_interface;
     sf::Vector2f global_mouse_pos;
     sf::Vector2f last_mouse_pos;
+    sf::ContextSettings settings;
     bool is_focused = true;
     bool simulator_focused = false;
     bool particle_drag_enabled{};

@@ -7,7 +7,9 @@ class UserInterface {
 public:
     sf::View view;
     float fps_counter;
+    const sf::Font font;
     float sidebar_size = 200.f;
+    sf::Vector2i mouse_pos;
 
     sf::Vector2i first_press_pos;
     bool is_mouse_held{};

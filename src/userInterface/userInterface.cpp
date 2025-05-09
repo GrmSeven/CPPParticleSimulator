@@ -5,15 +5,15 @@
 
 using namespace std;
 
-UserInterface::UserInterface(sf::Vector2f windowSize) {
+UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf") {
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
     create_elements();
 }
 
 void UserInterface::create_elements() {
-    elements.push_back(new Element({0, 0}, {50, 30}));
-    elements.push_back(new Element({70, 0}, {50, 30}));
+    elements.push_back(new Element({20, 20}, {50, 30}));
+    elements.push_back(new Element({90, 20}, {50, 30}));
 }
 
 void UserInterface::render(sf::RenderWindow& window) {
@@ -22,16 +22,23 @@ void UserInterface::render(sf::RenderWindow& window) {
     // Sidebar
     sf::RectangleShape sidebar;
     sidebar.setSize({sidebar_size, view.getSize().y});
-    sidebar.setFillColor(sf::Color(20, 20, 20));
+    sidebar.setFillColor(sf::Color(15, 15, 15));
+    // sidebar.setOutlineColor(sf::Color(30, 30, 30));
+    // sidebar.setOutlineThickness(1);
     window.draw(sidebar);
 
     // Elements (Buttons and stuff)
     for (auto& element : elements) {
-        element->draw(&window);
+        if (!is_element_touching(element, mouse_pos)) {
+            element->draw(&window);
+        }
+    }
+    if (get_element_at(mouse_pos) != nullptr) {
+        get_element_at(mouse_pos)->draw(&window);
     }
 
+
     // FPS counter
-    sf::Font font("hih.ttf");
     sf::Text text(font);
 
     std::stringstream stream;
@@ -61,6 +68,7 @@ Element* UserInterface::get_element_at(sf::Vector2i pos) {
 }
 
 void UserInterface::mouse_moved(sf::Vector2i pos) {
+    mouse_pos = pos;
     for (auto& element : elements) {
         if (is_element_touching(element, pos)) {
             if (is_mouse_held) {
@@ -103,7 +111,6 @@ void UserInterface::mouse_released(sf::Vector2i pos, bool is_left) {
             } else {
                 release_element->click_right();
             }
-            first_press_pos = sf::Vector2i(-10000, -10000);
         } else {
             release_element->hover();
         }

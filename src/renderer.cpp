@@ -6,10 +6,13 @@ using namespace std;
 Renderer::Renderer(unsigned short width, unsigned short height)
     : width(width), height(height),
     particle_simulator(width, height, &delta),
-    window(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize),
-    camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(window.getSize())),
-    user_interface(sf::Vector2f(window.getSize()))
+    camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(width, height)),
+    user_interface(sf::Vector2f(width, height))
 {
+    settings.antiAliasingLevel = 8;
+
+    window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed, settings);
+
     window.setFramerateLimit(fps_limit);
 }
 

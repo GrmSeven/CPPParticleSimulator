@@ -35,3 +35,8 @@ Less optimizations:
 - Quadtree
 - Hashing of curves
 - Particle simulation distance hashing
+
+Color - float
+Checkbox - bool
+Number - float
+Text - enum
