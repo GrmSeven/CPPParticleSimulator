@@ -12,17 +12,20 @@ UserInterface::UserInterface(sf::Vector2f windowSize) {
 }
 
 void UserInterface::create_elements() {
-    elements.push_back(new Element({0, 0}, {20, 30}));
+    elements.push_back(new Element({0, 0}, {50, 30}));
+    elements.push_back(new Element({70, 0}, {50, 30}));
 }
 
 void UserInterface::render(sf::RenderWindow& window) {
     window.setView(view);
 
+    // Sidebar
     sf::RectangleShape sidebar;
     sidebar.setSize({sidebar_size, view.getSize().y});
     sidebar.setFillColor(sf::Color(20, 20, 20));
     window.draw(sidebar);
 
+    // Elements (Buttons and stuff)
     for (auto& element : elements) {
         element->draw(&window);
     }
@@ -79,7 +82,7 @@ void UserInterface::mouse_moved(sf::Vector2i pos) {
     }
 }
 
-void UserInterface::mouse_pressed(sf::Vector2i pos) {
+void UserInterface::mouse_pressed(sf::Vector2i pos, bool is_left) {
     first_press_pos = pos;
     is_mouse_held = true;
     Element* press_element = get_element_at(first_press_pos);
@@ -88,14 +91,19 @@ void UserInterface::mouse_pressed(sf::Vector2i pos) {
     }
 }
 
-void UserInterface::mouse_released(sf::Vector2i pos) {
+void UserInterface::mouse_released(sf::Vector2i pos, bool is_left) {
     is_mouse_held = false;
     Element* press_element = get_element_at(first_press_pos);
     Element* release_element = get_element_at(pos);
     if (release_element != nullptr) {
         if (press_element == release_element) {
             release_element->hover();
-            release_element->click();
+            if (is_left) {
+                release_element->click_left();
+            } else {
+                release_element->click_right();
+            }
+            first_press_pos = sf::Vector2i(-10000, -10000);
         } else {
             release_element->hover();
         }
@@ -103,7 +111,7 @@ void UserInterface::mouse_released(sf::Vector2i pos) {
 }
 
 void UserInterface::mouse_scrolled(sf::Vector2i pos, float scroll_delta) {
-    Element* element = get_element_at(first_press_pos);
+    Element* element = get_element_at(pos);
     if (element != nullptr) {
         element->hover();
         if (scroll_delta > 0) {

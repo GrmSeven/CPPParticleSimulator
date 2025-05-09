@@ -30,6 +30,8 @@ void Renderer::handle_events() {
         if (event->is<sf::Event::FocusLost>()) {
             is_focused = false;
             camera.is_dragging = false;
+            draw_particle_grid = false;
+            draw_mouse_radius = false;
         }
 
         if (event->is<sf::Event::FocusGained>()) {
@@ -117,12 +119,18 @@ void Renderer::handle_events() {
 
             if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (mouseButton->button == sf::Mouse::Button::Left) {
-                    user_interface.mouse_pressed(mouseButton->position);
+                    user_interface.mouse_pressed(mouseButton->position, true);
+                }
+                if (mouseButton->button == sf::Mouse::Button::Right) {
+                    user_interface.mouse_pressed(mouseButton->position, false);
                 }
             }
             if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
                 if (mouseButton->button == sf::Mouse::Button::Left) {
-                    user_interface.mouse_released(mouseButton->position);
+                    user_interface.mouse_released(mouseButton->position, true);
+                }
+                if (mouseButton->button == sf::Mouse::Button::Right) {
+                    user_interface.mouse_released(mouseButton->position, false);
                 }
             }
 
@@ -135,10 +143,11 @@ void Renderer::handle_events() {
         }
     }
     if (is_focused) {
-        if (particle_drag_enabled && simulator_focused) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 25.f, 1.f);
+        if (particle_drag_enabled) {
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 25.f, 0.f);
             last_mouse_pos = global_mouse_pos;
         }
+
         camera.update(window, delta);
     }
 

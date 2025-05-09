@@ -28,7 +28,7 @@ Important Multithreading:
 - Get events for view and in othe rthread with rendering change smoothly camera zoom
 
 Important UI:
-- Base button class
+- Button
 
 Less optimizations:
 - Optimizing calculations (using DistanceSquared, pointers)

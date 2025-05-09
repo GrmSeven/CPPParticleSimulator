@@ -34,9 +34,13 @@ public:
         rect.setFillColor(sf::Color(50, 50, 50));
     }
 
-    void click() {
-        cout << "CLICK" << endl;
+    void click_left() {
+        cout << "LMB" << endl;
     };
+
+    void click_right() {
+        cout << "RMB" << endl;
+    }
 
     void scroll_down() {
         cout << "UP" << endl;
