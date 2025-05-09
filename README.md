@@ -15,14 +15,20 @@ D- Decrease particle type count\
 R - Randomize type interaction matrix
 
 ### TODO:
-Important:
+Important Multithreading:
 - Fix delta thing on drag by looking at pollEvent (probably redundant after multithreading)
 - Set all input variables to false when focus is lost
 - ~~Separate view events and particle events~~ Create callback buffer for particle events
 - Create separate settings class that gets updated during events, later when synced particle simulator will copy those over
-
 - Multithreading
-- UI
+- Move particle rendering into particle simulator itself
+- Add visible border to the simulator
+
+- Separate events into view and particle. handle particle event first then 
+- Get events for view and in othe rthread with rendering change smoothly camera zoom
+
+Important UI:
+- Base button class
 
 Less optimizations:
 - Optimizing calculations (using DistanceSquared, pointers)

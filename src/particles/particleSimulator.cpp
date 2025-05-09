@@ -82,8 +82,8 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
     }
     float force = behavior_manager.calculate_attraction(0, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
     force *= force_multiplier;
-    velocities_x[p1] += force * normal_x;
-    velocities_y[p1] += force * normal_y;
+    velocities_x[p1] += force * normal_x * *delta * 60.f;
+    velocities_y[p1] += force * normal_y * *delta * 60.f;
 
     // Max velocity
     float curr_velocity = hypot(velocities_x[p1], velocities_y[p1]);
@@ -160,14 +160,14 @@ void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float
         normal = distance!=0 ? normal/distance : sf::Vector2f(0.f, 0.f);
         if (paused) {
             if (distance < radius) {
-                positions_x[i] += pow((radius - distance)/radius, drag_curvature) * (to.x - from.x);
-                positions_y[i] += pow((radius - distance)/radius, drag_curvature) * (to.y - from.y);
+                positions_x[i] += pow((radius - distance)/radius, drag_curvature) * (to.x - from.x) * *delta * 60.f;
+                positions_y[i] += pow((radius - distance)/radius, drag_curvature) * (to.y - from.y) * *delta * 60.f;
                 handle_out_of_bounds(i);
             }
         } else {
             if (distance < radius) {
-                velocities_x[i] += normal.x * min(pow(radius - distance, 2.f), attraction_force);
-                velocities_y[i] += normal.y * min(pow(radius - distance, 2.f), attraction_force);
+                velocities_x[i] += normal.x * min(pow(radius - distance, 2.f), attraction_force) * *delta * 60.f;
+                velocities_y[i] += normal.y * min(pow(radius - distance, 2.f), attraction_force) * *delta * 60.f;
                 handle_out_of_bounds(i);
             }
         }

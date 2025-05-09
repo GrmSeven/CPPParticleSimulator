@@ -39,6 +39,7 @@ void Renderer::handle_events() {
             width = resized->size.x;
             height = resized->size.y;
             camera.resize_window(sf::Vector2f(width, height));
+            user_interface.resize(sf::Vector2f(width, height));
         }
 
         if (is_focused) {
@@ -192,6 +193,13 @@ void Renderer::run() {
     // handle events (view and particle stuff save to global settings)
     while (window.isOpen()) {
         delta = clock.restart().asSeconds();
+        timer += delta;
+        if (timer >= 0.25f) {
+            timer -= 0.25f;
+            user_interface.fps_counter = round(10.f/delta)/10.f;
+        }
+        delta = min(delta, 1.f/30.f);
+
         handle_events();
         if (true) { // REMOVE AFTER ADDING THREADS // should check if window is being dragged by checking if pollEvent worked this frame
             particle_simulator.process();
