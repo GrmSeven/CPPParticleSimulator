@@ -15,23 +15,26 @@ public:
     }
 
     void update_shapes() override {
+        Element::update_shapes();
+
         text_string = value ? "" + label : "" + label;
 
-        sf::Vector2f shift = {position.x - 7 + size.y/2, position.y - 6 + size.y/2};
-        checkmark[0].position = {5 + shift.x, 7 + shift.y};
-        checkmark[1].position = {12 + shift.x, 0 + shift.y};
-        checkmark[2].position = {14 + shift.x, 2 + shift.y};
-        checkmark[3].position = {5 + shift.x, 11 + shift.y};
-        checkmark[4].position = {0 + shift.x, 6 + shift.y};
-        checkmark[5].position = {2 + shift.x, 4 + shift.y};
+        sf::Vector2f shift = {position.x - 6 + size.y/2, position.y - 5 + size.y/2};
+
+        checkmark[0].position = {4 + shift.x, 6 + shift.y};
+        checkmark[1].position = {10 + shift.x, 0 + shift.y};
+        checkmark[2].position = {11.5f + shift.x, 1.5f + shift.y};
+        checkmark[3].position = {4 + shift.x, 9 + shift.y};
+        checkmark[4].position = {0 + shift.x, 5 + shift.y};
+        checkmark[5].position = {1.5f + shift.x, 3.5f + shift.y};
+
         for (int i = 0; i < 6; i++) {
             if (value) {
-                checkmark[i].color = sf::Color::White;
+                checkmark[i].color = currentTextColor;
             } else {
                 checkmark[i].color = sf::Color::Transparent;
             }
         }
-        Element::update_shapes();
     }
 
     void draw(sf::RenderWindow* window) override {
@@ -41,7 +44,7 @@ public:
 
     void click_left() override {
         value = !value;
-        update_shapes();
         run_function();
+        update_shapes();
     }
 };

@@ -32,7 +32,7 @@ public:
 
         if (display_color) {
             float c = value / max_value * 255;
-            rect_1.setFillColor(buttonColor + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+            rect_1.setFillColor(currentButtonColor + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
         }
         Element::update_shapes();
     }
@@ -40,7 +40,7 @@ public:
     virtual void normal() {
         toolip_shown = false;
         float c = value / max_value * 255;
-        rect_1.setFillColor(buttonColor + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+        rect_1.setFillColor(currentButtonColor + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
     }
 
     virtual void hover() {
@@ -48,24 +48,25 @@ public:
             toolip_shown = true;
         }
         float c = value / max_value * 255;
-        rect_1.setFillColor(buttonColor + sf::Color(40, 40, 40) + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+        rect_1.setFillColor(currentButtonColor + sf::Color(40, 40, 40) + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
     }
 
     virtual void press() {
         float c = value / max_value * 255;
-        rect_1.setFillColor(buttonColor + sf::Color(80,80 ,80) + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+        rect_1.setFillColor(currentButtonColor + sf::Color(80,80 ,80) + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+        run_function();
     }
 
     void click_left() override {
         value = min(max_value, value + interval);
-        update_shapes();
         run_function();
+        update_shapes();
     }
 
     void click_right() override {
         value = max(min_value, value - interval);
-        update_shapes();
         run_function();
+        update_shapes();
     }
 
     void scroll_down() override {

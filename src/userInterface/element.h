@@ -16,6 +16,7 @@ public:
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
     bool text_centered;
+    bool disabled;
     string text_string = "aaA";
     string tooltip;
     function<void()> func;
@@ -33,6 +34,12 @@ public:
     sf::Color buttonColor = sf::Color(60, 60, 60);
     sf::Color tooltipColor = sf::Color(30, 30, 30);
     sf::Color tooltipOutlineColor = sf::Color(80, 80, 80);
+
+    sf::Color disabledColor = sf::Color(30, 30, 30);
+    sf::Color disabledTextColor = sf::Color(100, 100, 100);
+
+    sf::Color currentButtonColor = buttonColor;
+    sf::Color currentTextColor = textColor;
 
     Element(sf::Vector2f pos, sf::Vector2f size, function<void()> func = nullptr) : font("hih.ttf"), text(font), tooltip_text(font), func(func) {
         this->position = pos;
@@ -74,10 +81,18 @@ public:
         tooltip_box.setFillColor(tooltipColor);
         tooltip_box.setOutlineColor(tooltipOutlineColor);
         tooltip_box.setOutlineThickness(1);
+
+        if (disabled) {
+            currentButtonColor = disabledColor;
+            currentTextColor = disabledTextColor;
+        } else {
+            currentButtonColor = buttonColor;
+            currentTextColor = textColor;
+        }
+
     }
 
     virtual void draw(sf::RenderWindow* window) {
-        rect_1.setFillColor(rect_1.getFillColor());
         rect_2.setFillColor(rect_1.getFillColor());
         circle_1.setFillColor(rect_1.getFillColor());
         circle_2.setFillColor(rect_1.getFillColor());
@@ -103,7 +118,24 @@ public:
         }
     }
 
-    void run_function() const {
+
+    void disable() {
+        disable(!disabled);
+    }
+
+    void disable(bool state) {
+        disabled = state;
+        if (disabled) {
+            rect_1.setFillColor(disabledColor);
+            text.setFillColor(disabledTextColor);
+        } else {
+            rect_1.setFillColor(buttonColor);
+            text.setFillColor(textColor);
+        }
+        update_shapes();
+    }
+
+    virtual void run_function() {
         if (func != nullptr) {
             func();
         }
@@ -111,21 +143,27 @@ public:
 
     virtual void normal() {
         toolip_shown = false;
-        rect_1.setFillColor(buttonColor);
+        if (!disabled) {
+            rect_1.setFillColor(currentButtonColor);
+        }
     }
 
     virtual void hover() {
         if (!tooltip.empty()) {
             toolip_shown = true;
         }
-        rect_1.setFillColor(buttonColor + sf::Color(40, 40, 40));
+        if (!disabled) {
+            rect_1.setFillColor(currentButtonColor + sf::Color(40, 40, 40));
+        }
     }
 
     virtual void press() {
-        rect_1.setFillColor(buttonColor + sf::Color(80,80 ,80));
+        if (!disabled) {
+            rect_1.setFillColor(currentButtonColor + sf::Color(80, 80, 80));
+        }
     }
 
-    virtual void click_left() {};
+    virtual void click_left() { };
 
     virtual void click_right() {};
 

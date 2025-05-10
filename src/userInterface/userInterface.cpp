@@ -17,14 +17,16 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf") {
 }
 
 void UserInterface::create_elements() {
-    elements["test_check"] = new Checkbox({10, 10}, {30, 30}, "", true);
+    elements["test_check"] = new Checkbox({10, 10}, {20, 20}, "", true);
     elements["test_check_2"] = new Checkbox({56, 10}, {108, 30}, "     Aaa", true);
     elements["test_check_3"] = new Range({56, 60}, {108, 30}, true, true, 0, 0.5, -1, 1);
     elements["test_check_3"]->text_centered = true;
-    elements["test_check_3"]->update_shapes();
     elements["test_check_4"] = new Dropdown({56, 110}, {108, 30}, {"One", "Two", "Three", "Four", "Five", "Six", "Seven"});
-    elements["test_check_5"] = new Button({56, 160}, {108, 30}, "Button", [](){cout << "Button clicked." << endl;});
+    elements["test_check_5"] = new Button({56, 160}, {108, 30}, "Button", [this]{this->elements["test_check_2"]->disable();});
 
+    for (auto& element : elements) {
+        element.second->update_shapes();
+    }
 }
 
 void UserInterface::render(sf::RenderWindow& window) {
@@ -34,8 +36,8 @@ void UserInterface::render(sf::RenderWindow& window) {
     sf::RectangleShape sidebar;
     sidebar.setSize({sidebar_size, view.getSize().y});
     sidebar.setFillColor(sf::Color(15, 15, 15));
-    // sidebar.setOutlineColor(sf::Color(30, 30, 30));
-    // sidebar.setOutlineThickness(1);
+    sidebar.setOutlineColor(sf::Color(30, 30, 30));
+    sidebar.setOutlineThickness(1);
     window.draw(sidebar);
 
     // Elements (Buttons and stuff)
