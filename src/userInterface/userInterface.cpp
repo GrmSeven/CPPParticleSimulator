@@ -14,8 +14,8 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf") {
 }
 
 void UserInterface::create_elements() {
-    elements.push_back(new Checkbox({0, 0}, {30, 30}, "", true));
-    elements.push_back(new Checkbox({60, 20}, {120, 30}, " Mouse drag", false));
+    elements["test_check"] = new Checkbox({10, 10}, {36, 30}, "", true);
+    elements["test_check_2"] = new Checkbox({56, 10}, {108, 30}, " Wrapping", false);
 }
 
 void UserInterface::render(sf::RenderWindow& window) {
@@ -31,8 +31,8 @@ void UserInterface::render(sf::RenderWindow& window) {
 
     // Elements (Buttons and stuff)
     for (auto& element : elements) {
-        if (!is_element_touching(element, mouse_pos)) {
-            element->draw(&window);
+        if (!is_element_touching(element.second, mouse_pos)) {
+            element.second->draw(&window);
         }
     }
     if (get_element_at(mouse_pos) != nullptr) {
@@ -64,7 +64,7 @@ bool UserInterface::is_element_touching(Element* element, sf::Vector2<T> pos) {
 
 Element* UserInterface::get_element_at(sf::Vector2i pos) {
     for (auto& element : elements) {
-        if (is_element_touching(element, pos)) return element;
+        if (is_element_touching(element.second, pos)) return element.second;
     }
     return nullptr;
 }
@@ -72,7 +72,7 @@ Element* UserInterface::get_element_at(sf::Vector2i pos) {
 void UserInterface::mouse_moved(sf::Vector2i pos) {
     mouse_pos = pos;
     for (auto& element : elements) {
-        if (is_element_touching(element, pos)) {
+        if (is_element_touching(element.second, pos)) {
             if (is_mouse_held) {
                 Element* press_element = get_element_at(first_press_pos);
                 Element* release_element = get_element_at(pos);
@@ -84,10 +84,10 @@ void UserInterface::mouse_moved(sf::Vector2i pos) {
                     }
                 }
             } else {
-                element->hover();
+                element.second->hover();
             }
         } else {
-            element->normal();
+            element.second->normal();
         }
     }
 }

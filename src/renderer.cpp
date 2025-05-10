@@ -233,7 +233,7 @@ void Renderer::run() {
             timer -= 0.25f;
             user_interface.fps_counter = round(10.f/delta)/10.f;
         }
-        delta = min(delta, 1.f/30.f);
+        // delta = min(delta, 1.f/30.f); // Slows down the simulation
 
         handle_events();
         if (true) { // REMOVE AFTER ADDING THREADS // should check if window is being dragged by checking if pollEvent worked this frame

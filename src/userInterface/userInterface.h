@@ -15,7 +15,7 @@ public:
     sf::Vector2i first_press_pos;
     bool is_mouse_held{};
 
-    std::vector<Element*> elements;
+    std::map<string, Element*> elements;
 
     UserInterface(sf::Vector2f windowSize);
     void render(sf::RenderWindow& window);

@@ -17,7 +17,7 @@ public:
     string text_string;
     string tooltip;
 
-    int corner_r = 4;
+    float corner_r = 4;
     int text_size = 16;
     sf::RectangleShape rect_1;
     sf::RectangleShape rect_2;
@@ -43,19 +43,22 @@ public:
         rect_1.setPosition({position.x + corner_r, position.y});
         rect_2.setSize({size.x, size.y - 2 * corner_r});
         rect_2.setPosition({position.x, position.y + corner_r});
-        circle_1.setRadius(corner_r);
         circle_1.setPosition({position.x, position.y});
-        circle_2.setRadius(corner_r);
         circle_2.setPosition({position.x + size.x - corner_r * 2, position.y});
-        circle_3.setRadius(corner_r);
         circle_3.setPosition({position.x, position.y + size.y - corner_r * 2});
-        circle_4.setRadius(corner_r);
         circle_4.setPosition({position.x + size.x - corner_r * 2, position.y + size.y - corner_r * 2});
+        circle_1.setRadius(corner_r);
+        circle_2.setRadius(corner_r);
+        circle_3.setRadius(corner_r);
+        circle_4.setRadius(corner_r);
+        circle_1.setPointCount(16);
+        circle_2.setPointCount(16);
+        circle_3.setPointCount(16);
+        circle_4.setPointCount(16);
 
         text.setCharacterSize(text_size);
-        text.setString("LI");
         text.setString(text_string);
-        text.setPosition({position.x - 1 + (size.x - text.getLocalBounds().size.x)/2, position.y - 1 + (size.y - text.getLocalBounds().size.y)/2});
+        text.setPosition({position.x + (size.x - text.getLocalBounds().size.x)/2, position.y - 1 + (size.y - text.getLocalBounds().size.y)/2});
 
         tooltip_text.setCharacterSize(16);
         tooltip_text.setString(tooltip);
