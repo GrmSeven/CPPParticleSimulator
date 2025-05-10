@@ -14,8 +14,8 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf") {
 }
 
 void UserInterface::create_elements() {
-    elements["test_check"] = new Checkbox({10, 10}, {36, 30}, "", true);
-    elements["test_check_2"] = new Checkbox({56, 10}, {108, 30}, " Wrapping", false);
+    elements["test_check"] = new Checkbox({10, 10}, {30, 30}, "", true);
+    elements["test_check_2"] = new Checkbox({56, 10}, {108, 30}, "     Aaa", true);
 }
 
 void UserInterface::render(sf::RenderWindow& window) {

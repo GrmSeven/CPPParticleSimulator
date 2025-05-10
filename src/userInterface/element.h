@@ -14,7 +14,7 @@ public:
     sf::Text tooltip_text;
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
-    string text_string;
+    string text_string = "aaA";
     string tooltip;
 
     float corner_r = 4;
@@ -36,9 +36,9 @@ public:
         this->size = size;
         normal();
         update_shapes();
-    };
+    }
 
-    void update_shapes() {
+    virtual void update_shapes() {
         rect_1.setSize({size.x - 2 * corner_r, size.y});
         rect_1.setPosition({position.x + corner_r, position.y});
         rect_2.setSize({size.x, size.y - 2 * corner_r});
@@ -58,7 +58,7 @@ public:
 
         text.setCharacterSize(text_size);
         text.setString(text_string);
-        text.setPosition({position.x + (size.x - text.getLocalBounds().size.x)/2, position.y - 1 + (size.y - text.getLocalBounds().size.y)/2});
+        text.setPosition({position.x + (size.y - text.getLocalBounds().size.y)/2, position.y - 4 + (size.y - text.getLocalBounds().size.y)/2});
 
         tooltip_text.setCharacterSize(16);
         tooltip_text.setString(tooltip);
@@ -69,7 +69,7 @@ public:
         tooltip_box.setOutlineThickness(1);
     }
 
-    void draw(sf::RenderWindow* window) {
+    virtual void draw(sf::RenderWindow* window) {
         rect_1.setFillColor(rect_1.getFillColor());
         rect_2.setFillColor(rect_1.getFillColor());
         circle_1.setFillColor(rect_1.getFillColor());
