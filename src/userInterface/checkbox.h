@@ -15,18 +15,7 @@ public:
     }
 
     void update_shapes() override {
-        Element::update_shapes();
-        update_text();
-    }
-
-    void draw(sf::RenderWindow* window) override {
-        Element::draw(window);
-        window->draw(checkmark);
-    }
-
-    void update_text() {
         text_string = value ? "" + label : "" + label;
-        this->text.setString(text_string);
 
         sf::Vector2f shift = {position.x - 7 + size.y/2, position.y - 6 + size.y/2};
         checkmark[0].position = {5 + shift.x, 7 + shift.y};
@@ -42,11 +31,16 @@ public:
                 checkmark[i].color = sf::Color::Transparent;
             }
         }
+        Element::update_shapes();
+    }
 
+    void draw(sf::RenderWindow* window) override {
+        Element::draw(window);
+        window->draw(checkmark);
     }
 
     void click_left() override {
         value = !value;
-        update_text();
+        update_shapes();
     }
 };

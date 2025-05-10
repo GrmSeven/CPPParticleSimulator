@@ -37,6 +37,5 @@ Less optimizations:
 - Particle simulation distance hashing
 
 Color - float
-Checkbox - bool
 Number - float
 Text - enum

@@ -1,0 +1,76 @@
+#pragma once
+#include "Element.h"
+
+class Range : public Element {
+public:
+    float value;
+    bool display_color;
+    bool display_value;
+    float interval;
+    float min_value;
+    float max_value;
+
+    Range(sf::Vector2f pos, sf::Vector2f size, bool display_color, bool display_value, float default_value, float interval, float min_value, float max_value)
+        : Element(pos, size), value(default_value),
+    display_color(display_color), display_value(display_value), interval(interval), min_value(min_value), max_value(max_value)
+    {
+        update_shapes();
+    }
+
+    void update_shapes() override {
+        if (display_value) {
+            text_string = to_string(value);
+            while (!text_string.empty() && text_string.back() == '0') {
+                text_string.pop_back();
+            }
+            if (text_string.back() == '.') {
+                text_string.pop_back();
+            }
+        } else {
+            text_string = "";
+        }
+
+        if (display_color) {
+            float c = value / max_value * 255;
+            rect_1.setFillColor(buttonColor + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+        }
+        Element::update_shapes();
+    }
+
+    virtual void normal() {
+        toolip_shown = false;
+        float c = value / max_value * 255;
+        rect_1.setFillColor(buttonColor + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+    }
+
+    virtual void hover() {
+        if (!tooltip.empty()) {
+            toolip_shown = true;
+        }
+        float c = value / max_value * 255;
+        rect_1.setFillColor(buttonColor + sf::Color(40, 40, 40) + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+    }
+
+    virtual void press() {
+        float c = value / max_value * 255;
+        rect_1.setFillColor(buttonColor + sf::Color(80,80 ,80) + sf::Color(max(-c, 0.f), 0, max(c, 0.f)));
+    }
+
+    void click_left() override {
+        value = min(max_value, value + interval);
+        update_shapes();
+    }
+
+    void click_right() override {
+        value = max(min_value, value - interval);
+        update_shapes();
+    }
+
+    void scroll_down() override {
+        click_left();
+    }
+
+    void scroll_up() override {
+        click_right();
+    }
+};

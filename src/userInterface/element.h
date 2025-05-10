@@ -112,19 +112,11 @@ public:
         rect_1.setFillColor(buttonColor + sf::Color(80,80 ,80));
     }
 
-    virtual void click_left() {
-        cout << "LMB" << endl;
-    };
+    virtual void click_left() {};
 
-    virtual void click_right() {
-        cout << "RMB" << endl;
-    }
+    virtual void click_right() {};
 
-    virtual void scroll_down() {
-        cout << "UP" << endl;
-    }
+    virtual void scroll_down() {};
 
-    virtual void scroll_up() {
-        cout << "DOWN" << endl;
-    }
+    virtual void scroll_up() {};
 };
