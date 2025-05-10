@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "checkbox.h"
+
 using namespace std;
 
 UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf") {
@@ -12,8 +14,8 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf") {
 }
 
 void UserInterface::create_elements() {
-    elements.push_back(new Element({20, 20}, {50, 30}));
-    elements.push_back(new Element({90, 20}, {50, 30}));
+    elements.push_back(new Checkbox({0, 0}, {30, 30}, "", true));
+    elements.push_back(new Checkbox({60, 20}, {120, 30}, " Mouse drag", false));
 }
 
 void UserInterface::render(sf::RenderWindow& window) {

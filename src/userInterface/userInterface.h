@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "vector"
+#include <map>
 #include "element.h"
 
 class UserInterface {

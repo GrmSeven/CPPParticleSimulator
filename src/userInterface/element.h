@@ -10,16 +10,15 @@ public:
 
     using sf::FloatRect::FloatRect;
     sf::Font font;
+    sf::Text text;
     sf::Text tooltip_text;
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
+    string text_string;
     string tooltip;
-    bool rounded = true;
-    float min_width;
 
-    sf::RectangleShape rect;
-
-    int corner_r = 8;
+    int corner_r = 4;
+    int text_size = 16;
     sf::RectangleShape rect_1;
     sf::RectangleShape rect_2;
     sf::CircleShape circle_1;
@@ -32,29 +31,31 @@ public:
     sf::Color tooltipColor = sf::Color(30, 30, 30);
     sf::Color tooltipOutlineColor = sf::Color(80, 80, 80);
 
-    Element(sf::Vector2f pos, sf::Vector2f size) : font("hih.ttf"), tooltip_text(font) {
+    Element(sf::Vector2f pos, sf::Vector2f size) : font("hih.ttf"), text(font), tooltip_text(font) {
         this->position = pos;
         this->size = size;
-        this->min_width = size.x;
         normal();
+        update_shapes();
+    };
 
-        rect.setSize({size.x, size.y});
-        rect.setPosition({position.x, position.y});
-
-        rect_1.setSize({size.x - 2*corner_r, size.y});
+    void update_shapes() {
+        rect_1.setSize({size.x - 2 * corner_r, size.y});
         rect_1.setPosition({position.x + corner_r, position.y});
-        rect_2.setSize({size.x, size.y - 2*corner_r});
+        rect_2.setSize({size.x, size.y - 2 * corner_r});
         rect_2.setPosition({position.x, position.y + corner_r});
         circle_1.setRadius(corner_r);
         circle_1.setPosition({position.x, position.y});
         circle_2.setRadius(corner_r);
-        circle_2.setPosition({position.x + size.x - corner_r*2, position.y});
+        circle_2.setPosition({position.x + size.x - corner_r * 2, position.y});
         circle_3.setRadius(corner_r);
-        circle_3.setPosition({position.x, position.y + size.y - corner_r*2});
+        circle_3.setPosition({position.x, position.y + size.y - corner_r * 2});
         circle_4.setRadius(corner_r);
-        circle_4.setPosition({position.x + size.x - corner_r*2, position.y + size.y - corner_r*2});
+        circle_4.setPosition({position.x + size.x - corner_r * 2, position.y + size.y - corner_r * 2});
 
-
+        text.setCharacterSize(text_size);
+        text.setString("LI");
+        text.setString(text_string);
+        text.setPosition({position.x - 1 + (size.x - text.getLocalBounds().size.x)/2, position.y - 1 + (size.y - text.getLocalBounds().size.y)/2});
 
         tooltip_text.setCharacterSize(16);
         tooltip_text.setString(tooltip);
@@ -63,29 +64,24 @@ public:
         tooltip_box.setFillColor(tooltipColor);
         tooltip_box.setOutlineColor(tooltipOutlineColor);
         tooltip_box.setOutlineThickness(1);
-    };
-
-
+    }
 
     void draw(sf::RenderWindow* window) {
-        if (rounded) {
-            rect_1.setFillColor(rect.getFillColor());
-            rect_2.setFillColor(rect.getFillColor());
-            circle_1.setFillColor(rect.getFillColor());
-            circle_2.setFillColor(rect.getFillColor());
-            circle_3.setFillColor(rect.getFillColor());
-            circle_4.setFillColor(rect.getFillColor());
+        rect_1.setFillColor(rect_1.getFillColor());
+        rect_2.setFillColor(rect_1.getFillColor());
+        circle_1.setFillColor(rect_1.getFillColor());
+        circle_2.setFillColor(rect_1.getFillColor());
+        circle_3.setFillColor(rect_1.getFillColor());
+        circle_4.setFillColor(rect_1.getFillColor());
 
-            window->draw(rect_1);
-            window->draw(rect_2);
-            window->draw(circle_1);
-            window->draw(circle_2);
-            window->draw(circle_3);
-            window->draw(circle_4);
-        } else {
-            window->draw(rect);
-        }
+        window->draw(rect_1);
+        window->draw(rect_2);
+        window->draw(circle_1);
+        window->draw(circle_2);
+        window->draw(circle_3);
+        window->draw(circle_4);
 
+        window->draw(text);
 
         if (toolip_shown) {
             sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(*window));
@@ -97,35 +93,35 @@ public:
         }
     }
 
-    void normal() {
+    virtual void normal() {
         toolip_shown = false;
-        rect.setFillColor(buttonColor);
+        rect_1.setFillColor(buttonColor);
     }
 
-    void hover() {
+    virtual void hover() {
         if (!tooltip.empty()) {
             toolip_shown = true;
         }
-        rect.setFillColor(buttonColor + sf::Color(40, 40, 40));
+        rect_1.setFillColor(buttonColor + sf::Color(40, 40, 40));
     }
 
-    void press() {
-        rect.setFillColor(buttonColor + sf::Color(80,80 ,80));
+    virtual void press() {
+        rect_1.setFillColor(buttonColor + sf::Color(80,80 ,80));
     }
 
-    void click_left() {
+    virtual void click_left() {
         cout << "LMB" << endl;
     };
 
-    void click_right() {
+    virtual void click_right() {
         cout << "RMB" << endl;
     }
 
-    void scroll_down() {
+    virtual void scroll_down() {
         cout << "UP" << endl;
     }
 
-    void scroll_up() {
+    virtual void scroll_up() {
         cout << "DOWN" << endl;
     }
 };
