@@ -10,8 +10,8 @@ public:
     float min_value;
     float max_value;
 
-    Range(sf::Vector2f pos, sf::Vector2f size, bool display_color, bool display_value, float default_value, float interval, float min_value, float max_value)
-        : Element(pos, size), value(default_value),
+    Range(sf::Vector2f pos, sf::Vector2f size, bool display_color, bool display_value, float default_value, float interval, float min_value, float max_value, function<void()> func = nullptr)
+        : Element(pos, size, func), value(default_value),
     display_color(display_color), display_value(display_value), interval(interval), min_value(min_value), max_value(max_value)
     {
         update_shapes();
@@ -59,11 +59,13 @@ public:
     void click_left() override {
         value = min(max_value, value + interval);
         update_shapes();
+        run_function();
     }
 
     void click_right() override {
         value = max(min_value, value - interval);
         update_shapes();
+        run_function();
     }
 
     void scroll_down() override {

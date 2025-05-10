@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <SFML/Graphics/Rect.hpp>
 #include "SFML/Graphics/RenderWindow.hpp"
 #include <iostream>
@@ -14,8 +15,10 @@ public:
     sf::Text tooltip_text;
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
+    bool text_centered;
     string text_string = "aaA";
     string tooltip;
+    function<void()> func;
 
     float corner_r = 4;
     int text_size = 16;
@@ -31,7 +34,7 @@ public:
     sf::Color tooltipColor = sf::Color(30, 30, 30);
     sf::Color tooltipOutlineColor = sf::Color(80, 80, 80);
 
-    Element(sf::Vector2f pos, sf::Vector2f size) : font("hih.ttf"), text(font), tooltip_text(font) {
+    Element(sf::Vector2f pos, sf::Vector2f size, function<void()> func = nullptr) : font("hih.ttf"), text(font), tooltip_text(font), func(func) {
         this->position = pos;
         this->size = size;
         normal();
@@ -58,7 +61,11 @@ public:
 
         text.setCharacterSize(text_size);
         text.setString(text_string);
-        text.setPosition({position.x + (size.y - text.getLocalBounds().size.y)/2, position.y - 4 + (size.y - text.getLocalBounds().size.y)/2});
+        if (text_centered) {
+            text.setPosition({position.x + (size.x - text.getLocalBounds().size.x)/2, position.y - 4 + (size.y - text.getLocalBounds().size.y)/2});
+        } else {
+            text.setPosition({position.x + (size.y - text.getLocalBounds().size.y)/2, position.y - 4 + (size.y - text.getLocalBounds().size.y)/2});
+        }
 
         tooltip_text.setCharacterSize(16);
         tooltip_text.setString(tooltip);
@@ -93,6 +100,12 @@ public:
 
             window->draw(tooltip_box);
             window->draw(tooltip_text);
+        }
+    }
+
+    void run_function() const {
+        if (func != nullptr) {
+            func();
         }
     }
 

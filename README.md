@@ -15,27 +15,21 @@ D- Decrease particle type count\
 R - Randomize type interaction matrix
 
 ### TODO:
-Important Multithreading:
-- Fix delta thing on drag by looking at pollEvent (probably redundant after multithreading)
-- Set all input variables to false when focus is lost
-- ~~Separate view events and particle events~~ Create callback buffer for particle events
-- Create separate settings class that gets updated during events, later when synced particle simulator will copy those over
-- Multithreading
+Multithreading preparation:
+- Create UI that stores data, later particle simulator will sync
+
+Threads:
+- Events + Camera updating + UI updating
+- Particle rendering + UI Rendering
+- Sync from UI -> Particle simulation
+
+Smaller improvements:
 - Move particle rendering into particle simulator itself
 - Add visible border to the simulator
+- Shift + scroll = resize brush
 
-- Separate events into view and particle. handle particle event first then 
-- Get events for view and in othe rthread with rendering change smoothly camera zoom
-
-Important UI:
-- Button
-
-Less optimizations:
+Smaller optimizations:
+- Use profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
 - Optimizing calculations (using DistanceSquared, pointers)
-- Quadtree
 - Hashing of curves
 - Particle simulation distance hashing
-
-Color - float
-Number - float
-Text - enum

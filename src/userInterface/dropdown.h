@@ -9,8 +9,8 @@ public:
     vector<string> values;
 
 
-    Dropdown(sf::Vector2f pos, sf::Vector2f size, vector<string> values)
-        : Element(pos, size), value(0), values(values) {
+    Dropdown(sf::Vector2f pos, sf::Vector2f size, vector<string> values, function<void()> func = nullptr)
+        : Element(pos, size, func), value(0), values(values) {
         update_shapes();
     }
 
@@ -23,12 +23,14 @@ public:
         value = value + 1;
         if (value > static_cast<int>(values.size())-1) value = 0;
         update_shapes();
+        run_function();
     }
 
     void click_right() override {
         value = value - 1;
         if (value < 0) value = static_cast<int>(values.size())-1;
         update_shapes();
+        run_function();
     }
 
     void scroll_down() override {
