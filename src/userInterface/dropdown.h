@@ -19,21 +19,23 @@ public:
         Element::update_shapes();
     }
 
-    void click_right() override {
-        value = min(static_cast<int>(values.size())-1, value + 1);
+    void click_left() override {
+        value = value + 1;
+        if (value > static_cast<int>(values.size())-1) value = 0;
         update_shapes();
     }
 
-    void click_left() override {
-        value = max(0, value - 1);
+    void click_right() override {
+        value = value - 1;
+        if (value < 0) value = static_cast<int>(values.size())-1;
         update_shapes();
     }
 
     void scroll_down() override {
-        click_left();
+        click_right();
     }
 
     void scroll_up() override {
-        click_right();
+        click_left();
     }
 };
