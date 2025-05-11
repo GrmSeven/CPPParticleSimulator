@@ -13,6 +13,7 @@ public:
     unsigned int fps_limit = 60;
     float delta{};
     float timer{};
+    bool fullscreen{};
     ParticleSimulator particle_simulator;
     Renderer();
     void run();

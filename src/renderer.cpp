@@ -82,6 +82,25 @@ void Renderer::handle_events() {
                 if (keyPressed->code == sf::Keyboard::Key::LAlt) {
                     draw_particle_grid = true;
                 }
+
+                // Fullscreen
+                if (keyPressed->code == sf::Keyboard::Key::F11) {
+                    window.close();
+                    fullscreen = !fullscreen;
+                    if (fullscreen) {
+                        window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().size), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Fullscreen);
+                    } else {
+                        window.create(sf::VideoMode({width, height}), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                    }
+                }
+
+                if (keyPressed->code == sf::Keyboard::Key::Escape) {
+                    if (fullscreen) {
+                        window.close();
+                        fullscreen = false;
+                        window.create(sf::VideoMode({width, height}), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                    }
+                }
             }
 
             if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
