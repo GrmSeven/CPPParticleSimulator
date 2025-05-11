@@ -7,6 +7,7 @@ class Dropdown : public Element {
 public:
     int value;
     vector<string> values;
+    bool wrapping;
 
 
     Dropdown(sf::Vector2f pos, sf::Vector2f size, vector<string> values, function<void()> func = nullptr)
@@ -21,14 +22,22 @@ public:
 
     void click_left() override {
         value = value + 1;
-        if (value > static_cast<int>(values.size())-1) value = 0;
+        if (wrapping) {
+            if (value > static_cast<int>(values.size())-1) value = 0;
+        } else {
+            value = min(value, static_cast<int>(values.size())-1);
+        }
         update_shapes();
         run_function();
     }
 
     void click_right() override {
         value = value - 1;
-        if (value < 0) value = static_cast<int>(values.size())-1;
+        if (wrapping) {
+            if (value < 0) value = static_cast<int>(values.size())-1;
+        } else {
+            value = max(value, 0);
+        }
         update_shapes();
         run_function();
     }

@@ -14,7 +14,7 @@ public:
     float delta{};
     float timer{};
     ParticleSimulator particle_simulator;
-    explicit Renderer(unsigned short width = 1280, unsigned short height = 720);
+    Renderer();
     void run();
     void set_fps_limit(unsigned char fps);
 

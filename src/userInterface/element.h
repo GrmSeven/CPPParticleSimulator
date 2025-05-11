@@ -22,7 +22,7 @@ public:
     function<void()> func;
 
     float corner_r = 4;
-    int text_size = 16;
+    int text_size = 12;
     sf::RectangleShape rect_1;
     sf::RectangleShape rect_2;
     sf::CircleShape circle_1;
@@ -69,12 +69,12 @@ public:
         text.setCharacterSize(text_size);
         text.setString(text_string);
         if (text_centered) {
-            text.setPosition({position.x + (size.x - text.getLocalBounds().size.x)/2, position.y - 4 + (size.y - text.getLocalBounds().size.y)/2});
+            text.setPosition({position.x + static_cast<int>(size.x - text.getLocalBounds().size.x)/2, position.y - 3 + static_cast<int>(size.y - text.getLocalBounds().size.y)/2});
         } else {
-            text.setPosition({position.x + (size.y - text.getLocalBounds().size.y)/2, position.y - 4 + (size.y - text.getLocalBounds().size.y)/2});
+            text.setPosition({position.x + static_cast<int>(size.y - text.getLocalBounds().size.y)/2, position.y - 3 + static_cast<int>(size.y - text.getLocalBounds().size.y)/2});
         }
 
-        tooltip_text.setCharacterSize(16);
+        tooltip_text.setCharacterSize(14);
         tooltip_text.setString(tooltip);
 
         tooltip_box.setSize(tooltip_text.getLocalBounds().size + sf::Vector2f(8, 8));

@@ -12,14 +12,20 @@ public:
     float sidebar_size = 200.f;
     sf::Vector2i mouse_pos;
 
+    sf::Color background_color = sf::Color(15, 15, 15);
+    sf::Color line_color = sf::Color(40, 40, 40);
+
     sf::Vector2i first_press_pos;
     bool is_mouse_held{};
 
     std::map<string, Element*> elements;
+    vector<sf::Text> details;
+    sf::VertexArray lines;
 
     UserInterface(sf::Vector2f windowSize);
     void render(sf::RenderWindow& window);
 
+    void add_line(int i, int x);
     void create_elements();
 
     template <typename T>

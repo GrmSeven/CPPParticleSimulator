@@ -3,12 +3,13 @@
 #include "camera/camera.h"
 using namespace std;
 
-Renderer::Renderer(unsigned short width, unsigned short height)
-    : width(width), height(height),
+Renderer::Renderer()
+    : width(sf::VideoMode::getDesktopMode().size.x*0.9), height(sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1),
     particle_simulator(width, height, &delta),
     camera(1.f, sf::Vector2f(0, 0), sf::Vector2f(width, height)),
     user_interface(sf::Vector2f(width, height))
 {
+    // width = ;
     settings.antiAliasingLevel = 4;
     window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed, settings);
     window.setFramerateLimit(fps_limit);
