@@ -1,4 +1,5 @@
 #pragma once
+#include <any>
 #include <functional>
 #include <SFML/Graphics/Rect.hpp>
 #include "SFML/Graphics/RenderWindow.hpp"
@@ -17,9 +18,11 @@ public:
     bool toolip_shown;
     bool text_centered;
     bool disabled;
-    string text_string = "aaA";
+    string text_string;
     string tooltip;
     function<void()> func;
+    float value;
+    sf::Vector2i mouse_pos;
 
     float corner_r = 4;
     int text_size = 12;
@@ -49,22 +52,27 @@ public:
     }
 
     virtual void update_shapes() {
-        rect_1.setSize({size.x - 2 * corner_r, size.y});
-        rect_1.setPosition({position.x + corner_r, position.y});
-        rect_2.setSize({size.x, size.y - 2 * corner_r});
-        rect_2.setPosition({position.x, position.y + corner_r});
-        circle_1.setPosition({position.x, position.y});
-        circle_2.setPosition({position.x + size.x - corner_r * 2, position.y});
-        circle_3.setPosition({position.x, position.y + size.y - corner_r * 2});
-        circle_4.setPosition({position.x + size.x - corner_r * 2, position.y + size.y - corner_r * 2});
-        circle_1.setRadius(corner_r);
-        circle_2.setRadius(corner_r);
-        circle_3.setRadius(corner_r);
-        circle_4.setRadius(corner_r);
-        circle_1.setPointCount(16);
-        circle_2.setPointCount(16);
-        circle_3.setPointCount(16);
-        circle_4.setPointCount(16);
+        if (corner_r > 0) {
+            rect_1.setSize({size.x - 2 * corner_r, size.y});
+            rect_1.setPosition({position.x + corner_r, position.y});
+            rect_2.setSize({size.x, size.y - 2 * corner_r});
+            rect_2.setPosition({position.x, position.y + corner_r});
+            circle_1.setPosition({position.x, position.y});
+            circle_2.setPosition({position.x + size.x - corner_r * 2, position.y});
+            circle_3.setPosition({position.x, position.y + size.y - corner_r * 2});
+            circle_4.setPosition({position.x + size.x - corner_r * 2, position.y + size.y - corner_r * 2});
+            circle_1.setRadius(corner_r);
+            circle_2.setRadius(corner_r);
+            circle_3.setRadius(corner_r);
+            circle_4.setRadius(corner_r);
+            circle_1.setPointCount(16);
+            circle_2.setPointCount(16);
+            circle_3.setPointCount(16);
+            circle_4.setPointCount(16);
+        } else {
+            rect_1.setSize({size.x, size.y});
+            rect_1.setPosition({position.x, position.y});
+        }
 
         text.setCharacterSize(text_size);
         text.setString(text_string);
@@ -73,14 +81,15 @@ public:
         } else {
             text.setPosition({position.x + static_cast<int>(size.y - text.getLocalBounds().size.y)/2, position.y - 3 + static_cast<int>(size.y - text.getLocalBounds().size.y)/2});
         }
+        if (text_string != "") {
+            tooltip_text.setCharacterSize(14);
+            tooltip_text.setString(tooltip);
 
-        tooltip_text.setCharacterSize(14);
-        tooltip_text.setString(tooltip);
-
-        tooltip_box.setSize(tooltip_text.getLocalBounds().size + sf::Vector2f(8, 8));
-        tooltip_box.setFillColor(tooltipColor);
-        tooltip_box.setOutlineColor(tooltipOutlineColor);
-        tooltip_box.setOutlineThickness(1);
+            tooltip_box.setSize(tooltip_text.getLocalBounds().size + sf::Vector2f(8, 8));
+            tooltip_box.setFillColor(tooltipColor);
+            tooltip_box.setOutlineColor(tooltipOutlineColor);
+            tooltip_box.setOutlineThickness(1);
+        }
 
         if (disabled) {
             currentButtonColor = disabledColor;
@@ -93,18 +102,22 @@ public:
     }
 
     virtual void draw(sf::RenderWindow* window) {
-        rect_2.setFillColor(rect_1.getFillColor());
-        circle_1.setFillColor(rect_1.getFillColor());
-        circle_2.setFillColor(rect_1.getFillColor());
-        circle_3.setFillColor(rect_1.getFillColor());
-        circle_4.setFillColor(rect_1.getFillColor());
+        if (corner_r > 0) {
+            rect_2.setFillColor(rect_1.getFillColor());
+            circle_1.setFillColor(rect_1.getFillColor());
+            circle_2.setFillColor(rect_1.getFillColor());
+            circle_3.setFillColor(rect_1.getFillColor());
+            circle_4.setFillColor(rect_1.getFillColor());
 
-        window->draw(rect_1);
-        window->draw(rect_2);
-        window->draw(circle_1);
-        window->draw(circle_2);
-        window->draw(circle_3);
-        window->draw(circle_4);
+            window->draw(rect_1);
+            window->draw(rect_2);
+            window->draw(circle_1);
+            window->draw(circle_2);
+            window->draw(circle_3);
+            window->draw(circle_4);
+        } else {
+            window->draw(rect_1);
+        }
 
         window->draw(text);
 
@@ -153,17 +166,17 @@ public:
             toolip_shown = true;
         }
         if (!disabled) {
-            rect_1.setFillColor(currentButtonColor + sf::Color(40, 40, 40));
+            rect_1.setFillColor(currentButtonColor + sf::Color(40, 40, 40, 0));
         }
     }
 
     virtual void press() {
         if (!disabled) {
-            rect_1.setFillColor(currentButtonColor + sf::Color(80, 80, 80));
+            rect_1.setFillColor(currentButtonColor + sf::Color(80, 80, 80, 0));
         }
     }
 
-    virtual void click_left() { };
+    virtual void click_left() { }
 
     virtual void click_right() {};
 

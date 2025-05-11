@@ -3,15 +3,15 @@
 
 class Checkbox : public Element {
 public:
-    bool value;
     std::string label;
     sf::VertexArray checkmark;
 
     Checkbox(sf::Vector2f pos, sf::Vector2f size, std::string text, bool default_value = false, function<void()> func = nullptr)
-        : Element(pos, size, func), value(default_value), label(text),
+        : Element(pos, size, func), label(text),
         checkmark(sf::PrimitiveType::TriangleFan, 6)
     {
-        update_shapes();
+        value = default_value;
+        Checkbox::update_shapes();
     }
 
     void update_shapes() override {

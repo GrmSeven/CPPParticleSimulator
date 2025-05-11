@@ -5,14 +5,13 @@
 
 class Dropdown : public Element {
 public:
-    int value;
     vector<string> values;
     bool wrapping;
 
 
     Dropdown(sf::Vector2f pos, sf::Vector2f size, vector<string> values, function<void()> func = nullptr)
-        : Element(pos, size, func), value(0), values(values) {
-        update_shapes();
+        : Element(pos, size, func), values(values) {
+        Dropdown::update_shapes();
     }
 
     void update_shapes() override {
@@ -25,7 +24,7 @@ public:
         if (wrapping) {
             if (value > static_cast<int>(values.size())-1) value = 0;
         } else {
-            value = min(value, static_cast<int>(values.size())-1);
+            value = min(static_cast<int>(value), static_cast<int>(values.size())-1);
         }
         update_shapes();
         run_function();
@@ -36,7 +35,7 @@ public:
         if (wrapping) {
             if (value < 0) value = static_cast<int>(values.size())-1;
         } else {
-            value = max(value, 0);
+            value = max(static_cast<int>(value), 0);
         }
         update_shapes();
         run_function();

@@ -3,6 +3,7 @@
 #include "vector"
 #include <map>
 #include "element.h"
+#include "matrix.h"
 
 class UserInterface {
 public:
@@ -18,7 +19,8 @@ public:
     sf::Vector2i first_press_pos;
     bool is_mouse_held{};
 
-    std::map<string, Element*> elements;
+    map<string, Element*> elements;
+    Matrix* matrix;
     vector<sf::Text> details;
     sf::VertexArray lines;
 

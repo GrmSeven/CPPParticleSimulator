@@ -7,6 +7,7 @@
 #include "range.h"
 #include "dropdown.h"
 #include "button.h"
+#include "matrix.h"
 
 using namespace std;
 
@@ -25,20 +26,21 @@ void UserInterface::create_elements() {
     sf::Text text_2(font, "Particle count", 12);
     text_2.setPosition({5, 25});
     details.push_back(text_2);
-    elements["particle_count"] = new Range({85, 23}, {62, 19}, false, true, 1000, 100, 0, 1000000);
+    elements["particle_count"] = new Range({85, 23}, {62, 19}, 1000, 100, 0, 1000000);
 
     sf::Text text_3(font, "Particle types", 12);
     text_3.setPosition({5, 45});
     details.push_back(text_3);
-    elements["particle_types"] = new Range({85, 43}, {62, 19}, false, true, 8, 1, 1, 100);
+    elements["particle_types"] = new Range({85, 43}, {62, 19}, 8, 1, 1, 20, [this]{this->matrix->resize_matrix(this->elements["particle_types"]->value);});
 
     // Matrix
+    matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.2, -1, 1);
 
     // Randomize button, reset button
     // OR
     // Action: Dropdown with (Randomize, Reset, ) and button Apply
 
-    add_line(0, 265);
+    add_line(0, 285);
 
     // sf::Text text_4(font, "Mouse", 14);
     // text_4.setPosition({5, 70});
@@ -140,6 +142,7 @@ void UserInterface::render(sf::RenderWindow& window) {
     window.draw(sidebar);
 
     // Elements (Buttons and stuff)
+    matrix->draw(&window);
     for (auto& element : elements) {
         if (!is_element_touching(element.second, mouse_pos)) {
             element.second->draw(&window);
@@ -183,6 +186,7 @@ Element* UserInterface::get_element_at(sf::Vector2i pos) {
     for (auto& element : elements) {
         if (is_element_touching(element.second, pos)) return element.second;
     }
+    if (is_element_touching(matrix, pos)) return matrix;
     return nullptr;
 }
 
@@ -207,6 +211,26 @@ void UserInterface::mouse_moved(sf::Vector2i pos) {
             element.second->normal();
         }
     }
+
+    if (matrix) {
+        if (is_element_touching(matrix, pos)) {
+            if (is_mouse_held) {
+                Element* press_element = get_element_at(first_press_pos);
+                Element* release_element = get_element_at(pos);
+                if (release_element != nullptr) {
+                    if (press_element == release_element) {
+                        release_element->press();
+                    } else {
+                        release_element->hover();
+                    }
+                }
+            } else {
+                matrix->hover();
+            }
+        } else {
+            matrix->normal();
+        }
+    }
 }
 
 void UserInterface::mouse_pressed(sf::Vector2i pos, bool is_left) {
@@ -223,6 +247,7 @@ void UserInterface::mouse_released(sf::Vector2i pos, bool is_left) {
     Element* press_element = get_element_at(first_press_pos);
     Element* release_element = get_element_at(pos);
     if (release_element != nullptr) {
+        release_element->mouse_pos = pos;
         if (press_element == release_element) {
             release_element->hover();
             if (is_left) {

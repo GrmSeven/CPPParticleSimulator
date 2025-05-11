@@ -9,10 +9,11 @@ public:
         : Element(pos, size, func)
     {
         text_string = text;
-        update_shapes();
+        Element::update_shapes();
     }
 
     void click_left() override {
+        value = 1;
         run_function();
     }
 };
