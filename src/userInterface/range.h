@@ -6,9 +6,10 @@ public:
     float interval;
     float min_value;
     float max_value;
+    float default_value;
 
     Range(sf::Vector2f pos, sf::Vector2f size, float default_value, float interval, float min_value, float max_value, function<void()> func = nullptr)
-        : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value)
+        : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value), default_value(default_value)
     {
         value = default_value;
         text_centered = true;
@@ -24,6 +25,12 @@ public:
             text_string.pop_back();
         }
         Element::update_shapes();
+    }
+
+    void click_middle() override {
+        value = default_value;
+        run_function();
+        update_shapes();
     }
 
     void click_left() override {

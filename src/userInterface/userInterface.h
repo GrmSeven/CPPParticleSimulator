@@ -34,8 +34,8 @@ public:
     bool is_element_touching(Element* element, sf::Vector2<T> pos);
     Element* get_element_at(sf::Vector2i pos);
     void mouse_moved(sf::Vector2i pos);
-    void mouse_pressed(sf::Vector2i pos, bool is_left);
-    void mouse_released(sf::Vector2i pos, bool is_left);
+    void mouse_pressed(sf::Vector2i pos, int type);
+    void mouse_released(sf::Vector2i pos, int type);
     void mouse_scrolled(sf::Vector2i pos, float scroll_delta);
 
     void resize(sf::Vector2f newWindowSize);

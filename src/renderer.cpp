@@ -140,18 +140,24 @@ void Renderer::handle_events() {
 
             if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (mouseButton->button == sf::Mouse::Button::Left) {
-                    user_interface.mouse_pressed(mouseButton->position, true);
+                    user_interface.mouse_pressed(mouseButton->position, -1);
                 }
                 if (mouseButton->button == sf::Mouse::Button::Right) {
-                    user_interface.mouse_pressed(mouseButton->position, false);
+                    user_interface.mouse_pressed(mouseButton->position, 1);
+                }
+                if (mouseButton->button == sf::Mouse::Button::Middle) {
+                    user_interface.mouse_pressed(mouseButton->position, 0);
                 }
             }
             if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
                 if (mouseButton->button == sf::Mouse::Button::Left) {
-                    user_interface.mouse_released(mouseButton->position, true);
+                    user_interface.mouse_released(mouseButton->position, -1);
                 }
                 if (mouseButton->button == sf::Mouse::Button::Right) {
-                    user_interface.mouse_released(mouseButton->position, false);
+                    user_interface.mouse_released(mouseButton->position, 1);
+                }
+                if (mouseButton->button == sf::Mouse::Button::Middle) {
+                    user_interface.mouse_released(mouseButton->position, 0);
                 }
             }
 

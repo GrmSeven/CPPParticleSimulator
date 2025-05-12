@@ -19,6 +19,12 @@ public:
         Element::update_shapes();
     }
 
+    void click_middle() override {
+        value = 0;
+        run_function();
+        update_shapes();
+    }
+
     void click_left() override {
         value = value + 1;
         if (wrapping) {

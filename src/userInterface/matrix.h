@@ -7,6 +7,7 @@ public:
     float interval;
     float min_value;
     float max_value;
+    float default_value;
     size_t matrix_size;
     int used_palette;
     std::vector<std::vector<float>> particle_interaction_matrix = {
@@ -23,7 +24,7 @@ public:
     std::vector<sf::CircleShape> circles;
 
     Matrix(sf::Vector2f pos, sf::Vector2f size, int default_matrix_size, float default_value, float interval, float min_value, float max_value, function<void()> func = nullptr)
-        : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value), matrix_size(default_matrix_size) {
+        : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value), matrix_size(default_matrix_size), default_value(default_value) {
         resize_matrix(matrix_size);
         currentButtonColor = sf::Color::Transparent;
         Matrix::update_shapes();
@@ -34,10 +35,14 @@ public:
         for (size_t i = 0; i < s; i++) {
             particle_interaction_matrix[i].resize(s, 0);
         }
+        matrix_size = s;
+        update_shapes();
     }
 
     void update_shapes() override {
         cells.clear();
+        circles.clear();
+        circles.reserve(matrix_size*2);
         cells.reserve(matrix_size * matrix_size);
         float s = (size.x)/(matrix_size+1);
         for (int i = 0; i < matrix_size; i++) {
@@ -74,7 +79,6 @@ public:
         return sf::Color((a.x + b.x*cos( 2*M_PI*(c.x*t + d.x)))*255.f, (a.y + b.y*cos( 2*M_PI*(c.y*t + d.y)))*255.f, (a.z + b.z*cos( 2*M_PI*(c.z*t + d.z)))*255.f);
     }
 
-
     virtual void draw(sf::RenderWindow* window) {
         for (auto& cell : cells) {
             window->draw(cell);
@@ -84,14 +88,32 @@ public:
         }
     }
 
+    void chnage_matrix_value(float amount) {
+        float s = (size.x)/(matrix_size+1); // check if mouse even touches any of the squares (and not circle)
+        sf::Vector2i index = sf::Vector2i((sf::Vector2f(mouse_pos) - position - sf::Vector2f(s, s))/((size.x - s)/matrix_size));
+        if (mouse_pos.x > position.x + s && mouse_pos.y > position.y + s) {
+            if (amount == 0) {
+                particle_interaction_matrix[index.y][index.x] = default_value;
+            } else {
+                particle_interaction_matrix[index.y][index.x] = min(max(particle_interaction_matrix[index.y][index.x] + amount, min_value), max_value);
+            }
+        }
+    }
+
+    void click_middle() override {
+        chnage_matrix_value(0);
+        run_function();
+        update_shapes();
+    };
+
     void click_left() override {
-        value = min(max_value, value + interval);
+        chnage_matrix_value(interval);
         run_function();
         update_shapes();
     }
 
     void click_right() override {
-        value = max(min_value, value - interval);
+        chnage_matrix_value(-interval);
         run_function();
         update_shapes();
     }

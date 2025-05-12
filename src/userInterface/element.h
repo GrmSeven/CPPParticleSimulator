@@ -176,11 +176,13 @@ public:
         }
     }
 
-    virtual void click_left() { }
+    virtual void click_middle() {}
 
-    virtual void click_right() {};
+    virtual void click_left() {}
 
-    virtual void scroll_down() {};
+    virtual void click_right() {}
 
-    virtual void scroll_up() {};
+    virtual void scroll_down() {}
+
+    virtual void scroll_up() {}
 };

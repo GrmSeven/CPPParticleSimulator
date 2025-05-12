@@ -34,7 +34,7 @@ void UserInterface::create_elements() {
     elements["particle_types"] = new Range({85, 43}, {62, 19}, 8, 1, 1, 20, [this]{this->matrix->resize_matrix(this->elements["particle_types"]->value);});
 
     // Matrix
-    matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.2, -1, 1);
+    matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.5, -1, 1);
 
     // Randomize button, reset button
     // OR
@@ -213,6 +213,7 @@ void UserInterface::mouse_moved(sf::Vector2i pos) {
     }
 
     if (matrix) {
+        matrix->mouse_pos = mouse_pos;
         if (is_element_touching(matrix, pos)) {
             if (is_mouse_held) {
                 Element* press_element = get_element_at(first_press_pos);
@@ -233,7 +234,8 @@ void UserInterface::mouse_moved(sf::Vector2i pos) {
     }
 }
 
-void UserInterface::mouse_pressed(sf::Vector2i pos, bool is_left) {
+
+void UserInterface::mouse_pressed(sf::Vector2i pos, int type) {
     first_press_pos = pos;
     is_mouse_held = true;
     Element* press_element = get_element_at(first_press_pos);
@@ -242,18 +244,19 @@ void UserInterface::mouse_pressed(sf::Vector2i pos, bool is_left) {
     }
 }
 
-void UserInterface::mouse_released(sf::Vector2i pos, bool is_left) {
+void UserInterface::mouse_released(sf::Vector2i pos, int type) {
     is_mouse_held = false;
     Element* press_element = get_element_at(first_press_pos);
     Element* release_element = get_element_at(pos);
     if (release_element != nullptr) {
-        release_element->mouse_pos = pos;
         if (press_element == release_element) {
             release_element->hover();
-            if (is_left) {
+            if (type == -1) {
                 release_element->click_left();
-            } else {
+            } else if (type == 1){
                 release_element->click_right();
+            } else {
+                release_element->click_middle();
             }
         } else {
             release_element->hover();

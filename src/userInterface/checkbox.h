@@ -5,9 +5,10 @@ class Checkbox : public Element {
 public:
     std::string label;
     sf::VertexArray checkmark;
+    bool default_value;
 
     Checkbox(sf::Vector2f pos, sf::Vector2f size, std::string text, bool default_value = false, function<void()> func = nullptr)
-        : Element(pos, size, func), label(text),
+        : Element(pos, size, func), label(text), default_value(default_value),
         checkmark(sf::PrimitiveType::TriangleFan, 6)
     {
         value = default_value;
@@ -40,6 +41,12 @@ public:
     void draw(sf::RenderWindow* window) override {
         Element::draw(window);
         window->draw(checkmark);
+    }
+
+    void click_middle() override {
+        value = default_value;
+        run_function();
+        update_shapes();
     }
 
     void click_left() override {

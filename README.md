@@ -27,7 +27,6 @@ Smaller improvements:
 - Move particle rendering into particle simulator itself
 - Add visible border to the simulator
 - Shift + scroll = resize brush
-- Middle click on ui - reset to default
 
 Smaller optimizations:
 - Use profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
