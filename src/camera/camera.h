@@ -8,7 +8,7 @@
 
 class Camera {
 public:
-    Camera(float zoom,sf::Vector2f position, sf::Vector2f windowSize);
+    Camera(float zoom,sf::Vector2f simulationSize, sf::Vector2f windowSize);
     sf::View view;
     sf::Vector2f windowSize;
     float zoom;

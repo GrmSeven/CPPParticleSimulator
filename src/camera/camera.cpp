@@ -8,9 +8,9 @@
 #include "SFML/Window/Event.hpp"
 #include "SFML/Window/Mouse.hpp"
 
-Camera::Camera(float zoom, sf::Vector2f position, sf::Vector2f windowSize) : windowSize(windowSize), zoom(zoom), wanted_zoom(zoom) {
+Camera::Camera(float zoom, sf::Vector2f simulationSize, sf::Vector2f windowSize) : windowSize(windowSize), zoom(zoom), wanted_zoom(zoom) {
     view.setSize(windowSize * zoom);
-    view.setCenter(position + windowSize / 2.f);
+    view.setCenter(simulationSize / 2.f);
 }
 
 void Camera::handle_events(std::optional<sf::Event>& event) {
