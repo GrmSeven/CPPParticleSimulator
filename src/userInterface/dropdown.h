@@ -7,16 +7,36 @@ class Dropdown : public Element {
 public:
     vector<string> values;
     bool wrapping;
+    sf::VertexArray arrows;
 
 
     Dropdown(sf::Vector2f pos, sf::Vector2f size, vector<string> values, function<void()> func = nullptr)
-        : Element(pos, size, func), values(values) {
+        : Element(pos, size, func), values(values),
+        arrows(sf::PrimitiveType::Triangles, 6) {
         Dropdown::update_shapes();
     }
 
     void update_shapes() override {
         text_string = values[value];
         Element::update_shapes();
+
+        sf::Vector2f shift = {position.x - 5 + size.y/2, position.y - 6 + size.y/2};
+
+        arrows[0].position = {0 + shift.x, 5 + shift.y};
+        arrows[1].position = {5.5f + shift.x, 0 + shift.y};
+        arrows[2].position = {11 + shift.x, 5 + shift.y};
+        arrows[3].position = {0 + shift.x, 7 + shift.y};
+        arrows[4].position = {11 + shift.x, 7 + shift.y};
+        arrows[5].position = {5.5f + shift.x, 12 + shift.y};
+
+        for (int i = 0; i < 6; i++) {
+            arrows[i].color = currentTextColor;
+        }
+    }
+
+    void draw(sf::RenderWindow* window) override {
+        Element::draw(window);
+        window->draw(arrows);
     }
 
     void click_middle() override {

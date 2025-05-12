@@ -11,7 +11,7 @@
 
 using namespace std;
 
-UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2*1) {
+UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2*3) {
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
     create_elements();
@@ -35,87 +35,111 @@ void UserInterface::create_elements() {
 
     // Matrix
     matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.5, -1, 1);
+    elements["help_matrix"] = new Button({175, 45}, {19, 19}, "?");
+    elements["help_matrix"]->tooltip = "Matrix represents attraction force of one particle type (row) to another (column).\nEach of the types is represented by its dedicated color.\n\nFor example, if there are particles of two types nearby:\n(Type 1 is circle color to the left from a cell, Type 2 is circle color on top of a cell)\nThen Type 1 particle will get attracted or repelled to Type 2, based on the matrix cell color.\n\nBlue cell means particle will be attracted (1)\nGray cell means particle will be neutral (0)\nRed cell means particle will be repelled (-1)\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Increase attraction\n- Right Click/Scroll down: Decrease attraction\n- Middle Click: Reset to 0 (neutral)";
 
-    // Randomize button, reset button
-    // OR
-    // Action: Dropdown with (Randomize, Reset, ) and button Apply
+
+    sf::Text text_01(font, "Preset:", 12);
+    text_01.setPosition({5, 263});
+    details.push_back(text_01);
+    elements["matrix_action"] = new Dropdown({45, 260}, {72, 23}, {"      Random", "      Snake", "      Null"});
+    elements["matrix_action_apply"] = new Button({120, 262}, {40, 19}, "Apply");
+    elements["matrix_action_apply"]->buttonColor = sf::Color(60, 60, 120);
+    elements["help_action"] = new Button({175, 262}, {19, 19}, "?");
+    elements["help_action"]->tooltip = "Choose preset for matrix and then click Apply.\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Next value\n- Right Click/Scroll down: Previous value\n- Middle Click: Reset to default value";
 
     add_line(0, 285);
 
-    // sf::Text text_4(font, "Mouse", 14);
-    // text_4.setPosition({5, 70});
-    // text_4.setStyle(sf::Text::Bold);
-    // details.push_back(text_4);
-    //
-    // sf::Text text_5(font, "Drag type:", 12);
-    // text_5.setPosition({5, 90});
-    // details.push_back(text_5);
-    //
-    // sf::Text text_6(font, "Drag force:", 12);
-    // text_6.setPosition({5, 110});
-    // details.push_back(text_6);
+    sf::Text text_4(font, "Mouse", 14);
+    text_4.setPosition({5, 290});
+    text_4.setStyle(sf::Text::Bold);
+    details.push_back(text_4);
 
-    // sf::Text text_7(font, "Mode:", 12);
-    // text_7.setPosition({5, 10});
-    // details.push_back(text_7);
-    //
-    // sf::Text text_8(font, "Spawn count:", 12);
-    // text_8.setPosition({5, 10});
-    // details.push_back(text_8);
-    //
-    // sf::Text text_9(font, "Spawn type:", 12);
-    // text_9.setPosition({5, 10});
-    // details.push_back(text_9);
-    //
-    // sf::Text text_10(font, "Physics", 14);
-    // text_10.setPosition({5, 10});
-    // text_10.setStyle(sf::Text::Bold);
-    // details.push_back(text_10);
-    //
-    // sf::Text text_11(font, "Wrapping", 12);
-    // text_11.setPosition({5, 10});
-    // details.push_back(text_11);
-    //
-    // sf::Text text_12(font, "Behaviour formula:", 12);
-    // text_12.setPosition({5, 10});
-    // details.push_back(text_12);
-    //
-    // sf::Text text_13(font, "Min distance:", 12);
-    // text_13.setPosition({5, 10});
-    // details.push_back(text_13);
-    //
-    // sf::Text text_14(font, "Interation radius:", 12);
-    // text_14.setPosition({5, 10});
-    // details.push_back(text_14);
-    //
-    // sf::Text text_15(font, "Force multiplier:", 12);
-    // text_15.setPosition({5, 10});
-    // details.push_back(text_15);
-    //
-    // sf::Text text_16(font, "Use terminal velocity", 12);
-    // text_16.setPosition({5, 10});
-    // details.push_back(text_16);
-    //
-    // sf::Text text_17(font, "Terminal velocity:", 12);
-    // text_17.setPosition({5, 10});
-    // details.push_back(text_17);
-    //
-    // sf::Text text_18(font, "Rendering", 14);
-    // text_18.setPosition({5, 10});
-    // text_18.setStyle(sf::Text::Bold);
-    // details.push_back(text_18);
-    //
-    // sf::Text text_19(font, "Particle vertex count:", 12);
-    // text_19.setPosition({5, 10});
-    // details.push_back(text_19);
-    //
-    // sf::Text text_20(font, "Particle radius:", 12);
-    // text_20.setPosition({5, 10});
-    // details.push_back(text_20);
-    //
-    // sf::Text text_21(font, "Palette:", 12);
-    // text_21.setPosition({5, 10});
-    // details.push_back(text_21);
+    sf::Text text_02(font, "Radius:", 12);
+    text_02.setPosition({5, 310});
+    details.push_back(text_02);
+
+    sf::Text text_5(font, "Drag type:", 12);
+    text_5.setPosition({5, 330});
+    details.push_back(text_5);
+
+    sf::Text text_6(font, "Drag force:", 12);
+    text_6.setPosition({5, 350});
+    details.push_back(text_6);
+
+    sf::Text text_7(font, "Mode:", 12);
+    text_7.setPosition({5, 370});
+    details.push_back(text_7);
+
+    sf::Text text_8(font, "Spawn count:", 12);
+    text_8.setPosition({5, 390});
+    details.push_back(text_8);
+
+    sf::Text text_9(font, "Spawn type:", 12);
+    text_9.setPosition({5, 410});
+    details.push_back(text_9);
+
+    add_line(1, 430);
+
+    sf::Text text_10(font, "Physics", 14);
+    text_10.setPosition({5, 435});
+    text_10.setStyle(sf::Text::Bold);
+    details.push_back(text_10);
+
+    sf::Text text_03(font, "FPS range:", 12);
+    text_03.setPosition({30, 455});
+    details.push_back(text_03);
+
+    sf::Text text_11(font, "Wrapping", 12);
+    text_11.setPosition({30, 475});
+    details.push_back(text_11);
+
+    sf::Text text_12(font, "Behaviour formula:", 12);
+    text_12.setPosition({5, 495});
+    details.push_back(text_12);
+
+    sf::Text text_13(font, "Min distance:", 12);
+    text_13.setPosition({5, 515});
+    details.push_back(text_13);
+
+    sf::Text text_14(font, "Interation radius:", 12);
+    text_14.setPosition({5, 535});
+    details.push_back(text_14);
+
+    sf::Text text_15(font, "Force multiplier:", 12);
+    text_15.setPosition({5, 555});
+    details.push_back(text_15);
+
+    sf::Text text_16(font, "Use terminal velocity", 12);
+    text_16.setPosition({30, 575});
+    details.push_back(text_16);
+
+    sf::Text text_17(font, "Terminal velocity:", 12);
+    text_17.setPosition({5, 595});
+    details.push_back(text_17);
+
+    add_line(2, 615);
+
+    sf::Text text_18(font, "Rendering", 14);
+    text_18.setPosition({5, 620});
+    text_18.setStyle(sf::Text::Bold);
+    details.push_back(text_18);
+
+    sf::Text text_19(font, "Particle vertex count:", 12);
+    text_19.setPosition({5, 640});
+    details.push_back(text_19);
+
+    sf::Text text_20(font, "Particle radius:", 12);
+    text_20.setPosition({5, 660});
+    details.push_back(text_20);
+
+    sf::Text text_21(font, "Palette:", 12);
+    text_21.setPosition({5, 680});
+    details.push_back(text_21);
+
+    sf::Text text_22(font, "Visualize velocity", 12);
+    text_22.setPosition({30, 700});
+    details.push_back(text_22);
 
 
     for (auto& element : elements) {

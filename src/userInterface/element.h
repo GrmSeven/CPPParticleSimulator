@@ -16,7 +16,7 @@ public:
     sf::Text tooltip_text;
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
-    bool text_centered;
+    bool text_centered = true;
     bool disabled;
     string text_string;
     string tooltip;
@@ -81,7 +81,7 @@ public:
         } else {
             text.setPosition({position.x + static_cast<int>(size.y - text.getLocalBounds().size.y)/2, position.y - 3 + static_cast<int>(size.y - text.getLocalBounds().size.y)/2});
         }
-        if (text_string != "") {
+        if (!tooltip.empty()) {
             tooltip_text.setCharacterSize(14);
             tooltip_text.setString(tooltip);
 

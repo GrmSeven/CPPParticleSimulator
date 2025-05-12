@@ -5,7 +5,7 @@ using namespace std;
 
 Renderer::Renderer()
     : width(sf::VideoMode::getDesktopMode().size.x*0.9), height(sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1),
-    particle_simulator(2000, 2000, &delta),
+    particle_simulator(2003, 2003, &delta),
     camera(1.8f, sf::Vector2f(-200, 400), sf::Vector2f(width, height)),
     user_interface(sf::Vector2f(width, height))
 {

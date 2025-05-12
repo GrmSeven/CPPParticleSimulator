@@ -12,7 +12,6 @@ public:
         : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value), default_value(default_value)
     {
         value = default_value;
-        text_centered = true;
         Range::update_shapes();
     }
 
