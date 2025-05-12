@@ -2,6 +2,9 @@
 #include "Element.h"
 #include <cmath>
 
+#include "../utils.h"
+#include "../../cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include/glad/gl.h"
+
 class Matrix : public Element {
 public:
     float interval;
@@ -50,7 +53,7 @@ public:
                 sf::RectangleShape cell({s, s});
                 cell.setPosition({(j+1)*s+position.x, (i+1)*s+position.y});
                 float value = particle_interaction_matrix[i][j];
-                cell.setFillColor(sf::Color(max(-value, 0.f)*255, 0, max(value, 0.f)*255) + disabledColor);
+                cell.setFillColor(sf::Color(max(-value, 0.f)*255, 0, max(value, 0.f)*255));
                 cells.emplace_back(cell);
             }
         }
@@ -131,4 +134,64 @@ public:
     void scroll_up() override {
         click_right();
     }
+
+    void matrix_preset(size_t type) {
+        switch (type) {
+            case 0:
+                for (int i = 0; i < matrix_size; i++) {
+                    for (int j = 0; j < matrix_size; j++) {
+                        particle_interaction_matrix[i][j] = rand()%static_cast<int>(1+2.f/interval)/(1+2.f/interval-1)*2.f - max_value;
+                        cout << particle_interaction_matrix[i][j] << endl;
+                    }
+                }
+                break;
+            case 1:
+                for (int i = 0; i < matrix_size; i++) {
+                    for (int j = 0; j < matrix_size; j++) {
+                        particle_interaction_matrix[i][j] = default_value;
+                    }
+                }
+                break;
+            case 2:
+                for (int i = 0; i < matrix_size; i++) {
+                    for (int j = 0; j < matrix_size; j++) {
+                        if (i == j) {
+                            particle_interaction_matrix[i][j] = max_value;
+                        } else if (i == utils::abs_mod(j + 1, matrix_size)) {
+                            particle_interaction_matrix[i][j] = max_value - interval;
+                        } else {
+                            particle_interaction_matrix[i][j] = 0;
+                        }
+                    }
+                }
+                break;
+            case 3:
+                for (int i = 0; i < matrix_size; i++) {
+                    for (int j = 0; j < matrix_size; j++) {
+                        if (i == j) {
+                            particle_interaction_matrix[i][j] = max_value;
+                        } else if (i == utils::abs_mod(j + 1, matrix_size) || i == utils::abs_mod(j - 1, matrix_size)) {
+                            particle_interaction_matrix[i][j] = max_value - interval;
+                        } else {
+                            particle_interaction_matrix[i][j] = 0;
+                        }
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 0; i < matrix_size; i++) {
+                    for (int j = 0; j < matrix_size; j++) {
+                        if (i == utils::abs_mod(j + 1, matrix_size)) {
+                            particle_interaction_matrix[i][j] = min_value;
+                        } else if (i == utils::abs_mod(j + 2, matrix_size)) {
+                            particle_interaction_matrix[i][j] = -interval;
+                        } else {
+                            particle_interaction_matrix[i][j] = 0;
+                        }
+                    }
+                }
+        }
+        update_shapes();
+    }
+
 };

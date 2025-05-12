@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
-
+#include <cstdlib>
+#include <iostream>
 #include "SFML/System/Vector2.hpp"
 using namespace std;
 
@@ -40,5 +41,24 @@ public:
 
     static float clamp(float value, float min_value, float max_value) {
         return min(max(value, min_value), max_value);
+    }
+
+
+    static void openWebPage(const char* url) {
+        #ifdef _WIN32
+                // Windows
+                std::string command = "start " + std::string(url);
+        #elif __APPLE__
+                // macOS
+                std::string command = "open " + std::string(url);
+        #elif __linux__
+                // Linux
+                std::string command = "xdg-open " + std::string(url);
+        #else
+                std::cerr << "Unsupported operating system\n";
+                return;
+        #endif
+
+        system(command.c_str());
     }
 };

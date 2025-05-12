@@ -89,8 +89,14 @@ void Renderer::handle_events() {
                     fullscreen = !fullscreen;
                     if (fullscreen) {
                         window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().size), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Fullscreen);
+                        camera.resize_window(sf::Vector2f(window.getSize()));
+                        user_interface.resize(sf::Vector2f(window.getSize()));
                     } else {
+                        width = sf::VideoMode::getDesktopMode().size.x*0.9;
+                        height = sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1;
                         window.create(sf::VideoMode({width, height}), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                        camera.resize_window(sf::Vector2f(width, height));
+                        user_interface.resize(sf::Vector2f(width, height));
                     }
                 }
 
@@ -171,7 +177,7 @@ void Renderer::handle_events() {
     }
     if (is_focused) {
         if (particle_drag_enabled) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements["drag_force"]->value, 1.f-(user_interface.elements["drag_force"]->value/100.f), !user_interface.elements["drag_type"]->value);
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements["drag_force"]->value*10.f, 1.f-(user_interface.elements["drag_force"]->value/100.f), !user_interface.elements["drag_type"]->value);
             last_mouse_pos = global_mouse_pos;
         }
 

@@ -34,7 +34,7 @@ void UserInterface::create_elements() {
     elements["particle_types"] = new Range({85, 43}, {30, 19}, 8, 1, 1, 20, [this]{this->matrix->resize_matrix(this->elements["particle_types"]->value); this->elements["spawn_type"]->max_value = this->elements["particle_types"]->value; this->elements["spawn_type"]->update_shapes();});
 
     // Matrix
-    matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.5, -1, 1);
+    matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.25, -1, 1);
     elements["help_matrix"] = new Button({176, 45}, {19, 19}, "?");
     elements["help_matrix"]->tooltip = "Matrix represents attraction force of one particle type (row) to another (column).\nEach of the types is represented by its dedicated color.\n\nFor example, if there are particles of two types nearby:\n(Type 1 is circle color to the left from a cell, Type 2 is circle color on top of a cell)\nThen Type 1 particle will get attracted or repelled to Type 2, based on the matrix cell color.\n\nBlue cell means particle will be attracted (1)\nGray cell means particle will be neutral (0)\nRed cell means particle will be repelled (-1)\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Increase attraction\n- Right Click/Scroll down: Decrease attraction\n- Middle Click: Reset to 0 (neutral)";
 
@@ -42,8 +42,8 @@ void UserInterface::create_elements() {
     sf::Text text_01(font, "Preset", 12);
     text_01.setPosition({5, 263});
     details.push_back(text_01);
-    elements["matrix_preset"] = new Dropdown({45, 262}, {70, 19}, {"     Random", "     Snake", "      Null"});
-    elements["matrix_preset_apply"] = new Button({120, 262}, {40, 19}, "Apply");
+    elements["matrix_preset"] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snake", "     Strings", "     Islands"});
+    elements["matrix_preset_apply"] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements["matrix_preset"]->value); ;});
     elements["matrix_preset_apply"]->buttonColor = sf::Color(60, 60, 120);
     elements["help_preset"] = new Button({176, 262}, {19, 19}, "?");
     elements["help_preset"]->tooltip = "Choose preset for matrix and then click Apply.\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Next value\n- Right Click/Scroll down: Previous value\n- Middle Click: Reset to default value";
@@ -74,16 +74,19 @@ void UserInterface::create_elements() {
     text_7.setPosition({5, 370});
     details.push_back(text_7);
     elements["mouse_mode"] = new Dropdown({40, 368}, {60, 19}, {"     Spawn", "     Delete"});
+    elements["mouse_mode"]->disable();
 
     sf::Text text_8(font, "Spawn count", 12);
     text_8.setPosition({5, 390});
     details.push_back(text_8);
     elements["spawn_count"] = new Range({80, 388}, {50, 19}, 1, 1, 1, 100);
+    elements["spawn_count"]->disable();
 
     sf::Text text_9(font, "Spawn type", 12);
     text_9.setPosition({5, 410});
     details.push_back(text_9);
     elements["spawn_type"] = new Range({72, 408}, {30, 19}, 1, 1, 1, this->elements["particle_types"]->value);
+    elements["spawn_type"]->disable();
 
     add_line(1, 430);
 
@@ -100,7 +103,7 @@ void UserInterface::create_elements() {
     sf::Text text_04(font, "Min FPS", 12);
     text_04.setPosition({90, 455});
     details.push_back(text_04);
-    elements["fps_min"] = new Range({138, 453}, {30, 19}, 10, 5, 0, 30, [this]{this->elements["fps_limit"]->value = max(this->elements["fps_min"]->value, this->elements["fps_limit"]->value); this->elements["fps_limit"]->update_shapes();});
+    elements["fps_min"] = new Range({138, 453}, {30, 19}, 10, 5, 0, 60, [this]{this->elements["fps_limit"]->value = max(this->elements["fps_min"]->value, this->elements["fps_limit"]->value); this->elements["fps_limit"]->update_shapes();});
 
     elements["help_fps"] = new Button({176, 453}, {19, 19}, "?");
     elements["help_fps"]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS.\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up.\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur.";
@@ -118,12 +121,12 @@ void UserInterface::create_elements() {
     sf::Text text_13(font, "Min distance", 12);
     text_13.setPosition({5, 515});
     details.push_back(text_13);
-    elements["min_distance"] = new Range({78, 513}, {50, 19}, 20, 5, 0, 1000);
+    elements["min_distance"] = new Range({78, 513}, {50, 19}, 20, 5, 0, 1000, [this]{this->elements["interaction_radius"]->value = max(this->elements["interaction_radius"]->value, this->elements["min_distance"]->value); this->elements["interaction_radius"]->update_shapes();});
 
     sf::Text text_14(font, "Interation radius", 12);
     text_14.setPosition({5, 535});
     details.push_back(text_14);
-    elements["interaction_radius"] = new Range({98, 533}, {50, 19}, 50, 10, 10, 1000);
+    elements["interaction_radius"] = new Range({98, 533}, {50, 19}, 50, 5, 10, 1000, [this]{this->elements["min_distance"]->value = min(this->elements["min_distance"]->value, this->elements["interaction_radius"]->value); this->elements["min_distance"]->update_shapes();});
 
     sf::Text text_15(font, "Force multiplier", 12);
     text_15.setPosition({5, 555});
@@ -173,6 +176,19 @@ void UserInterface::create_elements() {
     text_23.setPosition({5, 725});
     text_23.setStyle(sf::Text::Bold);
     details.push_back(text_23);
+
+    elements["help_info"] = new Button({5, 745}, {75, 19}, "UI Controls");
+    elements["help_info"]->tooltip = "Left Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
+
+    elements["help_keyboard"] = new Button({5, 765}, {115, 19}, "Keyboard Controls");
+    elements["help_keyboard"]->tooltip = "Space - Pause\nMiddle Mouse Button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\nLeft click - Drag/Attract particles";
+
+    elements["help_working"] = new Button({5, 785}, {65, 19}, "Technical");
+    elements["help_working"]->tooltip = "For optimisation this project uses Spatial partitioning and Multithreading\nProject is written in pure C++, visuals are rendered using SFML (C++ library)";
+
+    elements["help_github"] = new Button({5, 805}, {70, 19}, "Github link", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
+    elements["help_github"]->tooltip = "Click to open github link (MIT license)";
+    elements["help_github"]->buttonColor = sf::Color(60, 60, 120);
 
     for (auto& element : elements) {
         element.second->update_shapes();
