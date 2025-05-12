@@ -22,6 +22,8 @@ public:
     string tooltip;
     function<void()> func;
     float value;
+    float min_value;
+    float max_value;
     sf::Vector2i mouse_pos;
 
     float corner_r = 4;

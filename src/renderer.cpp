@@ -171,7 +171,7 @@ void Renderer::handle_events() {
     }
     if (is_focused) {
         if (particle_drag_enabled) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 25.f, 0.f);
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 100.f, 0.f);
             last_mouse_pos = global_mouse_pos;
         }
 

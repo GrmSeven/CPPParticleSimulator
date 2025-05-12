@@ -4,18 +4,19 @@
 class Range : public Element {
 public:
     float interval;
-    float min_value;
-    float max_value;
     float default_value;
 
     Range(sf::Vector2f pos, sf::Vector2f size, float default_value, float interval, float min_value, float max_value, function<void()> func = nullptr)
-        : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value), default_value(default_value)
+        : Element(pos, size, func), interval(interval), default_value(default_value)
     {
+        this->max_value = max_value;
+        this->min_value = min_value;
         value = default_value;
         Range::update_shapes();
     }
 
     void update_shapes() override {
+        value = clamp(value, min_value, max_value);
         text_string = to_string(value);
         while (!text_string.empty() && text_string.back() == '0') {
             text_string.pop_back();

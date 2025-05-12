@@ -166,8 +166,8 @@ void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float
             }
         } else {
             if (distance < radius) {
-                velocities_x[i] += normal.x * min(pow(radius - distance, 2.f), attraction_force) * *delta * 60.f;
-                velocities_y[i] += normal.y * min(pow(radius - distance, 2.f), attraction_force) * *delta * 60.f;
+                velocities_x[i] += normal.x * min(pow(radius - distance, 4.f), attraction_force) * *delta * 60.f;
+                velocities_y[i] += normal.y * min(pow(radius - distance, 4.f), attraction_force) * *delta * 60.f;
                 handle_out_of_bounds(i);
             }
         }
