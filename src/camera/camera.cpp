@@ -76,7 +76,7 @@ void Camera::move_camera(float x, float y, double deltaTime) {
 
 void Camera::mouse_smooth_zoom_set(sf::Vector2i pixel, float level) {
     wanted_position = pixel;
-    wanted_zoom = level;
+    wanted_zoom = utils::clamp(level, min_zoom, max_zoom);
 }
 
 void Camera::mouse_set_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level) {

@@ -181,7 +181,10 @@ void ParticleSimulator::apply_terminal_velocity(size_t p, float strength) {
 }
 
 std::pair<size_t, size_t> ParticleSimulator::convert_coords_to_cell(float x, float y) {
-    return std::make_pair(static_cast<size_t>(floor(x/cell_size)), static_cast<size_t>(floor(y/cell_size)));
+    std::pair a = std::make_pair(static_cast<size_t>(floor(x/cell_size)), static_cast<size_t>(floor(y/cell_size)));
+    a.first = min(a.first, static_cast<size_t>(cell_count_x-1));
+    a.second = min(a.second, static_cast<size_t>(cell_count_y-1));
+    return a;
 }
 
 bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {

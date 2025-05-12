@@ -26,7 +26,7 @@ public: // May make it private and add getters and setters later (OOP)
     std::vector<std::vector<std::vector<size_t>>> particle_grid;
     behaviorManager behavior_manager;
 
-    bool is_space_wrapping_enabled = false;
+    bool is_space_wrapping_enabled = true;
     bool uses_particle_grid = true;
     bool uses_terminal_velocity = true;
     float terminal_velocity_strength = 0.9f;

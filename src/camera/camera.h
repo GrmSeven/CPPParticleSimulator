@@ -14,6 +14,8 @@ public:
     float zoom;
     float speed = 1000.f;
     bool is_active = true;
+    float min_zoom = 0.002f;
+    float max_zoom = 10.f;
 
     void handle_events(std::optional<sf::Event>& event);
     void update(sf::RenderWindow& window, double deltaTime);
