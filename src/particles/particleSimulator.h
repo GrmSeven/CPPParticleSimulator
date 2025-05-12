@@ -54,7 +54,7 @@ public: // May make it private and add getters and setters later (OOP)
     // Hypot
     float calculate_distance(float x1, float y1, float x2, float y2);
     // Particle mouse dragging
-    void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature);
+    void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature, bool drag_type);
 
 public:
     ParticleSimulator(unsigned short width, unsigned short height, float* delta, UserInterface* user_interface)

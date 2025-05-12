@@ -71,6 +71,12 @@ public:
         switch (used_palette) {
             case 0:
                 return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {0.00, 0.67, 0.33});
+            case 1:
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {-0.1, 0.1, 0.3});
+            case 2:
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {2.0, 1.0, 1.0}, {0.5, 0.2, 0.25});
+            case 3:
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.6, 0.6, 0.6}, {0.3, 0.3, 0.3}, {1.0, 1.0, 1.0}, {0.00, 0.67, 0.33});
         }
         return sf::Color::White;
     }

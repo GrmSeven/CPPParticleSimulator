@@ -81,7 +81,7 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
         normal_x = (new_pos2_x - positions_x[p1]) / distance;
         normal_y = (new_pos2_y - positions_y[p1]) / distance;
     }
-    float force = behavior_manager.calculate_attraction(0, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
+    float force = behavior_manager.calculate_attraction(user_interface->elements["behaviour_formula"]->value, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
     force *= force_multiplier;
     velocities_x[p1] += force * normal_x * *delta * 60.f;
     velocities_y[p1] += force * normal_y * *delta * 60.f;
@@ -141,7 +141,7 @@ float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float 
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature) {
+void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature, bool drag_type) {
     // Attracts particles
     for (size_t i = 0; i < particle_count; i++) {
         sf::Vector2f normal = from - sf::Vector2f(positions_x[i], positions_y[i]);
@@ -159,7 +159,7 @@ void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float
             distance = normal.length();
         }
         normal = distance!=0 ? normal/distance : sf::Vector2f(0.f, 0.f);
-        if (paused) {
+        if (!drag_type|| paused) {
             if (distance < radius) {
                 positions_x[i] += pow((radius - distance)/radius, drag_curvature) * (to.x - from.x);
                 positions_y[i] += pow((radius - distance)/radius, drag_curvature) * (to.y - from.y);
@@ -276,4 +276,13 @@ void ParticleSimulator::sync_settings() {
     behavior_manager.particle_interaction_matrix = user_interface->matrix->particle_interaction_matrix;
     set_particle_type_count(behavior_manager.particle_interaction_matrix[0].size());
     is_space_wrapping_enabled = user_interface->elements["wrapping"]->value;
+    behavior_manager.min_distance = user_interface->elements["min_distance"]->value;
+    behavior_manager.interaction_radius = user_interface->elements["interaction_radius"]->value;
+    if (cell_size != user_interface->elements["interaction_radius"]->value/2.f) {
+        resize_cells(user_interface->elements["interaction_radius"]->value/2.f);
+    }
+    force_multiplier = user_interface->elements["force_multiplier"]->value;
+    uses_terminal_velocity = user_interface->elements["use_terminal_velocity"]->value;
+    terminal_velocity_strength = user_interface->elements["terminal_velocity"]->value;
+
 }

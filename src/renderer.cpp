@@ -63,7 +63,7 @@ void Renderer::handle_events() {
                     particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
                 }
                 if (keyPressed->code == sf::Keyboard::Key::Q) {
-                    particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, 100);
+                    particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements["mouse_radius"]->value);
                 }
                 if (keyPressed->code == sf::Keyboard::Key::R) {
                     particle_simulator.behavior_manager.randomize_matrix();
@@ -116,7 +116,7 @@ void Renderer::handle_events() {
             if (simulator_focused) {
                 if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
                     if (mouseButton->button == sf::Mouse::Button::Right) {
-                        particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y);
+                        particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements["spawn_count"]->value, user_interface.elements["spawn_type"]->value);
                     }
                 }
 
@@ -171,7 +171,7 @@ void Renderer::handle_events() {
     }
     if (is_focused) {
         if (particle_drag_enabled) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, 100.f, 0.f);
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements["drag_force"]->value, 1.f-(user_interface.elements["drag_force"]->value/100.f), !user_interface.elements["drag_type"]->value);
             last_mouse_pos = global_mouse_pos;
         }
 
@@ -188,8 +188,8 @@ void Renderer::render() {
     window.clear();
 
     // Particle rendering
-    int vertex_count = 8;
-    float p_radius = 2.f;
+    int vertex_count = user_interface.elements["vertex_count"]->value;
+    float p_radius = user_interface.elements["particle_radius"]->value;
     // Create particle shape preset
     sf::VertexArray particle_shape(sf::PrimitiveType::Triangles, 3*(vertex_count-2));
     for (int i = 0; i < vertex_count-2; i++) {
@@ -203,7 +203,13 @@ void Renderer::render() {
     sf::VertexArray particle_vertices(sf::PrimitiveType::Triangles, 3*(vertex_count-2)*particle_simulator.particle_count);
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
         sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
-        sf::Color particle_color = particle_simulator.behavior_manager.get_particle_color(particle_simulator.types[p_id]);
+        sf::Color particle_color = sf::Color::White;
+        if (user_interface.elements["visualize_velocity"]->value) {
+            float velocity = clamp(hypot(particle_simulator.velocities_x[p_id], particle_simulator.velocities_y[p_id]), 0.f, 510.f)/2.f;
+            particle_color = sf::Color(min(velocity, 255.f), min(velocity, 255.f), 50);
+        } else {
+            particle_color = user_interface.matrix->get_particle_color(particle_simulator.types[p_id]);
+        }
         for (int i = 0; i < vertex_count-2; i++) {
             particle_vertices[i*3+p_id*3*(vertex_count-2)].position = particle_shape[i*3].position + shift;
             particle_vertices[i*3+p_id*3*(vertex_count-2)+1].position = particle_shape[i*3+1].position + shift;
@@ -253,6 +259,7 @@ void Renderer::run() {
     // Thread for particle (copy settings from global settings -> run buffered methods -> particle simulation -> repeat)
     // handle events (view and particle stuff save to global settings)
     while (window.isOpen()) {
+        particle_drag_radius = user_interface.elements["mouse_radius"]->value;
         if (user_interface.elements["fps_limit"]->value != fps_limit) {
             set_fps_limit(user_interface.elements["fps_limit"]->value);
         }

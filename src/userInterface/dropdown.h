@@ -13,6 +13,7 @@ public:
     Dropdown(sf::Vector2f pos, sf::Vector2f size, vector<string> values, function<void()> func = nullptr)
         : Element(pos, size, func), values(values),
         arrows(sf::PrimitiveType::Triangles, 6) {
+        value = 0;
         Dropdown::update_shapes();
     }
 

@@ -46,20 +46,12 @@ public:
     float calculate_attraction(size_t attraction_type, float distance, float param) {
         switch (attraction_type) {
             case 0:
-                return calculate_attraction_life(distance, param);
+                return calculate_attraction_linear_life(distance, param);
             case 1:
-                return calculate_attraction_newton(distance, param);
-            case 2:
                 return calculate_attraction_inv_newton(distance, param);
+            case 2:
+                return calculate_attraction_weird(distance, param);
         }
-    }
-
-    sf::Color get_particle_color(size_t type) {
-        return get_palette_color(fmod(type/static_cast<float>(particle_type_count), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {0.00, 0.67, 0.33});
-    }
-
-    sf::Color get_palette_color(float t, sf::Vector3f a, sf::Vector3f b, sf::Vector3f c, sf::Vector3f d) {
-        return sf::Color((a.x + b.x*cos( 2*M_PI*(c.x*t + d.x)))*255.f, (a.y + b.y*cos( 2*M_PI*(c.y*t + d.y)))*255.f, (a.z + b.z*cos( 2*M_PI*(c.z*t + d.z)))*255.f);
     }
 
     /**
@@ -73,17 +65,6 @@ public:
 
 private:
     // Attraction formulas
-    float calculate_attraction_life(float distance, float param) {
-        if (distance < min_distance) {
-            return (distance*distance-min_distance*min_distance)/min_distance/5;
-        }
-        if (distance < interaction_radius) {
-            float g = distance-min_distance;
-            return ( -g*g + g*(interaction_radius-min_distance) )/( interaction_radius-min_distance )*param/5;
-        }
-        return 0.f;
-    }
-
     float calculate_attraction_linear_life(float distance, float param) {
         if (distance < min_distance) {
             return (distance - min_distance)/5;
@@ -94,11 +75,18 @@ private:
         return 0.f;
     }
 
-    float calculate_attraction_newton(float distance, float param) {
-        return 1 / distance / distance * 10000.f * param;
+    float calculate_attraction_inv_newton(float distance, float param) {
+        if (distance < min_distance) {
+            return (distance - min_distance)/5;
+        }
+        return distance * distance * 0.001f * param;
     }
 
-    float calculate_attraction_inv_newton(float distance, float param) {
-        return distance * distance * 0.001f * param;
+    float calculate_attraction_weird(float distance, float param) {
+        if (distance < min_distance) {
+            return (distance - min_distance)/5;
+        }
+        srand(floor(distance*2));
+        return rand()%100/10 * param;
     }
 };

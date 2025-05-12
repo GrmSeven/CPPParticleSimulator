@@ -58,12 +58,12 @@ void UserInterface::create_elements() {
     sf::Text text_02(font, "Radius", 12);
     text_02.setPosition({5, 310});
     details.push_back(text_02);
-    elements["mouse_radius"] = new Range({48, 308}, {30, 19}, 100, 10, 10, 1000);
+    elements["mouse_radius"] = new Range({48, 308}, {30, 19}, 100, 5, 5, 1000);
 
     sf::Text text_5(font, "Drag type", 12);
     text_5.setPosition({5, 330});
     details.push_back(text_5);
-    elements["drag_type"] = new Dropdown({65, 328}, {60, 19}, {"     Attract", "     Pull"});
+    elements["drag_type"] = new Dropdown({65, 328}, {60, 19}, {"     Attract", "     Move"});
 
     sf::Text text_6(font, "Drag force", 12);
     text_6.setPosition({5, 350});
@@ -95,7 +95,7 @@ void UserInterface::create_elements() {
     sf::Text text_03(font, "Max FPS", 12);
     text_03.setPosition({5, 455});
     details.push_back(text_03);
-    elements["fps_limit"] = new Range({56, 453}, {30, 19}, 240, 5, 0, 500, [this]{this->elements["fps_min"]->value = min(this->elements["fps_limit"]->value, this->elements["fps_min"]->value); this->elements["fps_min"]->update_shapes();});
+    elements["fps_limit"] = new Range({56, 453}, {30, 19}, 60, 5, 0, 500, [this]{this->elements["fps_min"]->value = min(this->elements["fps_limit"]->value, this->elements["fps_min"]->value); this->elements["fps_min"]->update_shapes();});
 
     sf::Text text_04(font, "Min FPS", 12);
     text_04.setPosition({90, 455});
@@ -113,7 +113,7 @@ void UserInterface::create_elements() {
     sf::Text text_12(font, "Behaviour formula", 12);
     text_12.setPosition({5, 495});
     details.push_back(text_12);
-    elements["behaviour_formula"] = new Dropdown({110, 493}, {85, 19}, {"     Particle Life", "     Newton"});
+    elements["behaviour_formula"] = new Dropdown({110, 493}, {85, 19}, {"     Particle Life", "     Newton", "     Weird"});
 
     sf::Text text_13(font, "Min distance", 12);
     text_13.setPosition({5, 515});
@@ -123,7 +123,7 @@ void UserInterface::create_elements() {
     sf::Text text_14(font, "Interation radius", 12);
     text_14.setPosition({5, 535});
     details.push_back(text_14);
-    elements["interaction_radius"] = new Range({98, 533}, {50, 19}, 50, 10, 0, 1000);
+    elements["interaction_radius"] = new Range({98, 533}, {50, 19}, 50, 10, 10, 1000);
 
     sf::Text text_15(font, "Force multiplier", 12);
     text_15.setPosition({5, 555});
@@ -133,7 +133,7 @@ void UserInterface::create_elements() {
     sf::Text text_16(font, "Use terminal velocity", 12);
     text_16.setPosition({30, 575});
     details.push_back(text_16);
-    elements["use_terminal_velocity"] = new Checkbox({5, 573}, {19, 19}, "", true, [this]{this->elements["terminal_velocity"]->disable();});
+    elements["use_terminal_velocity"] = new Checkbox({5, 573}, {19, 19}, "", true, [this]{this->elements["terminal_velocity"]->disable(!this->elements["use_terminal_velocity"]->value);});
 
     sf::Text text_17(font, "Terminal velocity", 12);
     text_17.setPosition({5, 595});
@@ -160,7 +160,7 @@ void UserInterface::create_elements() {
     sf::Text text_21(font, "Palette", 12);
     text_21.setPosition({5, 680});
     details.push_back(text_21);
-    elements["palette"] = new Dropdown({48, 678}, {85, 19}, {"     Rainbow"});
+    elements["palette"] = new Dropdown({48, 678}, {95, 19}, {"     Rainbow", "     Temperature", "     Maroon", "     Pastel"}, [this]{this->matrix->used_palette = this->elements["palette"]->value; this->matrix->update_shapes();});
 
     sf::Text text_22(font, "Visualize velocity", 12);
     text_22.setPosition({30, 700});
