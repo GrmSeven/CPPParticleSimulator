@@ -17,6 +17,7 @@ void ParticleSimulator::pre_process() {
 }
 
 void ParticleSimulator::process() {
+    sync_settings();
     if (!paused) {
         if (uses_particle_grid) prepare_grid();
 
@@ -263,9 +264,16 @@ void ParticleSimulator::set_particle_type_count(int n) {
     if (n == behavior_manager.particle_type_count) return;
     if (n <= 0) {
         n = 1;
-    };
+    }
     behavior_manager.resize_matrix(n);
     for (size_t i = 0; i < particle_count; i++) {
         types[i] = rand() % n;
     }
+}
+
+void ParticleSimulator::sync_settings() {
+    set_particle_count(user_interface->elements["particle_count"]->value);
+    behavior_manager.particle_interaction_matrix = user_interface->matrix->particle_interaction_matrix;
+    set_particle_type_count(behavior_manager.particle_interaction_matrix[0].size());
+    is_space_wrapping_enabled = user_interface->elements["wrapping"]->value;
 }

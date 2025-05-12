@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "behaviorManager.h"
+#include "../userInterface/userInterface.h"
 
 class ParticleSimulator {
 public: // May make it private and add getters and setters later (OOP)
@@ -14,6 +15,8 @@ public: // May make it private and add getters and setters later (OOP)
     unsigned short cell_count_x;
     unsigned short cell_count_y;
     float* delta;
+
+    UserInterface* user_interface;
 
     float interaction_radius = 50;
     size_t particle_count = 1000;;
@@ -54,8 +57,8 @@ public: // May make it private and add getters and setters later (OOP)
     void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature);
 
 public:
-    ParticleSimulator(unsigned short width, unsigned short height, float* delta)
-        : width(width), height(height), delta(delta) {
+    ParticleSimulator(unsigned short width, unsigned short height, float* delta, UserInterface* user_interface)
+        : width(width), height(height), delta(delta), user_interface(user_interface) {
         pre_process();
     }
 
@@ -66,6 +69,7 @@ public:
     bool does_cell_exist(size_t x, size_t y);
     std::vector<size_t>& get_particles_in_cell(int x, int y);
 
+    void sync_settings();
     void spawn_particle(float x, float y, size_t count, unsigned short t);
     void spawn_particle(float x, float y, size_t count = 1);
     void delete_particle(size_t id);

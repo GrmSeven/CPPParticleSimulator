@@ -5,9 +5,9 @@ using namespace std;
 
 Renderer::Renderer()
     : width(sf::VideoMode::getDesktopMode().size.x*0.9), height(sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1),
-    particle_simulator(2003, 2003, &delta),
-    camera(1.8f, sf::Vector2f(2003, 2003), sf::Vector2f(width, height)),
-    user_interface(sf::Vector2f(width, height))
+    user_interface(sf::Vector2f(width, height)),
+    particle_simulator(2003, 2003, &delta, &user_interface),
+    camera(1.8f, sf::Vector2f(2003, 2003), sf::Vector2f(width, height))
 {
     // width = ;
     settings.antiAliasingLevel = 4;
@@ -253,13 +253,17 @@ void Renderer::run() {
     // Thread for particle (copy settings from global settings -> run buffered methods -> particle simulation -> repeat)
     // handle events (view and particle stuff save to global settings)
     while (window.isOpen()) {
+        if (user_interface.elements["fps_limit"]->value != fps_limit) {
+            set_fps_limit(user_interface.elements["fps_limit"]->value);
+        }
+
         delta = clock.restart().asSeconds();
         timer += delta;
         if (timer >= 0.25f) {
             timer -= 0.25f;
             user_interface.fps_counter = round(10.f/delta)/10.f;
         }
-        // delta = min(delta, 1.f/30.f); // Slows down the simulation
+        delta = min(delta, 1.f/user_interface.elements["fps_min"]->value); // Slows down the simulation
 
         handle_events();
         if (true) { // REMOVE AFTER ADDING THREADS // should check if window is being dragged by checking if pollEvent worked this frame

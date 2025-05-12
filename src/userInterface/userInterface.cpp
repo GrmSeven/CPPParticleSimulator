@@ -35,18 +35,18 @@ void UserInterface::create_elements() {
 
     // Matrix
     matrix = new Matrix({5, 65}, {190, 190}, this->elements["particle_types"]->value, 0, 0.5, -1, 1);
-    elements["help_matrix"] = new Button({175, 45}, {19, 19}, "?");
+    elements["help_matrix"] = new Button({176, 45}, {19, 19}, "?");
     elements["help_matrix"]->tooltip = "Matrix represents attraction force of one particle type (row) to another (column).\nEach of the types is represented by its dedicated color.\n\nFor example, if there are particles of two types nearby:\n(Type 1 is circle color to the left from a cell, Type 2 is circle color on top of a cell)\nThen Type 1 particle will get attracted or repelled to Type 2, based on the matrix cell color.\n\nBlue cell means particle will be attracted (1)\nGray cell means particle will be neutral (0)\nRed cell means particle will be repelled (-1)\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Increase attraction\n- Right Click/Scroll down: Decrease attraction\n- Middle Click: Reset to 0 (neutral)";
 
 
     sf::Text text_01(font, "Preset", 12);
     text_01.setPosition({5, 263});
     details.push_back(text_01);
-    elements["matrix_action"] = new Dropdown({45, 262}, {70, 19}, {"     Random", "     Snake", "      Null"});
-    elements["matrix_action_apply"] = new Button({120, 262}, {40, 19}, "Apply");
-    elements["matrix_action_apply"]->buttonColor = sf::Color(60, 60, 120);
-    elements["help_action"] = new Button({175, 262}, {19, 19}, "?");
-    elements["help_action"]->tooltip = "Choose preset for matrix and then click Apply.\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Next value\n- Right Click/Scroll down: Previous value\n- Middle Click: Reset to default value";
+    elements["matrix_preset"] = new Dropdown({45, 262}, {70, 19}, {"     Random", "     Snake", "      Null"});
+    elements["matrix_preset_apply"] = new Button({120, 262}, {40, 19}, "Apply");
+    elements["matrix_preset_apply"]->buttonColor = sf::Color(60, 60, 120);
+    elements["help_preset"] = new Button({176, 262}, {19, 19}, "?");
+    elements["help_preset"]->tooltip = "Choose preset for matrix and then click Apply.\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Next value\n- Right Click/Scroll down: Previous value\n- Middle Click: Reset to default value";
 
     add_line(0, 285);
 
@@ -92,12 +92,20 @@ void UserInterface::create_elements() {
     text_10.setStyle(sf::Text::Bold);
     details.push_back(text_10);
 
-    sf::Text text_03(font, "FPS range", 12);
+    sf::Text text_03(font, "Max FPS", 12);
     text_03.setPosition({5, 455});
     details.push_back(text_03);
-    elements["fps_limit"] = new Range({64, 453}, {30, 19}, 60, 10, 0, 500);
+    elements["fps_limit"] = new Range({56, 453}, {30, 19}, 240, 5, 0, 500, [this]{this->elements["fps_min"]->value = min(this->elements["fps_limit"]->value, this->elements["fps_min"]->value); this->elements["fps_min"]->update_shapes();});
 
-    sf::Text text_11(font, "Wrapping", 12);
+    sf::Text text_04(font, "Min FPS", 12);
+    text_04.setPosition({90, 455});
+    details.push_back(text_04);
+    elements["fps_min"] = new Range({138, 453}, {30, 19}, 10, 5, 0, 30, [this]{this->elements["fps_limit"]->value = max(this->elements["fps_min"]->value, this->elements["fps_limit"]->value); this->elements["fps_limit"]->update_shapes();});
+
+    elements["help_fps"] = new Button({176, 453}, {19, 19}, "?");
+    elements["help_fps"]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS.\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up.\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur.";
+
+    sf::Text text_11(font, "Space wrapping", 12);
     text_11.setPosition({30, 475});
     details.push_back(text_11);
     elements["wrapping"] = new Checkbox({5, 473}, {19, 19}, "", true);
