@@ -265,6 +265,7 @@ void Renderer::run() {
     // Thread for particle (copy settings from global settings -> run buffered methods -> particle simulation -> repeat)
     // handle events (view and particle stuff save to global settings)
     while (window.isOpen()) {
+        // Synchronises with ui
         particle_drag_radius = user_interface.elements["mouse_radius"]->value;
         if (user_interface.elements["fps_limit"]->value != fps_limit) {
             set_fps_limit(user_interface.elements["fps_limit"]->value);

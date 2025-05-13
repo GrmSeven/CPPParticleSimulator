@@ -21,7 +21,7 @@ void ParticleSimulator::process() {
     if (!paused) {
         if (uses_particle_grid) prepare_grid();
 
-        for (size_t p_id = 0; p_id < particle_count; p_id++) { // Multiple for loops are very important
+        for (size_t p_id = 0; p_id < particle_count; p_id++) {
             if (uses_particle_grid) generate_grid(p_id);
         }
 
@@ -42,7 +42,7 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
     if (uses_particle_grid) {
         std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
 
-        int cell_radius = ceil(behavior_manager.interaction_radius/cell_size);
+        int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
         int cell_margin_l = -cell_radius + cell.first;
         int cell_margin_r = cell_radius + cell.first;
         int cell_margin_u = -cell_radius + cell.second;
@@ -126,7 +126,7 @@ void ParticleSimulator::handle_out_of_bounds(size_t id) {
 }
 
 void ParticleSimulator::wrap_around(size_t p) {
-    positions_x[p] = utils::abs_mod(positions_x[p], width); //we dont need to use abs because we havent a negativ vars
+    positions_x[p] = utils::abs_mod(positions_x[p], width);
     positions_y[p] = utils::abs_mod(positions_y[p], height);;
 }
 
@@ -189,7 +189,7 @@ std::pair<size_t, size_t> ParticleSimulator::convert_coords_to_cell(float x, flo
 }
 
 bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {
-    return ceil(width/cell_size) > x && ceil(height/cell_size) > y;
+    return ceil(static_cast<float>(width)/static_cast<float>(cell_size)) > x && ceil(static_cast<float>(height)/static_cast<float>(cell_size)) > y;
 }
 
 std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
@@ -256,8 +256,8 @@ void ParticleSimulator::set_particle_count(int n) {
 
 void ParticleSimulator::resize_cells(unsigned short size) {
     cell_size = size;
-    cell_count_x = ceil(static_cast<float>(width)/cell_size);
-    cell_count_y = ceil(static_cast<float>(height)/cell_size);
+    cell_count_x = ceil(static_cast<float>(width)/static_cast<float>(cell_size));
+    cell_count_y = ceil(static_cast<float>(height)/static_cast<float>(cell_size));
 }
 
 void ParticleSimulator::set_particle_type_count(int n) {

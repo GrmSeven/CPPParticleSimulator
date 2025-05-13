@@ -1,26 +1,29 @@
 # Particle Simulator using SFML
 
-### Controls:
-Space - Pause\
-Middle Mouse Button - Drag the screen\
-Scroll wheel - Zoom in/out\
-Arrow keys - Move around\
-Left click - Drag/Attract particles\
-
 ### TODO:
-Threads:
+**Multithreading:**
+
+Sync version (easier)
+- Events -> [Multiple threads for particles] -> Rendering -> Repeat
+
+Async version (harder, slightly better)
 - Events + Camera updating + UI updating
 - Particle rendering + UI Rendering
-- Sync from UI -> Particle simulation
+- Particle simulation
 
-Smaller improvements:
-- Move particle rendering into particle simulator itself
-- Add visible border to the simulator
-- Shift + scroll = resize brush
-- Shift to speed up scrolling.
+\
+**Smaller features:**
+- Particle spawning (needs buffering to work with threads)
+- Shift + scroll = resize brush (add to controls)
+- Shift to speed up scrolling (add to controls)
 
-Smaller optimizations:
+\
+**Smaller optimizations:**
 - Profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
 - Optimizing calculations (using DistanceSquared, pointers)
 - Hashing of curves
 - Particle simulation distance hashing
+
+\
+**Bugs:**
+- When interaction radius is very large, particles tend to move top-left. Probably related to uneven space warping
