@@ -14,10 +14,22 @@ Async version (harder, slightly better)
 - Particle simulation
 
 \
+**Important optimizations:**
+1. Replace map with vector in user interface
+2. Single instruction, multiple data optimization
+3. Simpler calculations for particle stuff (update_particle_velocity and handle_particle_velocity specifically) + (?get_particles_in_cell)
+4. Allow resizing of spatial partitioning grid (and better formula for best performance)
+5. Better thread pooling (don't create new one every single time) + separate from rendering
+6. Particle update batching (?) single SoA vector with pointers to them? (probably won't help)
+
+\
 **Smaller features:**
 - Particle spawning (needs buffering to work with threads)
 - Shift + scroll = resize brush (add to controls hint)
 - Shift to speed up scrolling (add to controls hint)
+- Logarithmic range scaling
+- Sliders instead of range
+- Visualize velocity as slider
 
 \
 **Smaller optimizations:**
@@ -27,4 +39,4 @@ Async version (harder, slightly better)
 
 \
 **Bugs:**
-- When interaction radius is very large, particles tend to move top-left. Probably related to uneven space warping
+- When interaction radius is very large, particles tend to move top-left. Probably related to uneven space warping at the edges (right and bottom)

@@ -23,11 +23,6 @@ add_executable(main src/main.cpp
         src/camera/camera.h
         src/camera/camera.cpp
         src/particles/behaviorManager.h
-        src/gravityTable/gravityElement.cpp
-        src/gravityTable/gravityElement.h
-        src/gravityTable/Ctest.cpp
-        src/gravityTable/gravityTable.cpp
-        src/gravityTable/gravityTable.h
         src/userInterface/userInterface.cpp
         src/userInterface/userInterface.h
         src/userInterface/element.h

@@ -241,15 +241,7 @@ void ParticleSimulator::delete_particle(size_t id) {
 
 void ParticleSimulator::set_particle_count(int n) {
     if (n == particle_count) return;
-    if (n <= 0) {
-        particle_count = 0;
-        positions_x.resize(0);
-        positions_y.resize(0);
-        velocities_x.resize(0);
-        velocities_y.resize(0);
-        types.resize(0);
-        return;
-    }
+    if (n <= 0) n = 0;
     if (n < particle_count) {
         particle_count = n;
         positions_x.resize(n);
@@ -260,10 +252,14 @@ void ParticleSimulator::set_particle_count(int n) {
         return;
     }
     if (n > particle_count) {
+        positions_x.resize(n);
+        positions_y.resize(n);
+        velocities_x.resize(n);
+        velocities_y.resize(n);
+        types.resize(n);
         for (size_t i = particle_count; i < n; i++) {
             spawn_particle(rand() % width, rand() % height);
         }
-        return;
     }
 }
 

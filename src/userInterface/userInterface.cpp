@@ -205,7 +205,7 @@ void UserInterface::create_elements() {
     elements["help_working"]->tooltip = "Hover with cursor over boxes with ? on them for UI info\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames is too high ,to fix it,\neither make Min FPS bigger, reduce Force multiplier or \nparticle count.\n";
 
     elements["help_github"] = new Button({5, 805}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
-    elements["help_github"]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning and Multithreading\nEverything is written in C++, visuals are rendered using SFML";
+    elements["help_github"]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning, Structure of Arrays and Multithreading\nEverything is written in C++, visuals are rendered using SFML";
     elements["help_github"]->buttonColor = sf::Color(60, 60, 120);
 
     for (auto& element : elements) {
