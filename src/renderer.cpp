@@ -211,7 +211,7 @@ void Renderer::render() {
         sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
         sf::Color particle_color = sf::Color::White;
         if (user_interface.elements["visualize_velocity"]->value) {
-            float velocity = clamp(hypot(particle_simulator.velocities_x[p_id], particle_simulator.velocities_y[p_id]), 0.f, 510.f)/2.f;
+            float velocity = utils::clamp(hypot(particle_simulator.velocities_x[p_id], particle_simulator.velocities_y[p_id]), 0.f, 510.f)/2.f;
             particle_color = sf::Color(min(velocity, 255.f), min(velocity, 255.f), 50);
         } else {
             particle_color = user_interface.matrix->get_particle_color(particle_simulator.types[p_id]);

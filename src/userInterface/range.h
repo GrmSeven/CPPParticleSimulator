@@ -1,5 +1,5 @@
 #pragma once
-#include "Element.h"
+#include "element.h"
 
 class Range : public Element {
 public:
@@ -16,7 +16,7 @@ public:
     }
 
     void update_shapes() override {
-        value = clamp(value, min_value, max_value);
+        value = utils::clamp(value, min_value, max_value);
         text_string = to_string(value);
         while (!text_string.empty() && text_string.back() == '0') {
             text_string.pop_back();

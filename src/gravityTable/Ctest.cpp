@@ -45,5 +45,5 @@ int main1() {
     for ( auto[i, force]: gravityTable->getGravityElement('a')->getForcesFrom()) {
         cout << "element: " << i << " with force: " <<force << endl;
     }
-
+    return 0;
 }

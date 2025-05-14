@@ -11,3 +11,4 @@ CMakeCache.txt
 .DS_Store
 Thumbs.db
 /cmake-build-release/
+/cmake-build-debug-event-trace/

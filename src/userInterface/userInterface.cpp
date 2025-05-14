@@ -11,7 +11,7 @@
 
 using namespace std;
 
-UserInterface::UserInterface(sf::Vector2f windowSize) : font("src/resources/hih.ttf"), lines(sf::PrimitiveType::Lines, 2*4) {
+UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2*4) {
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
     create_elements();
