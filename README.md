@@ -1,26 +1,30 @@
 # Particle Simulator using SFML
 
 ### TODO:
-Bugs:
-- When warpping is enabled, sometimes particles on the far right on pre-previous cell, dont react to particles that are in the last cell (still on the right side)
+Profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
 
-Important optimizations:
-- Multithreading
+**Multithreading:**
 
-Unimportant optimizations:
+Sync version (easier) DONE
+- Events -> [Multiple threads for particles] -> Rendering -> Repeat
+
+Async version (harder, slightly better)
+- Events + Camera updating + UI updating
+- Particle rendering + UI Rendering
+- Particle simulation
+
+\
+**Smaller features:**
+- Particle spawning (needs buffering to work with threads)
+- Shift + scroll = resize brush (add to controls hint)
+- Shift to speed up scrolling (add to controls hint)
+
+\
+**Smaller optimizations:**
 - Optimizing calculations (using DistanceSquared, pointers)
-- Quadtree
 - Hashing of curves
+- Particle simulation distance hashing
 
-Features:
-- Draggable particles with mouse pointer
-- Zoomable and draggable canvas
-- Support multiple types of particles (store their data, matrix of particle to particle attraction, color)
-- Different physics options (sin?, newton)
-
-
-Other:
-- Separate renderer.cpp into renderer.cpp and particle_simulator.cpp
-- Rewrite everything to be more OOP, use getters and setters
-- UI equivalent in console
-- UI (later)
+\
+**Bugs:**
+- When interaction radius is very large, particles tend to move top-left. Probably related to uneven space warping

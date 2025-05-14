@@ -1,31 +1,39 @@
 #pragma once
 #include <random>
 #include <SFML/Graphics.hpp>
-#include "particles/particle_simulator.h"
+#include "particles/particleSimulator.h"
 #include "camera/camera.h"
+#include "userInterface/userInterface.h"
 
 using namespace std;
 
-class renderer {
+class Renderer {
 public:
     unsigned short width, height;
-    unsigned int render_fps_limit = 60;
-    unsigned int physics_fps_limit = 60;
-    double physics_timestamp;
+    unsigned int fps_limit = 60;
+    float delta{};
+    float timer{};
+    bool fullscreen{};
     ParticleSimulator particle_simulator;
-    explicit renderer(unsigned short width = 1280, unsigned short height = 720);
+    Renderer();
     void run();
-    void set_render_fps_limit(unsigned char fps);
-    void set_physics_fps_limit(unsigned char fps);
+    void set_fps_limit(unsigned char fps);
 
 private:
     sf::RenderWindow window;
     sf::Clock clock;
     Camera camera;
-    double time{};
+    UserInterface user_interface;
+    sf::Vector2f global_mouse_pos;
+    sf::Vector2f last_mouse_pos;
+    sf::ContextSettings settings;
+    bool is_focused = true;
+    bool simulator_focused = false;
+    bool particle_drag_enabled{};
+    float particle_drag_radius = 100.f;
+    bool draw_particle_grid = false;
+    bool draw_mouse_radius = false;
 
-    void handle_events(const double *deltaTime);
+    void handle_events();
     void render();
-
-
 };

@@ -4,6 +4,8 @@
 
 #include "gravityTable.h"
 
+#include <iostream>
+
 GravityTable::GravityTable() = default;
 
 GravityTable::GravityTable(std::list<GravityElement *> elements): elements(elements) {
@@ -28,10 +30,29 @@ std::list<GravityElement *> GravityTable::getGravityElements() {
 }
 
 void GravityTable::setGravityElements(std::list<GravityElement *> elements) {
-    this->elements = std::move(elements);
+    for (auto* element : elements) {
+        if (element) {
+            this->elements.push_back(new GravityElement(*element));
+        }
+    }
 }
 
 void GravityTable::setForce(GravityElement* a, GravityElement* b, float force) {
-    //не Нь.тоновкая логика
+    //не Ньютоновская логика
     a->setForceTo(b, force);
+}
+
+void GravityTable::randomize() const { //we start to get all elements from Net
+    for (const auto &element : this->elements) {
+        element->randomizeNet(); // we start to randomize each element in list
+    }
+}
+
+GravityElement *GravityTable::getGravityElement(char gropName) const {
+    for (auto *gravElement : this->elements) {
+        if (gravElement->getName() == gropName) {
+            return gravElement;
+        }
+    }
+    return nullptr; //idk will be dangerous
 }
