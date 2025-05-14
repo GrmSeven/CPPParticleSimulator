@@ -52,6 +52,7 @@ public:
             case 2:
                 return calculate_attraction_weird(distance, param);
         }
+        return 0;
     }
 
     /**

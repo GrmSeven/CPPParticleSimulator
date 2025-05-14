@@ -4,6 +4,7 @@
 #include <iostream>
 #include "../utils.h"
 #include "behaviorManager.h"
+#include "../threadManager.h"
 
 void ParticleSimulator::pre_process() {
     resize_cells(cell_size);
@@ -21,20 +22,32 @@ void ParticleSimulator::process() {
     if (!paused) {
         if (uses_particle_grid) prepare_grid();
 
+        // threadManager::multithread_range([this](size_t i) {
+        //     this->generate_grid(i);
+        // }, 0, particle_count);
         for (size_t p_id = 0; p_id < particle_count; p_id++) {
             if (uses_particle_grid) generate_grid(p_id);
         }
 
-        for (size_t p_id = 0; p_id < particle_count; p_id++) {
-            if (!uses_terminal_velocity) apply_terminal_velocity(p_id, 1.f);
-            handle_particle_velocity(p_id);
-            if (uses_terminal_velocity) apply_terminal_velocity(p_id, terminal_velocity_strength);
-        }
+        threadManager::multithread_range([this](size_t i) {
+            if (!this->uses_terminal_velocity) this->apply_terminal_velocity(i, 1.f);
+            this->handle_particle_velocity(i);
+            if (this->uses_terminal_velocity) this->apply_terminal_velocity(i, this->terminal_velocity_strength);
+        }, 0, particle_count);
+        // for (size_t p_id = 0; p_id < particle_count; p_id++) {
+        //     if (!uses_terminal_velocity) apply_terminal_velocity(p_id, 1.f);
+        //     handle_particle_velocity(p_id);
+        //     if (uses_terminal_velocity) apply_terminal_velocity(p_id, terminal_velocity_strength);
+        // }
 
-        for (size_t p_id = 0; p_id < particle_count; p_id++) {
-            update_particle_position(p_id);
-            handle_out_of_bounds(p_id);
-        }
+        threadManager::multithread_range([this](size_t i) {
+            this->update_particle_position(i);
+            this->handle_out_of_bounds(i);
+        }, 0, particle_count);
+        // for (size_t p_id = 0; p_id < particle_count; p_id++) {
+        //     update_particle_position(p_id);
+        //     handle_out_of_bounds(p_id);
+        // }
     }
 }
 

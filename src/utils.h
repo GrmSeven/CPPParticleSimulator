@@ -46,16 +46,12 @@ public:
 
     static void openWebPage(const char* url) {
         #ifdef _WIN32
-                // Windows
                 std::string command = "start " + std::string(url);
         #elif __APPLE__
-                // macOS
                 std::string command = "open " + std::string(url);
         #elif __linux__
-                // Linux
                 std::string command = "xdg-open " + std::string(url);
         #else
-                std::cerr << "Unsupported operating system\n";
                 return;
         #endif
 

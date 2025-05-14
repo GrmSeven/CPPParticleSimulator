@@ -1,9 +1,11 @@
 # Particle Simulator using SFML
 
 ### TODO:
+Profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
+
 **Multithreading:**
 
-Sync version (easier)
+Sync version (easier) DONE
 - Events -> [Multiple threads for particles] -> Rendering -> Repeat
 
 Async version (harder, slightly better)
@@ -14,12 +16,11 @@ Async version (harder, slightly better)
 \
 **Smaller features:**
 - Particle spawning (needs buffering to work with threads)
-- Shift + scroll = resize brush (add to controls)
-- Shift to speed up scrolling (add to controls)
+- Shift + scroll = resize brush (add to controls hint)
+- Shift to speed up scrolling (add to controls hint)
 
 \
 **Smaller optimizations:**
-- Profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
 - Optimizing calculations (using DistanceSquared, pointers)
 - Hashing of curves
 - Particle simulation distance hashing

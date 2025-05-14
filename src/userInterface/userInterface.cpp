@@ -11,7 +11,7 @@
 
 using namespace std;
 
-UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2*4) {
+UserInterface::UserInterface(sf::Vector2f windowSize) : font("src/resources/hih.ttf"), lines(sf::PrimitiveType::Lines, 2*4) {
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
     create_elements();
@@ -42,7 +42,7 @@ void UserInterface::create_elements() {
     sf::Text text_01(font, "Preset", 12);
     text_01.setPosition({5, 263});
     details.push_back(text_01);
-    elements["matrix_preset"] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snake", "     Strings", "     Islands"});
+    elements["matrix_preset"] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snake", "     Spaghetti", "     Islands"});
     elements["matrix_preset_apply"] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements["matrix_preset"]->value); ;});
     elements["matrix_preset_apply"]->buttonColor = sf::Color(60, 60, 120);
     elements["help_preset"] = new Button({176, 262}, {19, 19}, "?");
@@ -107,12 +107,12 @@ void UserInterface::create_elements() {
     sf::Text text_03(font, "Max FPS", 12);
     text_03.setPosition({5, 455});
     details.push_back(text_03);
-    elements["fps_limit"] = new Range({56, 453}, {30, 19}, 60, 5, 0, 500, [this]{this->elements["fps_min"]->value = min(this->elements["fps_limit"]->value, this->elements["fps_min"]->value); this->elements["fps_min"]->update_shapes();});
+    elements["fps_limit"] = new Range({56, 453}, {30, 19}, 60, 5, 0, 500);
 
     sf::Text text_04(font, "Min FPS", 12);
     text_04.setPosition({90, 455});
     details.push_back(text_04);
-    elements["fps_min"] = new Range({138, 453}, {30, 19}, 10, 5, 0, 60, [this]{this->elements["fps_limit"]->value = max(this->elements["fps_min"]->value, this->elements["fps_limit"]->value); this->elements["fps_limit"]->update_shapes();});
+    elements["fps_min"] = new Range({138, 453}, {30, 19}, 10, 5, 0, 60);
 
     elements["help_fps"] = new Button({176, 453}, {19, 19}, "?");
     elements["help_fps"]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur";
@@ -199,13 +199,13 @@ void UserInterface::create_elements() {
     elements["help_info"]->tooltip = "Left Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
 
     elements["help_keyboard"] = new Button({5, 765}, {115, 19}, "Keyboard Controls");
-    elements["help_keyboard"]->tooltip = "Space - Pause\nMiddle Mouse Button - Drag the screen\n\nScroll wheel - Zoom in/out\nArrow keys - Move around\nLeft click - Drag/Attract particles\n\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
+    elements["help_keyboard"]->tooltip = "Space - Pause\nMiddle Mouse Button - Drag the screen\n\nScroll wheel - Zoom in/out\nArrow keys - Move around\nLeft click - Drag/Attract particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
 
-    elements["help_working"] = new Button({5, 785}, {65, 19}, "Technical");
-    elements["help_working"]->tooltip = "For optimisation this project uses Spatial partitioning and Multithreading\nEverything is written in C++, visuals are rendered using SFML (C++ library)\nThis project was made to learn C++ language";
+    elements["help_working"] = new Button({5, 785}, {70, 19}, "How to use");
+    elements["help_working"]->tooltip = "Hover with cursor over boxes with ? on them for UI info\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames is too high ,to fix it,\neither make Min FPS bigger, reduce Force multiplier or \nparticle count.\n";
 
-    elements["help_github"] = new Button({5, 805}, {70, 19}, "Github link", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
-    elements["help_github"]->tooltip = "Click to open github link (MIT license)";
+    elements["help_github"] = new Button({5, 805}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
+    elements["help_github"]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning and Multithreading\nEverything is written in C++, visuals are rendered using SFML";
     elements["help_github"]->buttonColor = sf::Color(60, 60, 120);
 
     for (auto& element : elements) {
