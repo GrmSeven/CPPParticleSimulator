@@ -3,7 +3,6 @@
 #include <cmath>
 
 #include "../utils.h"
-#include "../../cmake-build-debug/_deps/sfml-src/extlibs/headers/glad/include/glad/gl.h"
 
 class Matrix : public Element {
 public:
