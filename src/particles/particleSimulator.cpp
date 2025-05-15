@@ -94,7 +94,7 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift
         normal_x = (new_pos2_x - positions_x[p1]) / distance;
         normal_y = (new_pos2_y - positions_y[p1]) / distance;
     }
-    float force = behavior_manager.calculate_attraction(user_interface->elements["behaviour_formula"]->value, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
+    float force = behavior_manager.calculate_attraction(user_interface->elements[19]->value, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
     force *= force_multiplier;
     velocities_x[p1] += force * normal_x * *delta * 60.f;
     velocities_y[p1] += force * normal_y * *delta * 60.f;
@@ -280,16 +280,16 @@ void ParticleSimulator::set_particle_type_count() {
 }
 
 void ParticleSimulator::sync_settings() {
-    set_particle_count(user_interface->elements["particle_count"]->value);
+    set_particle_count(user_interface->elements[0]->value);
     set_particle_type_count();
-    is_space_wrapping_enabled = user_interface->elements["wrapping"]->value;
-    behavior_manager.min_distance = user_interface->elements["min_distance"]->value;
-    behavior_manager.interaction_radius = user_interface->elements["interaction_radius"]->value;
-    if (cell_size != user_interface->elements["interaction_radius"]->value/2.f) {
-        resize_cells(user_interface->elements["interaction_radius"]->value/2.f);
+    is_space_wrapping_enabled = user_interface->elements[17]->value;
+    behavior_manager.min_distance = user_interface->elements[20]->value;
+    behavior_manager.interaction_radius = user_interface->elements[22]->value;
+    if (cell_size != user_interface->elements[22]->value/2.f) {
+        resize_cells(user_interface->elements[22]->value/2.f);
     }
-    force_multiplier = user_interface->elements["force_multiplier"]->value;
-    uses_terminal_velocity = user_interface->elements["use_terminal_velocity"]->value;
-    terminal_velocity_strength = user_interface->elements["terminal_velocity"]->value;
+    force_multiplier = user_interface->elements[23]->value;
+    uses_terminal_velocity = user_interface->elements[24]->value;
+    terminal_velocity_strength = user_interface->elements[26]->value;
 
 }

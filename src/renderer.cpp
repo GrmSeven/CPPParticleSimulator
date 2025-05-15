@@ -103,7 +103,7 @@ void Renderer::handle_events() {
             if (simulator_focused) {
                 if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
                     if (mouseButton->button == sf::Mouse::Button::Right) {
-                        particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements["spawn_count"]->value, user_interface.elements["spawn_type"]->value);
+                        particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements[12]->value, user_interface.elements[13]->value);
                     }
                 }
 
@@ -158,7 +158,7 @@ void Renderer::handle_events() {
     }
     if (is_focused) {
         if (particle_drag_enabled) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements["drag_force"]->value*10.f, 1.f-(user_interface.elements["drag_force"]->value/100.f), !user_interface.elements["drag_type"]->value);
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements[9]->value*10.f, 1.f-(user_interface.elements[9]->value/100.f), !user_interface.elements[7]->value);
             last_mouse_pos = global_mouse_pos;
         }
 
@@ -175,8 +175,8 @@ void Renderer::render() {
     window.clear();
 
     // Particle rendering
-    int vertex_count = user_interface.elements["vertex_count"]->value;
-    float p_radius = user_interface.elements["particle_radius"]->value;
+    int vertex_count = user_interface.elements[27]->value;
+    float p_radius = user_interface.elements[28]->value;
     // Create particle shape preset
     sf::VertexArray particle_shape(sf::PrimitiveType::Triangles, 3*(vertex_count-2));
     for (int i = 0; i < vertex_count-2; i++) {
@@ -191,7 +191,7 @@ void Renderer::render() {
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
         sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
         sf::Color particle_color = sf::Color::White;
-        if (user_interface.elements["visualize_velocity"]->value) {
+        if (user_interface.elements[30]->value) {
             float velocity = utils::clamp(hypot(particle_simulator.velocities_x[p_id], particle_simulator.velocities_y[p_id]), 0.f, 510.f)/2.f;
             particle_color = sf::Color(min(velocity, 255.f), min(velocity, 255.f), 50);
         } else {
@@ -247,9 +247,9 @@ void Renderer::run() {
     // handle events (view and particle stuff save to global settings)
     while (window.isOpen()) {
         // Synchronises with ui
-        particle_drag_radius = user_interface.elements["mouse_radius"]->value;
-        if (user_interface.elements["fps_limit"]->value != fps_limit) {
-            set_fps_limit(user_interface.elements["fps_limit"]->value);
+        particle_drag_radius = user_interface.elements[6]->value;
+        if (user_interface.elements[14]->value != fps_limit) {
+            set_fps_limit(user_interface.elements[14]->value);
         }
 
         delta = clock.restart().asSeconds();
@@ -258,7 +258,7 @@ void Renderer::run() {
             timer -= 0.25f;
             user_interface.fps_counter = round(10.f/delta)/10.f;
         }
-        delta = min(delta, 1.f/user_interface.elements["fps_min"]->value); // Slows down the simulation
+        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation
 
         handle_events();
         if (true) { // REMOVE AFTER ADDING THREADS // should check if window is being dragged by checking if pollEvent worked this frame

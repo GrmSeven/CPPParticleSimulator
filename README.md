@@ -15,12 +15,11 @@ Async version (harder, slightly better)
 
 \
 **Important optimizations:**
-1. Replace map with vector in user interface
-2. Single instruction, multiple data optimization
-3. Simpler calculations for particle stuff (update_particle_velocity and handle_particle_velocity specifically) + (?get_particles_in_cell)
-4. Allow resizing of spatial partitioning grid (and better formula for best performance)
-5. Better thread pooling (don't create new one every single time) + separate from rendering
-6. Particle update batching (?) single SoA vector with pointers to them? (probably won't help)
+1. Single instruction, multiple data optimization
+2. Simpler calculations for particle stuff (update_particle_velocity and handle_particle_velocity specifically) + (?get_particles_in_cell)
+3. Allow resizing of spatial partitioning grid (and better formula for best performance)
+4. Better thread pooling (don't create new one every single time) + separate from rendering
+5. Particle update batching (?) single SoA vector with pointers to them? (probably won't help)
 
 \
 **Smaller features:**

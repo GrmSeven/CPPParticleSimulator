@@ -19,7 +19,7 @@ public:
     sf::Vector2i first_press_pos;
     bool is_mouse_held{};
 
-    map<string, Element*> elements;
+    vector<Element*> elements;
     Matrix* matrix;
     vector<sf::Text> details;
     sf::VertexArray lines;
