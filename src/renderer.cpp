@@ -245,6 +245,9 @@ void Renderer::run() {
     // Thread for rendering
     // Thread for particle (copy settings from global settings -> run buffered methods -> particle simulation -> repeat)
     // handle events (view and particle stuff save to global settings)
+    float time_counter = 0;
+    int frame_counter = 0;
+    float fps_update_time = 0.5f;
     while (window.isOpen()) {
         // Synchronises with ui
         particle_drag_radius = user_interface.elements[6]->value;
@@ -254,9 +257,13 @@ void Renderer::run() {
 
         delta = clock.restart().asSeconds();
         timer += delta;
-        if (timer >= 0.25f) {
-            timer -= 0.25f;
-            user_interface.fps_counter = round(10.f/delta)/10.f;
+        time_counter += delta;
+        frame_counter++;
+        if (timer >= fps_update_time) {
+            timer -= fps_update_time;
+            user_interface.fps_counter = static_cast<int>(1.f/(time_counter/frame_counter));
+            time_counter = 0;
+            frame_counter = 0;
         }
         delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation
 

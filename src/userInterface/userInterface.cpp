@@ -11,7 +11,8 @@
 
 using namespace std;
 
-UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2*4) {
+UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2 * 4), fps_text(font)
+{
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
     create_elements();
@@ -19,6 +20,14 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(s
 
 void UserInterface::create_elements() {
     elements.resize(35);
+
+    sidebar.setSize({sidebar_size, view.getSize().y});
+    sidebar.setFillColor(background_color);
+    sidebar.setOutlineColor(line_color);
+    sidebar.setOutlineThickness(1);
+
+    fps_text.setCharacterSize(20);
+    fps_text.setStyle(sf::Text::Bold);
     
     sf::Text text_1(font, "Particles", 14);
     text_1.setPosition({5, 5});
@@ -226,13 +235,7 @@ void UserInterface::render(sf::RenderWindow& window) {
     window.setView(view);
 
     // Sidebar
-    sf::RectangleShape sidebar;
-    sidebar.setSize({sidebar_size, view.getSize().y});
-    sidebar.setFillColor(background_color);
-    sidebar.setOutlineColor(line_color);
-    sidebar.setOutlineThickness(1);
     window.draw(sidebar);
-
 
     // Lines
     window.draw(lines);
@@ -252,19 +255,9 @@ void UserInterface::render(sf::RenderWindow& window) {
     }
 
     // FPS counter
-    sf::Text text(font);
-
-    std::stringstream stream;
-    stream << std::fixed << std::setprecision(1) << fps_counter;
-    text.setString(stream.str());
-
-    text.setCharacterSize(20);
-
-    text.setPosition({view.getSize().x - text.getLocalBounds().size.x - 10.f, 0});
-
-    text.setStyle(sf::Text::Bold);
-
-    window.draw(text);
+    fps_text.setString(to_string(fps_counter));
+    fps_text.setPosition({view.getSize().x - fps_text.getLocalBounds().size.x - 5.f, 0});
+    window.draw(fps_text);
 }
 
 template <typename T>
