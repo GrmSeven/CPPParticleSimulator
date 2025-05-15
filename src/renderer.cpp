@@ -55,25 +55,6 @@ void Renderer::handle_events() {
                     particle_simulator.paused = !particle_simulator.paused;
                 }
 
-                // Spawn/Despawn particles
-                if (keyPressed->code == sf::Keyboard::Key::W) {
-                    particle_simulator.set_particle_count(particle_simulator.particle_count + 100);
-                }
-                if (keyPressed->code == sf::Keyboard::Key::S) {
-                    particle_simulator.set_particle_count(particle_simulator.particle_count - 100);
-                }
-                if (keyPressed->code == sf::Keyboard::Key::Q) {
-                    particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements["mouse_radius"]->value);
-                }
-                if (keyPressed->code == sf::Keyboard::Key::R) {
-                    particle_simulator.behavior_manager.randomize_matrix();
-                }
-                if (keyPressed->code == sf::Keyboard::Key::E) {
-                    particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count + 1);
-                }
-                if (keyPressed->code == sf::Keyboard::Key::D) {
-                    particle_simulator.set_particle_type_count(particle_simulator.behavior_manager.particle_type_count - 1);
-                }
                 // Circle around mouse
                 if (keyPressed->code == sf::Keyboard::Key::LControl) {
                     draw_mouse_radius = true;

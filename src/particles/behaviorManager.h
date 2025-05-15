@@ -26,23 +26,6 @@ public:
     float min_distance = 20.f;  // If particles are too close, then they repel slightly
     float interaction_radius = 50.f;  // How far does the attraction persist
 
-    void resize_matrix(size_t s) {
-        if (particle_type_count == s) return;
-        for (size_t i = 0; i < particle_type_count; i++) {
-            particle_interaction_matrix[i].resize(s, 0);
-        }
-        particle_interaction_matrix.resize(s, std::vector<float>(s, 0));
-        particle_type_count = s;
-    }
-
-    void randomize_matrix() {
-        for (size_t i = 0; i < particle_type_count; i++) {
-            for (size_t j = 0; j < particle_type_count; j++) {
-                particle_interaction_matrix[i][j] = (rand() % 5)/2.5f - 1;
-            }
-        }
-    }
-
     float calculate_attraction(size_t attraction_type, float distance, float param) {
         switch (attraction_type) {
             case 0:

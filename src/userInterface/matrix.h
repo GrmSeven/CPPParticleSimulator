@@ -140,7 +140,6 @@ public:
                 for (int i = 0; i < matrix_size; i++) {
                     for (int j = 0; j < matrix_size; j++) {
                         particle_interaction_matrix[i][j] = rand()%static_cast<int>(1+2.f/interval)/(1+2.f/interval-1)*2.f - max_value;
-                        cout << particle_interaction_matrix[i][j] << endl;
                     }
                 }
                 break;
