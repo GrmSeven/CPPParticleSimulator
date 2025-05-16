@@ -16,7 +16,7 @@ public:
             thread_pool.reserve(thread_count);
         }
 
-        float chunk_size = (end - start - 1) / static_cast<float>(thread_count);
+        float chunk_size = (end - start) / static_cast<float>(thread_count) - 1.f/thread_count;
         if (chunk_size < 2) {
             for (int i = 0; i < end; i++) {
                 func(i);
@@ -33,8 +33,8 @@ public:
             }
         }
 
-        for (int i = 0; i < thread_count; i++) {
-            if (thread_pool[i].joinable()) {thread_pool[i].join();}
+        for (auto& t : thread_pool) {
+            if (t.joinable()) {t.join();}
         }
     }
 

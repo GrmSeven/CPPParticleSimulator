@@ -13,8 +13,6 @@ int main()
     r.set_fps_limit(240);
     r.run();
 
-
-
     // int n = 100;
     // a.resize(n);
     // threadManager::multithread_range(&func, 0, n);

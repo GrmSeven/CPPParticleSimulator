@@ -20,7 +20,6 @@ public: // May make it private and add getters and setters later (OOP)
 
     UserInterface* user_interface;
 
-    float interaction_radius = 50;
     size_t particle_count = 1000;;
     std::vector<float> positions_x;
     std::vector<float> positions_y;
@@ -44,7 +43,7 @@ public: // May make it private and add getters and setters later (OOP)
     void generate_grid(size_t p_id);
     // Particle velocity
     void handle_particle_velocity(size_t p_id);
-    void update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y);
+    void update_particle_velocity(size_t p1, size_t p2);
     void update_particle_position(size_t p);
     // Particle out of bounds behavior
     void handle_out_of_bounds(size_t id);

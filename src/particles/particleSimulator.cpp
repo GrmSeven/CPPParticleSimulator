@@ -20,10 +20,11 @@ void ParticleSimulator::pre_process() {
 void ParticleSimulator::process() {
     sync_settings();
     if (!paused) {
-        if (use_particle_grid) prepare_grid();
-
-        for (size_t p_id = 0; p_id < particle_count; p_id++) {
-            if (use_particle_grid) generate_grid(p_id);
+        if (use_particle_grid) {
+            prepare_grid();
+            for (size_t p_id = 0; p_id < particle_count; p_id++) {
+                generate_grid(p_id);
+            }
         }
 
         if (use_multithreading) {
@@ -58,7 +59,7 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
     if (!use_particle_grid) {
         for (size_t p2_id = 0; p2_id < particle_count; p2_id++) {
             if (p_id != p2_id) {
-                update_particle_velocity(p_id, p2_id, 0, 0);
+                update_particle_velocity(p_id, p2_id);
             }
         }
         return;
@@ -66,33 +67,38 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
 
     // With spatial partitioning
     const auto [cell_x, cell_y] = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
-    const int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
+    const int cell_radius = ceil(behavior_manager.interaction_radius/cell_size);
     int cell_margin_l = -cell_radius + cell_x;
-    int cell_margin_r = cell_radius + cell_x;
+    int cell_margin_r = cell_radius + cell_x + 1; // Make +1 smart later
     int cell_margin_u = -cell_radius + cell_y;
-    int cell_margin_d = cell_radius + cell_y;
-    cell_margin_l -= cell_margin_l < 0 ? 1 : 0;
-    cell_margin_r += cell_margin_r > cell_count_x -1 ? 1 : 0;
-    cell_margin_u -= cell_margin_u < 0 ? 1 : 0;
-    cell_margin_d += cell_margin_d > cell_count_y -1 ? 1 : 0;
+    int cell_margin_d = cell_radius + cell_y + 1; // Make +1 smart later
 
-    for (int x = cell_margin_l-1; x <= cell_margin_r; x++) {
-        for (int y = cell_margin_u-1; y <= cell_margin_d; y++) {
+    for (int x = cell_margin_l; x <= cell_margin_r; x++) {
+        for (int y = cell_margin_u; y <= cell_margin_d; y++) {
             for (auto& p2_id : get_particles_in_cell(x, y)) {
-                const int shift_x = floor(static_cast<float>(x)/cell_count_x);
-                const int shift_y = floor(static_cast<float>(y)/cell_count_y);
-                update_particle_velocity(p_id, p2_id, shift_x, shift_y);
+                if (p_id != p2_id) {
+                    update_particle_velocity(p_id, p2_id);
+                }
             }
         }
     }
 }
 
-void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
-    if (abs(positions_x[p2] - positions_x[p1]) < 0) return;
-    const float dx = positions_x[p2] + shift_x * width - positions_x[p1];
-    const float dy = positions_y[p2] + shift_y * height - positions_y[p1];
+void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2) {
+    float dx = positions_x[p2] - positions_x[p1];
+    float dy = positions_y[p2] - positions_y[p1];
+
+    if (is_space_wrapping_enabled) {
+        if (abs(dx) > width/2.f) {
+            dx -= utils::sign(dx) * width;
+        }
+        if (abs(dy) > height/2.f) {
+            dy -= utils::sign(dy) * height;
+        }
+    }
+
     const float distance_sq = dx * dx + dy * dy;
-    if (distance_sq < 0.0001f) return;
+    if (distance_sq < 1.4013e-45) return;
     const float inv_distance = fast_inv_sqrt(distance_sq);
     const float normal_x = dx * inv_distance;
     const float normal_y = dy * inv_distance;
@@ -119,6 +125,22 @@ float ParticleSimulator::fast_inv_sqrt(float x) {
     return x * (1.5f - (half * x * x));
 }
 
+std::pair<int, int> ParticleSimulator::convert_coords_to_cell(float x, float y) {
+    return std::make_pair(min(static_cast<int>(floor(x/cell_size)), cell_count_x-1), min(static_cast<int>(floor(y/cell_size)), cell_count_y-1));
+}
+
+bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {
+    return cell_count_x > x && cell_count_y > y;
+    // return ceil(static_cast<float>(width)/cell_size) > x && ceil(static_cast<float>(height)/cell_size) > y;
+}
+
+std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
+    if (!is_space_wrapping_enabled && !does_cell_exist(x, y)) {
+        return empty_vec;
+    }
+    return particle_grid[utils::abs_mod(y, cell_count_y)][utils::abs_mod(x, cell_count_x)];
+}
+
 void ParticleSimulator::update_particle_position(size_t p) {
     positions_x[p] += velocities_x[p] * *delta;
     positions_y[p] += velocities_y[p] * *delta;
@@ -130,15 +152,15 @@ void ParticleSimulator::prepare_grid() {
     for (auto& y_vec : particle_grid) {
         y_vec.resize(cell_count_x);
         for (auto& x_vec : y_vec) {
-            x_vec = std::vector<size_t>();
+            x_vec.clear();
         }
     }
 }
 
 void ParticleSimulator::generate_grid(size_t p_id) {
     // Adds particles into the grid
-    std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
-    particle_grid[cell.second][cell.first].push_back(p_id);
+    auto [cell_x, cell_y] = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
+    particle_grid[cell_y][cell_x].push_back(p_id);
 }
 
 void ParticleSimulator::handle_out_of_bounds(size_t id) {
@@ -199,21 +221,6 @@ void ParticleSimulator::apply_terminal_velocity(size_t p, float strength) {
     float velocity_multiplier = behavior_manager.calculate_terminal_velocity_change(*delta, strength);
     velocities_x[p] *= velocity_multiplier;
     velocities_y[p] *= velocity_multiplier;
-}
-
-std::pair<int, int> ParticleSimulator::convert_coords_to_cell(float x, float y) {
-    return std::make_pair(min(static_cast<int>(floor(x/cell_size)), cell_count_x-1), min(static_cast<int>(floor(y/cell_size)), cell_count_y-1));
-}
-
-bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {
-    return ceil(static_cast<float>(width)/static_cast<float>(cell_size)) > x && ceil(static_cast<float>(height)/static_cast<float>(cell_size)) > y;
-}
-
-std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
-    if (!is_space_wrapping_enabled && !does_cell_exist(x, y)) {
-        return empty_vec;
-    }
-    return particle_grid[utils::abs_mod(y, cell_count_y)][utils::abs_mod(x, cell_count_x)];
 }
 
 void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned short t) {

@@ -26,7 +26,7 @@ public:
     float min_distance = 20.f;  // If particles are too close, then they repel slightly
     float interaction_radius = 50.f;  // How far does the attraction persist
 
-    float calculate_attraction(const size_t attraction_type, const float distance, const float param) {
+    float calculate_attraction(const size_t attraction_type, float distance, const float param) {
         switch (attraction_type) {
             case 0:
                 return calculate_attraction_in_out(distance, param);

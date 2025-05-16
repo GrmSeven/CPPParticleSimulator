@@ -53,7 +53,7 @@ void UserInterface::create_elements() {
     sf::Text text_01(font, "Preset", 12);
     text_01.setPosition({5, 263});
     details.push_back(text_01);
-    elements[3] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snake", "     Spaghetti", "     Islands", "     Clumps"});
+    elements[3] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snakes", "     Spaghetti", "     Islands", "     Worms"});
     elements[4] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements[3]->value); ;});
     elements[4]->buttonColor = sf::Color(60, 60, 120);
     elements[5] = new Button({176, 262}, {19, 19}, "?");
@@ -157,7 +157,7 @@ void UserInterface::create_elements() {
     sf::Text text_15(font, "Force multiplier", 12);
     text_15.setPosition({5, 555});
     details.push_back(text_15);
-    elements[23] = new Range({98, 553}, {50, 19}, 2, 0.5, 0, 50);
+    elements[23] = new Range({98, 553}, {50, 19}, 1, 0.5, 0, 50);
 
     sf::Text text_16(font, "Use terminal velocity", 12);
     text_16.setPosition({30, 575});
