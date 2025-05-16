@@ -139,7 +139,7 @@ void UserInterface::create_elements() {
     sf::Text text_12(font, "Behaviour formula", 12);
     text_12.setPosition({5, 495});
     details.push_back(text_12);
-    elements[19] = new Dropdown({110, 493}, {85, 19}, {"     Particle Life", "     Newton", "     Weird"});
+    elements[19] = new Dropdown({110, 493}, {85, 19}, {"     Life InOut", "     Atoms", "     Life In", "     Life Out", "     Life Const"});
 
     sf::Text text_13(font, "Min distance", 12);
     text_13.setPosition({5, 515});

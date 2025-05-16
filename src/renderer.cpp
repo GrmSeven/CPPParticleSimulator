@@ -71,13 +71,13 @@ void Renderer::handle_events() {
                     window.close();
                     fullscreen = !fullscreen;
                     if (fullscreen) {
-                        window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().size), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Fullscreen);
+                        window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().size), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Fullscreen);
                         camera.resize_window(sf::Vector2f(window.getSize()));
                         user_interface.resize(sf::Vector2f(window.getSize()));
                     } else {
                         width = sf::VideoMode::getDesktopMode().size.x*0.9;
                         height = sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1;
-                        window.create(sf::VideoMode({width, height}), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                        window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
                         camera.resize_window(sf::Vector2f(width, height));
                         user_interface.resize(sf::Vector2f(width, height));
                     }
@@ -87,7 +87,11 @@ void Renderer::handle_events() {
                     if (fullscreen) {
                         window.close();
                         fullscreen = false;
-                        window.create(sf::VideoMode({width, height}), "hello world!! ", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                        width = sf::VideoMode::getDesktopMode().size.x*0.9;
+                        height = sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1;
+                        window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                        camera.resize_window(sf::Vector2f(width, height));
+                        user_interface.resize(sf::Vector2f(width, height));
                     }
                 }
             }

@@ -26,14 +26,18 @@ public:
     float min_distance = 20.f;  // If particles are too close, then they repel slightly
     float interaction_radius = 50.f;  // How far does the attraction persist
 
-    float calculate_attraction(size_t attraction_type, float distance, float param) {
+    float calculate_attraction(const size_t attraction_type, const float distance, const float param) {
         switch (attraction_type) {
             case 0:
-                return calculate_attraction_linear_life(distance, param);
+                return calculate_attraction_in_out(distance, param);
             case 1:
-                return calculate_attraction_inv_newton(distance, param);
+                return calculate_attraction_atom(distance, param);
             case 2:
-                return calculate_attraction_weird(distance, param);
+                return calculate_attraction_in(distance, param);
+            case 3:
+                return calculate_attraction_out(distance, param);
+            case 4:
+                return calculate_attraction_const(distance, param);
         }
         return 0;
     }
@@ -49,28 +53,53 @@ public:
 
 private:
     // Attraction formulas
-    float calculate_attraction_linear_life(float distance, float param) {
+    float calculate_attraction_in_out(float distance, float param) {
         if (distance < min_distance) {
-            return (distance - min_distance)/5;
+            return (distance - min_distance)/5.f;
         }
         if (distance < interaction_radius) {
-            return param * ((interaction_radius-min_distance)/2.f - abs(distance - (interaction_radius+min_distance)/2.f))/5;
+            return param*((interaction_radius-min_distance)/2 - abs((interaction_radius+min_distance)/2-distance))/5.f;
         }
         return 0.f;
     }
 
-    float calculate_attraction_inv_newton(float distance, float param) {
+    float calculate_attraction_in(float distance, float param) {
         if (distance < min_distance) {
-            return (distance - min_distance)/5;
+            return (distance - min_distance)/5.f;
         }
-        return distance * distance * 0.001f * param;
+        if (distance < interaction_radius) {
+            return param*(distance - min_distance)/5.f;
+        }
+        return 0.f;
     }
 
-    float calculate_attraction_weird(float distance, float param) {
+    float calculate_attraction_out(float distance, float param) {
         if (distance < min_distance) {
-            return (distance - min_distance)/5;
+            return (distance - min_distance)/5.f;
         }
-        srand(floor(distance*2));
-        return rand()%100/10 * param;
+        if (distance < interaction_radius) {
+            return param*(interaction_radius - distance)/5.f;
+        }
+        return 0.f;
+    }
+
+    float calculate_attraction_const(float distance, float param) {
+        if (distance < min_distance) {
+            return (distance - min_distance)/5.f;
+        }
+        if (distance < interaction_radius) {
+            return param*interaction_radius/4.f/5.f;
+        }
+        return 0.f;
+    }
+
+    float calculate_attraction_atom(float distance, float param) {
+        if (distance < min_distance) {
+            return (distance - min_distance)/5.f;
+        }
+        if (distance < interaction_radius) {
+            return param*(distance - min_distance - interaction_radius/2)/5.f;
+        }
+        return 0.f;
     }
 };
