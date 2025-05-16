@@ -15,15 +15,30 @@ Camera::Camera(float zoom, sf::Vector2f simulationSize, sf::Vector2f windowSize)
 
 void Camera::handle_events(std::optional<sf::Event>& event) {
     if (is_active) {
+        // Shift detection
+        if (const auto* keyRelased = event->getIf<sf::Event::KeyPressed>()) {
+            if (keyRelased->code == sf::Keyboard::Key::LShift) {
+                shift_pressed = true;
+            }
+        }
+
+        if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
+            if (keyRelased->code == sf::Keyboard::Key::LShift) {
+                shift_pressed = false;
+            }
+        }
+
         // Canvas zooming
         if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
-            float scroll_delta = mouseWheelScrolled->delta;
-            if (scroll_delta > 0) {
-                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
-                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom/zoom_sensitivity);
-            } else {
-                // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
-                mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom*zoom_sensitivity);
+            if (!shift_pressed) {
+                float scroll_delta = mouseWheelScrolled->delta;
+                if (scroll_delta > 0) {
+                    // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom*1.1);
+                    mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom/zoom_sensitivity);
+                } else {
+                    // mouse_smooth_zoom_set({ mouseWheelScrolled->position }, zoom/1.1);
+                    mouse_smooth_zoom_set({ mouseWheelScrolled->position }, wanted_zoom*zoom_sensitivity);
+                }
             }
         }
 

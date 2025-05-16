@@ -32,6 +32,8 @@ public:
     float wanted_zoom;
     float zoom_speed = 0.8f;
     float zoom_sensitivity = 1.1f;
+    // Other
+    bool shift_pressed{};
 };
 
 #endif // VIEW_H

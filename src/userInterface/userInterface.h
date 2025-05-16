@@ -38,7 +38,7 @@ public:
     void mouse_moved(sf::Vector2i pos);
     void mouse_pressed(sf::Vector2i pos, int type);
     void mouse_released(sf::Vector2i pos, int type);
-    void mouse_scrolled(sf::Vector2i pos, float scroll_delta);
+    void mouse_scrolled(sf::Vector2i pos, float scroll_delta, bool shift_pressed);
 
     void resize(sf::Vector2f newWindowSize);
 };

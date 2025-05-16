@@ -11,7 +11,7 @@
 
 using namespace std;
 
-UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2 * 4), fps_text(font)
+UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2 * 5), fps_text(font)
 {
     view.setSize(windowSize);
     view.setCenter(windowSize / 2.f);
@@ -19,7 +19,7 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(s
 }
 
 void UserInterface::create_elements() {
-    elements.resize(35);
+    elements.resize(39);
 
     sidebar.setSize({sidebar_size, view.getSize().y});
     sidebar.setFillColor(background_color);
@@ -47,7 +47,7 @@ void UserInterface::create_elements() {
     // Matrix
     matrix = new Matrix({5, 65}, {190, 190}, this->elements[1]->value, 0, 0.25, -1, 1);
     elements[2] = new Button({176, 45}, {19, 19}, "?");
-    elements[2]->tooltip = "Matrix represents attraction force of one particle type (row) to another (column)\nEach of the types is represented by its dedicated color\n\nFor example, if there are particles of two types nearby:\n(Type 1 is circle color to the left from a cell, Type 2 is circle color on top of a cell)\nThen Type 1 particle will get attracted or repelled to Type 2, based on the matrix cell color\n\nBlue cell means particle will be attracted (1)\nGray cell means particle will be neutral (0)\nRed cell means particle will be repelled (-1)\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Increase attraction\n- Right Click/Scroll down: Decrease attraction\n- Middle Click: Reset to 0 (neutral)";
+    elements[2]->tooltip = "Matrix represents attraction force of one particle type (row) to another (column).\nEach of the types is represented by its dedicated color.\n\nFor example, if there are particles of two types nearby:\n(Type 1 is circle color to the left from a cell, Type 2 is circle color on top of a cell)\nThen Type 1 particle will get attracted or repelled to Type 2, based on the matrix cell color.\n\nBlue cell means particle will be attracted (1)\nGray cell means particle will be neutral (0)\nRed cell means particle will be repelled (-1)";
 
 
     sf::Text text_01(font, "Preset", 12);
@@ -57,7 +57,7 @@ void UserInterface::create_elements() {
     elements[4] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements[3]->value); ;});
     elements[4]->buttonColor = sf::Color(60, 60, 120);
     elements[5] = new Button({176, 262}, {19, 19}, "?");
-    elements[5]->tooltip = "Choose preset for matrix and then click Apply\n\nControls (applicable to other UI elements too):\n- Left Click/Scroll up: Next value\n- Right Click/Scroll down: Previous value\n- Middle Click: Reset to default value";
+    elements[5]->tooltip = "Choose preset for matrix and then click Apply.";
 
     add_line(0, 285);
 
@@ -69,7 +69,11 @@ void UserInterface::create_elements() {
     sf::Text text_02(font, "Radius", 12);
     text_02.setPosition({5, 310});
     details.push_back(text_02);
-    elements[6] = new Range({48, 308}, {30, 19}, 100, 5, 5, 1000);
+    elements[6] = new Range({48, 308}, {30, 19}, 100, 5, 5, 1450);
+    elements[6]->tooltip = "Radius of a brush/drag.";
+
+    elements[35] = new Checkbox({83, 308}, {75, 19}, "     Visualize", false);
+    elements[35]->tooltip = "Click to visualize brush/drag radius. It also appears while holding Ctrl.";
 
     sf::Text text_5(font, "Drag type", 12);
     text_5.setPosition({5, 330});
@@ -77,7 +81,7 @@ void UserInterface::create_elements() {
     elements[7] = new Dropdown({65, 328}, {60, 19}, {"     Attract", "     Move"});
 
     elements[8] = new Button({176, 328}, {19, 19}, "?");
-    elements[8]->tooltip = "Use Left Mouse Button to attract/move particles within the radius\n\nAttract - Changes velocity of particle by applying a force that pulls them toward the cursor \n                  Works only when unpaused and velocity enabled\n\nMove - Changes position of particle based on distance from cursor\n                Drag force changes curvature, the bigger, the more even\n\nHold Ctrl to visualize radius";
+    elements[8]->tooltip = "Use Left Mouse Button to attract/move particles within the radius\n\nAttract - Changes velocity of particle by applying a force that pulls them toward the cursor \n                  Works only when unpaused and velocity enabled\n\nMove - Changes position of particle based on distance from cursor\n                Drag force changes curvature - The bigger, the smaller curve\n\nHold Ctrl to visualize radius";
 
     sf::Text text_6(font, "Drag force", 12);
     text_6.setPosition({5, 350});
@@ -88,25 +92,19 @@ void UserInterface::create_elements() {
     text_7.setPosition({5, 370});
     details.push_back(text_7);
     elements[10] = new Dropdown({40, 368}, {60, 19}, {"     Spawn", "     Delete"});
-    elements[10]->tooltip = "WIP, disabled";
-    elements[10]->disable();
 
     elements[11] = new Button({176, 368}, {19, 19}, "?");
-    elements[11]->tooltip = "WIP, disabled\n\nUse Right Mouse Button to Spawn/Delete particles around cursor within the radius\nSet spawn type to 0, to spawn random particles\n\nHold Ctrl to visualize radius";
+    elements[11]->tooltip = "Use Right Mouse Button to Spawn/Delete particles around cursor within the radius\nSet spawn type to 0, to spawn random particles\n\nHold Ctrl to visualize radius";
 
     sf::Text text_8(font, "Spawn count", 12);
     text_8.setPosition({5, 390});
     details.push_back(text_8);
-    elements[12] = new Range({80, 388}, {50, 19}, 1, 1, 1, 100);
-    elements[12]->tooltip = "WIP, disabled";
-    elements[12]->disable();
+    elements[12] = new Range({80, 388}, {50, 19}, 50, 1, 1, 1000);
 
     sf::Text text_9(font, "Spawn type", 12);
     text_9.setPosition({5, 410});
     details.push_back(text_9);
-    elements[13] = new Range({72, 408}, {30, 19}, 1, 1, 1, this->elements[1]->value);
-    elements[13]->tooltip = "WIP, disabled";
-    elements[13]->disable();
+    elements[13] = new Range({72, 408}, {30, 19}, 0, 1, 0, this->elements[1]->value);
 
     add_line(1, 430);
 
@@ -115,57 +113,45 @@ void UserInterface::create_elements() {
     text_10.setStyle(sf::Text::Bold);
     details.push_back(text_10);
 
-    sf::Text text_03(font, "Max FPS", 12);
-    text_03.setPosition({5, 455});
-    details.push_back(text_03);
-    elements[14] = new Range({56, 453}, {30, 19}, 0, 5, 0, 500);
-
-    sf::Text text_04(font, "Min FPS", 12);
-    text_04.setPosition({90, 455});
-    details.push_back(text_04);
-    elements[15] = new Range({138, 453}, {30, 19}, 10, 5, 0, 60);
-
-    elements[16] = new Button({176, 453}, {19, 19}, "?");
-    elements[16]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur";
-
     sf::Text text_11(font, "Space wrapping", 12);
-    text_11.setPosition({30, 475});
+    text_11.setPosition({30, 455});
     details.push_back(text_11);
-    elements[17] = new Checkbox({5, 473}, {19, 19}, "", true);
-
-    elements[18] = new Button({176, 473}, {19, 19}, "?");
-    elements[18]->tooltip = "If enabled, particles will teleport to opposite side instead of bouncing off.";
+    elements[17] = new Checkbox({5, 453}, {19, 19}, "", true);
+    elements[17]->tooltip = "If enabled, particles will teleport to opposite side instead of bouncing off.";
 
     sf::Text text_12(font, "Behaviour formula", 12);
-    text_12.setPosition({5, 495});
+    text_12.setPosition({5, 475});
     details.push_back(text_12);
-    elements[19] = new Dropdown({110, 493}, {85, 19}, {"     Life InOut", "     Atoms", "     Life In", "     Life Out", "     Life Const"});
+    elements[19] = new Dropdown({110, 473}, {85, 19}, {"     Life InOut", "     Atoms", "     Life In", "     Life Out", "     Life Const"});
 
     sf::Text text_13(font, "Min distance", 12);
-    text_13.setPosition({5, 515});
+    text_13.setPosition({5, 495});
     details.push_back(text_13);
-    elements[20] = new Range({78, 513}, {40, 19}, 20, 5, 0, 1000, [this]{this->elements[22]->value = max(this->elements[22]->value, this->elements[20]->value); this->elements[22]->update_shapes();});
+    elements[20] = new Range({78, 493}, {40, 19}, 20, 5, 0, 1000, [this]{this->elements[22]->value = max(this->elements[22]->value, this->elements[20]->value); this->elements[22]->update_shapes();});
 
-    elements[21] = new Button({176, 533}, {19, 19}, "?");
-    elements[21]->tooltip = "When particles are closer than Min distance, then they will repel slightly\nInteraction distance determines how far particles can attract/repel from each other\n(Uses Matrix and Behavior formula to calculate exact behavior)";
+    elements[21] = new Button({176, 493}, {19, 19}, "?");
+    elements[21]->tooltip = "When particles are closer than Min distance, then they will repel slightly.\nInteraction distance determines how far particles can attract/repel from each other.\n(Uses Matrix and Behavior formula to calculate exact behavior)";
 
     sf::Text text_14(font, "Interation distance", 12);
-    text_14.setPosition({5, 535});
+    text_14.setPosition({5, 515});
     details.push_back(text_14);
-    elements[22] = new Range({110, 533}, {40, 19}, 50, 5, 10, 1000, [this]{this->elements[20]->value = min(this->elements[20]->value, this->elements[22]->value); this->elements[20]->update_shapes();});
+    elements[22] = new Range({110, 513}, {40, 19}, 50, 5, 10, 1000, [this]{this->elements[20]->value = min(this->elements[20]->value, this->elements[22]->value); this->elements[20]->update_shapes();});
 
     sf::Text text_15(font, "Force multiplier", 12);
-    text_15.setPosition({5, 555});
+    text_15.setPosition({5, 535});
     details.push_back(text_15);
-    elements[23] = new Range({98, 553}, {50, 19}, 1, 0.5, 0, 50);
+    elements[23] = new Range({98, 533}, {30, 19}, 1, 0.2, 0, 1000);
+
+    sf::Text text24(font, "Max velocity:", 12);
+    text24.setPosition({5, 555});
+    details.push_back(text24);
+    elements[18] = new Range({80, 553}, {50, 19}, 1000, 100, 0, 100000);
 
     sf::Text text_16(font, "Use terminal velocity", 12);
     text_16.setPosition({30, 575});
     details.push_back(text_16);
     elements[24] = new Checkbox({5, 573}, {19, 19}, "", true, [this]{this->elements[26]->disable(!this->elements[24]->value);});
-
-    elements[25] = new Button({176, 573}, {19, 19}, "?");
-    elements[25]->tooltip = "If terminal velocity isn't used, then particle movement will be of constant speed\nThe bigger terminal velocity value, the faster particle will slow down";
+    elements[24]->tooltip = "If terminal velocity isn't used, then particle movement will be of constant speed\nThe bigger terminal velocity value, the faster particle will slow down";
 
     sf::Text text_17(font, "Terminal velocity", 12);
     text_17.setPosition({5, 595});
@@ -195,29 +181,64 @@ void UserInterface::create_elements() {
     elements[29] = new Dropdown({48, 678}, {95, 19}, {"     Rainbow", "     Temperature", "     Maroon", "     Pastel"}, [this]{this->matrix->used_palette = this->elements[29]->value; this->matrix->update_shapes();});
 
     sf::Text text_22(font, "Visualize velocity", 12);
-    text_22.setPosition({30, 700});
+    text_22.setPosition({5, 700});
     details.push_back(text_22);
-    elements[30] = new Checkbox({5, 698}, {19, 19}, "", false);
+    elements[30] = new Range({103, 698}, {40, 19}, 0, 10, 0, 5000);
+
+    elements[38] = new Button({180, 698}, {19, 19}, "?");
+    elements[38]->tooltip = "Makes fast particles brighter.\nThis changes speed threshold.\nSet to 0 to disable.";
 
     add_line(3, 720);
 
+    sf::Text text_25(font, "Performance", 14);
+    text_25.setPosition({5, 725});
+    text_25.setStyle(sf::Text::Bold);
+    details.push_back(text_25);
+
+    sf::Text text_03(font, "Max FPS", 12);
+    text_03.setPosition({5, 745});
+    details.push_back(text_03);
+    elements[14] = new Range({56, 743}, {30, 19}, 0, 5, 0, 500);
+
+    sf::Text text_04(font, "Min FPS", 12);
+    text_04.setPosition({90, 745});
+    details.push_back(text_04);
+    elements[15] = new Range({138, 743}, {30, 19}, 10, 5, 0, 60);
+
+    elements[16] = new Button({176, 743}, {19, 19}, "?");
+    elements[16]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur";
+
+    sf::Text text_24(font, "Partition ratio", 12);
+    text_24.setPosition({5, 765});
+    details.push_back(text_24);
+    elements[36] = new Range({83, 763}, {30, 19}, 2, 1, 1, 10);
+
+    sf::Text text_26(font, "Multithreading", 12);
+    text_26.setPosition({30, 785});
+    details.push_back(text_26);
+    elements[37] = new Checkbox({5, 783}, {19, 19}, "", true);
+
+    add_line(4, 805);
+
     sf::Text text_23(font, "Info", 14);
-    text_23.setPosition({5, 725});
+    text_23.setPosition({5, 810});
     text_23.setStyle(sf::Text::Bold);
     details.push_back(text_23);
 
-    elements[31] = new Button({5, 745}, {75, 19}, "UI Controls");
-    elements[31]->tooltip = "Left Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
+    elements[31] = new Button({5, 830}, {75, 19}, "UI Controls");
+    elements[31]->tooltip = "This applies for most UI elements:\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
 
-    elements[32] = new Button({5, 765}, {115, 19}, "Keyboard Controls");
+    elements[32] = new Button({5, 850}, {115, 19}, "Keyboard Controls");
     elements[32]->tooltip = "Space - Pause\nMiddle Mouse Button - Drag the screen\n\nScroll wheel - Zoom in/out\nArrow keys - Move around\nLeft click - Drag/Attract particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
 
-    elements[33] = new Button({5, 785}, {70, 19}, "How to use");
+    elements[33] = new Button({5, 870}, {70, 19}, "How to use");
     elements[33]->tooltip = "Hover with cursor over boxes with ? on them for UI info\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames is too high ,to fix it,\neither make Min FPS bigger, reduce Force multiplier or \nparticle count.\n";
 
-    elements[34] = new Button({5, 805}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
+    elements[34] = new Button({5, 890}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
     elements[34]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning, Structure of Arrays and Multithreading\nEverything is written in C++, visuals are rendered using SFML";
     elements[34]->buttonColor = sf::Color(60, 60, 120);
+
+    elements[25] = new Button({-20, -20}, {19, 19}, "?");
 
     for (auto& element : elements) {
         element->update_shapes();
@@ -347,14 +368,16 @@ void UserInterface::mouse_released(sf::Vector2i pos, int type) {
     }
 }
 
-void UserInterface::mouse_scrolled(sf::Vector2i pos, float scroll_delta) {
+void UserInterface::mouse_scrolled(sf::Vector2i pos, float scroll_delta, bool shift_pressed) {
     Element* element = get_element_at(pos);
     if (element != nullptr) {
         element->hover();
-        if (scroll_delta > 0) {
-            element->scroll_down();
-        } else {
-            element->scroll_up();
+        for (int i = 0; i < (shift_pressed ? 10 : 1); i++) {
+            if (scroll_delta > 0) {
+                element->scroll_down();
+            } else {
+                element->scroll_up();
+            }
         }
     }
 }

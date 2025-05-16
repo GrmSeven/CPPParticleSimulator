@@ -230,7 +230,12 @@ void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned 
         positions_y.push_back(y + fmod(rand()/10000000.f, 1.f));
         velocities_x.push_back(0);
         velocities_y.push_back(0);
-        types.push_back(fmod(t + i, behavior_manager.particle_type_count));
+        if (t == 0) {
+            types.push_back(rand() % behavior_manager.particle_type_count);
+        } else {
+            types.push_back(t-1);
+        }
+
         handle_out_of_bounds(particle_count-1);
     }
 }
@@ -240,12 +245,26 @@ void ParticleSimulator::spawn_particle(float x, float y, size_t count) {
 }
 
 void ParticleSimulator::delete_particle(size_t id) {
+    user_interface->elements[0]->value--;
     particle_count--;
     positions_x.erase(positions_x.begin() + id);
     positions_y.erase(positions_y.begin() + id);
     velocities_x.erase(velocities_x.begin() + id);
     velocities_y.erase(velocities_y.begin() + id);
     types.erase(types.begin() + id);
+}
+
+void ParticleSimulator::delete_particle_near(sf::Vector2f pos, float radius) {
+    radius *= radius;
+    for (size_t i = 0; i < particle_count; i++) {
+        const float dx = pos.x - positions_x[i];
+        const float dy = pos.y - positions_y[i];
+        const float distance_sq = dx * dx + dy * dy;
+        if (distance_sq < radius) {
+            delete_particle(i);
+        }
+    }
+    user_interface->elements[0]->update_shapes();
 }
 
 void ParticleSimulator::set_particle_count(int n) {
@@ -294,11 +313,13 @@ void ParticleSimulator::sync_settings() {
     is_space_wrapping_enabled = user_interface->elements[17]->value;
     behavior_manager.min_distance = user_interface->elements[20]->value;
     behavior_manager.interaction_radius = user_interface->elements[22]->value;
-    if (cell_size != user_interface->elements[22]->value/2.f) {
-        resize_cells(user_interface->elements[22]->value/2.f);
+    const float cell_partition_size = user_interface->elements[22]->value/user_interface->elements[36]->value;
+    if (cell_size != cell_partition_size) {
+        resize_cells(cell_partition_size);
     }
     force_multiplier = user_interface->elements[23]->value;
     uses_terminal_velocity = user_interface->elements[24]->value;
     terminal_velocity_strength = user_interface->elements[26]->value;
-
+    max_velocity = user_interface->elements[18]->value;
+    use_multithreading = user_interface->elements[37]->value;
 }

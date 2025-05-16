@@ -32,6 +32,8 @@ private:
     bool is_focused = true;
     bool simulator_focused = false;
     bool particle_drag_enabled{};
+    bool particle_delete_enabled{};
+    bool shift_pressed{};
     float particle_drag_radius = 100.f;
     bool draw_particle_grid = false;
     bool draw_mouse_radius = false;
