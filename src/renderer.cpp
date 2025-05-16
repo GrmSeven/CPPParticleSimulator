@@ -219,7 +219,7 @@ void Renderer::render() {
     // Draw grid
     if (draw_particle_grid) {
         sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2 - 4);
-        unsigned short& cell_size = particle_simulator.cell_size;
+        float& cell_size = particle_simulator.cell_size;
         for (int i = 1; i < particle_simulator.cell_count_x; i++) {
             grid[i*2 - 2].position = sf::Vector2f(i*cell_size, 0.f);
             grid[i*2 - 1].position = sf::Vector2f(i*cell_size, particle_simulator.height);

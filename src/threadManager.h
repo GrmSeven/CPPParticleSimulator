@@ -26,8 +26,7 @@ public:
             float e = start + chunk_size;
             for (int i = 0; i < thread_count; i++) {
                 size_t s_thread = ceil(s);
-                size_t e_thread = min(ceil(e), static_cast<float>(end));
-                // cout << s_thread << "-" << e_thread << " " << e_thread - s_thread << endl;
+                size_t e_thread = i == thread_count-1 ? ceil(e+1) : ceil(e);
                 thread_pool.emplace_back([&func, s_thread, e_thread]{for (int i = s_thread; i < e_thread; i++) func(i);});
                 s += chunk_size;
                 e += chunk_size;

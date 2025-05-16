@@ -22,9 +22,6 @@ void ParticleSimulator::process() {
     if (!paused) {
         if (use_particle_grid) prepare_grid();
 
-        // threadManager::multithread_range([this](size_t i) {
-        //     this->generate_grid(i);
-        // }, 0, particle_count);
         for (size_t p_id = 0; p_id < particle_count; p_id++) {
             if (use_particle_grid) generate_grid(p_id);
         }
@@ -57,7 +54,7 @@ void ParticleSimulator::process() {
 }
 
 void ParticleSimulator::handle_particle_velocity(size_t p_id) {
-    // Fallback
+    // Fallback w/o spatial partitioning
     if (!use_particle_grid) {
         for (size_t p2_id = 0; p2_id < particle_count; p2_id++) {
             if (p_id != p2_id) {
@@ -67,7 +64,7 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
         return;
     }
 
-    // Actual thing
+    // With spatial partitioning
     const auto [cell_x, cell_y] = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
     const int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
     int cell_margin_l = -cell_radius + cell_x;
@@ -91,6 +88,7 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
 }
 
 void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
+    if (abs(positions_x[p2] - positions_x[p1]) < 0) return;
     const float dx = positions_x[p2] + shift_x * width - positions_x[p1];
     const float dy = positions_y[p2] + shift_y * height - positions_y[p1];
     const float distance_sq = dx * dx + dy * dy;
@@ -214,10 +212,8 @@ bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {
 std::vector<size_t>& ParticleSimulator::get_particles_in_cell(int x, int y) {
     if (!is_space_wrapping_enabled && !does_cell_exist(x, y)) {
         return empty_vec;
-    } else {
-        return particle_grid[utils::abs_mod(y, cell_count_y)][utils::abs_mod(x, cell_count_x)];
     }
-
+    return particle_grid[utils::abs_mod(y, cell_count_y)][utils::abs_mod(x, cell_count_x)];
 }
 
 void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned short t) {
@@ -269,10 +265,10 @@ void ParticleSimulator::set_particle_count(int n) {
     }
 }
 
-void ParticleSimulator::resize_cells(unsigned short size) {
+void ParticleSimulator::resize_cells(float size) {
     cell_size = size;
-    cell_count_x = ceil(static_cast<float>(width)/static_cast<float>(cell_size));
-    cell_count_y = ceil(static_cast<float>(height)/static_cast<float>(cell_size));
+    cell_count_x = ceil(width/cell_size);
+    cell_count_y = ceil(height/cell_size);
 }
 
 void ParticleSimulator::set_particle_type_count() {

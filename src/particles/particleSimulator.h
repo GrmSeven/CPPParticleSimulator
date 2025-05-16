@@ -13,7 +13,7 @@ public: // May make it private and add getters and setters later (OOP)
     bool use_particle_grid = true;
     unsigned short width;
     unsigned short height;
-    unsigned short cell_size = 25;
+    float cell_size;
     unsigned short cell_count_x;
     unsigned short cell_count_y;
     float* delta;
@@ -77,7 +77,7 @@ public:
     void set_particle_count(int n); // Chooses random particles to delete/spawn
     void set_particle_type_count();
 
-    void resize_cells(unsigned short size);
+    void resize_cells(float size);
     // Getters, setters
 
 };
