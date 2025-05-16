@@ -27,6 +27,8 @@ private:
     sf::Vector2f global_mouse_pos;
     sf::Vector2f last_mouse_pos;
     sf::ContextSettings settings;
+    sf::VertexArray particle_shape;
+    sf::VertexArray particle_vertices;
     bool is_focused = true;
     bool simulator_focused = false;
     bool particle_drag_enabled{};

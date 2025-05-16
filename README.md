@@ -1,30 +1,18 @@
 # Particle Simulator using SFML
 
 ### TODO:
-Profiler: https://www.jetbrains.com/help/clion/cpu-profiler.html#perf-output
+**Async Multithreading?**
 
-**Multithreading:**
+**Important:**
+1. Bug: When interaction radius is very large, particles tend to move top-left. Probably related to uneven space warping at the edges (right and bottom)
+2. Better thread pooling (don't create new one every single time) + separate from rendering
+3. Single vector for grid
 
-Sync version (easier) DONE
-- Events -> [Multiple threads for particles] -> Rendering -> Repeat
-
-Async version (harder, slightly better)
-- Events + Camera updating + UI updating
-- Particle rendering + UI Rendering
-- Particle simulation
-
-\
 **Smaller features:**
 - Particle spawning (needs buffering to work with threads)
 - Shift + scroll = resize brush (add to controls hint)
 - Shift to speed up scrolling (add to controls hint)
-
-\
-**Smaller optimizations:**
-- Optimizing calculations (using DistanceSquared, pointers)
-- Hashing of curves
-- Particle simulation distance hashing
-
-\
-**Bugs:**
-- When interaction radius is very large, particles tend to move top-left. Probably related to uneven space warping
+- Logarithmic range scaling
+- Sliders instead of range
+- Visualize velocity as slider
+- Spatial grid ratio

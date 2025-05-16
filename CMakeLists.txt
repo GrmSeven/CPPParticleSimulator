@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.28)
 project(CMakeSFMLProject LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -13,19 +15,14 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(main src/main.cpp
-        src/Renderer.cpp
-        src/Renderer.h
+        src/renderer.cpp
+        src/renderer.h
         src/utils.h
         src/particles/particleSimulator.cpp
         src/particles/particleSimulator.h
         src/camera/camera.h
         src/camera/camera.cpp
         src/particles/behaviorManager.h
-        src/gravityTable/gravityElement.cpp
-        src/gravityTable/gravityElement.h
-        src/gravityTable/Ctest.cpp
-        src/gravityTable/gravityTable.cpp
-        src/gravityTable/gravityTable.h
         src/userInterface/userInterface.cpp
         src/userInterface/userInterface.h
         src/userInterface/element.h

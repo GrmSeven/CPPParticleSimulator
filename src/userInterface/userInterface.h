@@ -8,7 +8,7 @@
 class UserInterface {
 public:
     sf::View view;
-    float fps_counter;
+    int fps_counter;
     const sf::Font font;
     float sidebar_size = 200.f;
     sf::Vector2i mouse_pos;
@@ -19,10 +19,12 @@ public:
     sf::Vector2i first_press_pos;
     bool is_mouse_held{};
 
-    map<string, Element*> elements;
+    vector<Element*> elements;
     Matrix* matrix;
     vector<sf::Text> details;
     sf::VertexArray lines;
+    sf::RectangleShape sidebar;
+    sf::Text fps_text;
 
     UserInterface(sf::Vector2f windowSize);
     void render(sf::RenderWindow& window);

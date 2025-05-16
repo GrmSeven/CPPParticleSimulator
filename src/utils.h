@@ -30,6 +30,10 @@ public:
         return sf::Vector2(a.x+b.x, a.y+b.y) * l;
     }
 
+    static sf::Color lerp(sf::Color a, sf::Color b, float l) {
+        return {lerp(a.r, b.r, l), lerp(a.g, b.g, l), lerp(a.b, b.b, l)};
+    }
+
     template <typename T>
     static T lerp(T a, T b, float l) {
         return a+(b-a)*l;

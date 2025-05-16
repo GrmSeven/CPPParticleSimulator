@@ -46,7 +46,7 @@ public:
     sf::Color currentButtonColor = buttonColor;
     sf::Color currentTextColor = textColor;
 
-    Element(sf::Vector2f pos, sf::Vector2f size, function<void()> func = nullptr) : font("src/resources/hih.ttf"), text(font), tooltip_text(font), func(func) {
+    Element(sf::Vector2f pos, sf::Vector2f size, function<void()> func = nullptr) : font("hih.ttf"), text(font), tooltip_text(font), func(func) {
         this->position = pos;
         this->size = size;
         normal();
