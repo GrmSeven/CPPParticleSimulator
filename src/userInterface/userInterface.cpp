@@ -53,7 +53,7 @@ void UserInterface::create_elements() {
     sf::Text text_01(font, "Preset", 12);
     text_01.setPosition({5, 263});
     details.push_back(text_01);
-    elements[3] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snake", "     Spaghetti", "     Islands"});
+    elements[3] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snake", "     Spaghetti", "     Islands", "     Clumps"});
     elements[4] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements[3]->value); ;});
     elements[4]->buttonColor = sf::Color(60, 60, 120);
     elements[5] = new Button({176, 262}, {19, 19}, "?");
