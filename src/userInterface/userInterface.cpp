@@ -118,7 +118,7 @@ void UserInterface::create_elements() {
     sf::Text text_03(font, "Max FPS", 12);
     text_03.setPosition({5, 455});
     details.push_back(text_03);
-    elements[14] = new Range({56, 453}, {30, 19}, 60, 5, 0, 500);
+    elements[14] = new Range({56, 453}, {30, 19}, 0, 5, 0, 500);
 
     sf::Text text_04(font, "Min FPS", 12);
     text_04.setPosition({90, 455});

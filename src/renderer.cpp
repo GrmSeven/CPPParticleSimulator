@@ -7,7 +7,9 @@ Renderer::Renderer()
     : width(sf::VideoMode::getDesktopMode().size.x*0.9), height(sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1),
     user_interface(sf::Vector2f(width, height)),
     particle_simulator(2003, 2003, &delta, &user_interface),
-    camera(1.8f, sf::Vector2f(2003, 2003), sf::Vector2f(width, height))
+    camera(1.8f, sf::Vector2f(2003, 2003), sf::Vector2f(width, height)),
+    particle_shape(sf::PrimitiveType::Triangles, 0),
+    particle_vertices(sf::PrimitiveType::Triangles, 0)
 {
     // width = ;
     settings.antiAliasingLevel = 4;
@@ -169,41 +171,43 @@ void Renderer::handle_events() {
 
 
 /**
- * Renders particles and UIx
+ * Renders particles and UI
  */
 void Renderer::render() {
     window.clear();
 
     // Particle rendering
-    int vertex_count = user_interface.elements[27]->value;
-    float p_radius = user_interface.elements[28]->value;
+    const int vertex_count = user_interface.elements[27]->value;
+    const float p_radius = user_interface.elements[28]->value;
     // Create particle shape preset
-    sf::VertexArray particle_shape(sf::PrimitiveType::Triangles, 3*(vertex_count-2));
+    particle_shape.resize(3*(vertex_count-2));
     for (int i = 0; i < vertex_count-2; i++) {
-        float angle = (i+1) * 2 * M_PI / vertex_count;
-        float angle2 = (i+2) * 2 * M_PI / vertex_count;
+        const float angle = (i+1) * 6.28f / vertex_count;
+        const float angle2 = (i+2) * 6.28f / vertex_count;
         particle_shape[i*3].position = sf::Vector2f(p_radius, 0);
         particle_shape[i*3+1].position = sf::Vector2f(cos(angle) * p_radius, sin(angle) * p_radius);
         particle_shape[i*3+2].position = sf::Vector2f(cos(angle2) * p_radius, sin(angle2) * p_radius);
     }
     // Draw particles
-    sf::VertexArray particle_vertices(sf::PrimitiveType::Triangles, 3*(vertex_count-2)*particle_simulator.particle_count);
+    particle_vertices.resize(3*(vertex_count-2)*particle_simulator.particle_count);
+    sf::Color particle_color;
+    const bool visualize_velocity = user_interface.elements[30]->value;
     for (size_t p_id = 0; p_id < particle_simulator.particle_count; p_id++) {
         sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
-        sf::Color particle_color = sf::Color::White;
-        if (user_interface.elements[30]->value) {
-            float velocity = utils::clamp(hypot(particle_simulator.velocities_x[p_id], particle_simulator.velocities_y[p_id]), 0.f, 510.f)/2.f;
-            particle_color = sf::Color(min(velocity, 255.f), min(velocity, 255.f), 50);
+        if (visualize_velocity) {
+            const float velocity = sqrtf(particle_simulator.velocities_x[p_id] * particle_simulator.velocities_x[p_id] + particle_simulator.velocities_y[p_id] * particle_simulator.velocities_y[p_id])/200.f;
+            particle_color = utils::lerp(sf::Color(0, 0, 50), sf::Color(244, 186, 29), utils::clamp(velocity, 0, 1));
         } else {
             particle_color = user_interface.matrix->get_particle_color(particle_simulator.types[p_id]);
         }
         for (int i = 0; i < vertex_count-2; i++) {
-            particle_vertices[i*3+p_id*3*(vertex_count-2)].position = particle_shape[i*3].position + shift;
-            particle_vertices[i*3+p_id*3*(vertex_count-2)+1].position = particle_shape[i*3+1].position + shift;
-            particle_vertices[i*3+p_id*3*(vertex_count-2)+2].position = particle_shape[i*3+2].position + shift;
-            particle_vertices[i*3+p_id*3*(vertex_count-2)].color = particle_color;
-            particle_vertices[i*3+p_id*3*(vertex_count-2)+1].color = particle_color;
-            particle_vertices[i*3+p_id*3*(vertex_count-2)+2].color = particle_color;
+            const int index = i*3+p_id*3*(vertex_count-2);
+            particle_vertices[index].position = particle_shape[i*3].position + shift;
+            particle_vertices[index+1].position = particle_shape[i*3+1].position + shift;
+            particle_vertices[index+2].position = particle_shape[i*3+2].position + shift;
+            particle_vertices[index].color = particle_color;
+            particle_vertices[index+1].color = particle_color;
+            particle_vertices[index+2].color = particle_color;
         }
     }
     window.draw(particle_vertices);

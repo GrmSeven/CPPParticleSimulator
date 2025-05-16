@@ -9,6 +9,8 @@
 class ParticleSimulator {
 public: // May make it private and add getters and setters later (OOP)
     bool paused{};
+    bool use_multithreading = true;
+    bool use_particle_grid = true;
     unsigned short width;
     unsigned short height;
     unsigned short cell_size = 25;
@@ -29,7 +31,7 @@ public: // May make it private and add getters and setters later (OOP)
     behaviorManager behavior_manager;
 
     bool is_space_wrapping_enabled = true;
-    bool uses_particle_grid = true;
+
     bool uses_terminal_velocity = true;
     float terminal_velocity_strength = 0.9f;
     float max_velocity = 1000.f;
@@ -64,7 +66,7 @@ public:
     void pre_process();
     void process();
 
-    std::pair<size_t, size_t> convert_coords_to_cell(float x, float y);
+    std::pair<int, int> convert_coords_to_cell(float x, float y);
     bool does_cell_exist(size_t x, size_t y);
     std::vector<size_t>& get_particles_in_cell(int x, int y);
 

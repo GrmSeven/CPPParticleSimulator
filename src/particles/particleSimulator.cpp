@@ -20,64 +20,71 @@ void ParticleSimulator::pre_process() {
 void ParticleSimulator::process() {
     sync_settings();
     if (!paused) {
-        if (uses_particle_grid) prepare_grid();
+        if (use_particle_grid) prepare_grid();
 
         // threadManager::multithread_range([this](size_t i) {
         //     this->generate_grid(i);
         // }, 0, particle_count);
         for (size_t p_id = 0; p_id < particle_count; p_id++) {
-            if (uses_particle_grid) generate_grid(p_id);
+            if (use_particle_grid) generate_grid(p_id);
         }
 
-        threadManager::multithread_range([this](size_t i) {
-            if (!this->uses_terminal_velocity) this->apply_terminal_velocity(i, 1.f);
-            this->handle_particle_velocity(i);
-            if (this->uses_terminal_velocity) this->apply_terminal_velocity(i, this->terminal_velocity_strength);
-        }, 0, particle_count);
-        // for (size_t p_id = 0; p_id < particle_count; p_id++) {
-        //     if (!uses_terminal_velocity) apply_terminal_velocity(p_id, 1.f);
-        //     handle_particle_velocity(p_id);
-        //     if (uses_terminal_velocity) apply_terminal_velocity(p_id, terminal_velocity_strength);
-        // }
-
-        threadManager::multithread_range([this](size_t i) {
-            this->update_particle_position(i);
-            this->handle_out_of_bounds(i);
-        }, 0, particle_count);
-        // for (size_t p_id = 0; p_id < particle_count; p_id++) {
-        //     update_particle_position(p_id);
-        //     handle_out_of_bounds(p_id);
-        // }
+        if (use_multithreading) {
+            threadManager::multithread_range([this](size_t i) {
+                if (!this->uses_terminal_velocity) this->apply_terminal_velocity(i, 1.f);
+                this->handle_particle_velocity(i);
+                if (this->uses_terminal_velocity) this->apply_terminal_velocity(i, this->terminal_velocity_strength);
+            }, 0, particle_count);
+        } else {
+            for (size_t p_id = 0; p_id < particle_count; p_id++) {
+                if (!uses_terminal_velocity) apply_terminal_velocity(p_id, 1.f);
+                handle_particle_velocity(p_id);
+                if (uses_terminal_velocity) apply_terminal_velocity(p_id, terminal_velocity_strength);
+            }
+        }
+        if (use_multithreading) {
+            threadManager::multithread_range([this](size_t i) {
+                this->update_particle_position(i);
+                this->handle_out_of_bounds(i);
+            }, 0, particle_count);
+        } else {
+            for (size_t p_id = 0; p_id < particle_count; p_id++) {
+                update_particle_position(p_id);
+                handle_out_of_bounds(p_id);
+            }
+        }
     }
 }
 
 void ParticleSimulator::handle_particle_velocity(size_t p_id) {
-    if (uses_particle_grid) {
-        const auto [cell_x, cell_y] = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
-
-        const int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
-        int cell_margin_l = -cell_radius + cell_x;
-        int cell_margin_r = cell_radius + cell_x;
-        int cell_margin_u = -cell_radius + cell_y;
-        int cell_margin_d = cell_radius + cell_y;
-        cell_margin_l -= cell_margin_l < 0 ? 1 : 0;
-        cell_margin_r += cell_margin_r > cell_count_x ? 1 : 0;
-        cell_margin_u -= cell_margin_u < 0 ? 1 : 0;
-        cell_margin_d += cell_margin_d > cell_count_y ? 1 : 0;
-
-        for (int x = cell_margin_l; x <= cell_margin_r; x++) {
-            for (int y = cell_margin_u; y <= cell_margin_d; y++) {
-                for (auto& p2_id : get_particles_in_cell(x, y)) {
-                    const int shift_x = floor(static_cast<float>(x)/cell_count_x);
-                    const int shift_y = floor(static_cast<float>(y)/cell_count_y);
-                    update_particle_velocity(p_id, p2_id, shift_x, shift_y);
-                }
-            }
-        }
-    } else {
+    // Fallback
+    if (!use_particle_grid) {
         for (size_t p2_id = 0; p2_id < particle_count; p2_id++) {
             if (p_id != p2_id) {
                 update_particle_velocity(p_id, p2_id, 0, 0);
+            }
+        }
+        return;
+    }
+
+    // Actual thing
+    const auto [cell_x, cell_y] = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
+    const int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
+    int cell_margin_l = -cell_radius + cell_x;
+    int cell_margin_r = cell_radius + cell_x;
+    int cell_margin_u = -cell_radius + cell_y;
+    int cell_margin_d = cell_radius + cell_y;
+    cell_margin_l -= cell_margin_l < 0 ? 1 : 0;
+    cell_margin_r += cell_margin_r > cell_count_x -1 ? 1 : 0;
+    cell_margin_u -= cell_margin_u < 0 ? 1 : 0;
+    cell_margin_d += cell_margin_d > cell_count_y -1 ? 1 : 0;
+
+    for (int x = cell_margin_l-1; x <= cell_margin_r; x++) {
+        for (int y = cell_margin_u-1; y <= cell_margin_d; y++) {
+            for (auto& p2_id : get_particles_in_cell(x, y)) {
+                const int shift_x = floor(static_cast<float>(x)/cell_count_x);
+                const int shift_y = floor(static_cast<float>(y)/cell_count_y);
+                update_particle_velocity(p_id, p2_id, shift_x, shift_y);
             }
         }
     }
@@ -196,11 +203,8 @@ void ParticleSimulator::apply_terminal_velocity(size_t p, float strength) {
     velocities_y[p] *= velocity_multiplier;
 }
 
-std::pair<size_t, size_t> ParticleSimulator::convert_coords_to_cell(float x, float y) {
-    std::pair a = std::make_pair(static_cast<size_t>(floor(x/cell_size)), static_cast<size_t>(floor(y/cell_size)));
-    a.first = min(a.first, static_cast<size_t>(cell_count_x-1));
-    a.second = min(a.second, static_cast<size_t>(cell_count_y-1));
-    return a;
+std::pair<int, int> ParticleSimulator::convert_coords_to_cell(float x, float y) {
+    return std::make_pair(min(static_cast<int>(floor(x/cell_size)), cell_count_x-1), min(static_cast<int>(floor(y/cell_size)), cell_count_y-1));
 }
 
 bool ParticleSimulator::does_cell_exist(size_t x, size_t y) {
