@@ -53,23 +53,23 @@ void ParticleSimulator::process() {
 
 void ParticleSimulator::handle_particle_velocity(size_t p_id) {
     if (uses_particle_grid) {
-        std::pair<size_t, size_t> cell = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
+        const auto [cell_x, cell_y] = convert_coords_to_cell(positions_x[p_id], positions_y[p_id]);
 
-        int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
-        int cell_margin_l = -cell_radius + cell.first;
-        int cell_margin_r = cell_radius + cell.first;
-        int cell_margin_u = -cell_radius + cell.second;
-        int cell_margin_d = cell_radius + cell.second;
-        cell_margin_l -= (cell_margin_l < 0) ? 1 : 0;
-        cell_margin_r += (cell_margin_r > cell_count_x) ? 1 : 0;
-        cell_margin_u -= (cell_margin_u < 0) ? 1 : 0;
-        cell_margin_d += (cell_margin_d > cell_count_y) ? 1 : 0;
+        const int cell_radius = ceil(behavior_manager.interaction_radius/static_cast<float>(cell_size));
+        int cell_margin_l = -cell_radius + cell_x;
+        int cell_margin_r = cell_radius + cell_x;
+        int cell_margin_u = -cell_radius + cell_y;
+        int cell_margin_d = cell_radius + cell_y;
+        cell_margin_l -= cell_margin_l < 0 ? 1 : 0;
+        cell_margin_r += cell_margin_r > cell_count_x ? 1 : 0;
+        cell_margin_u -= cell_margin_u < 0 ? 1 : 0;
+        cell_margin_d += cell_margin_d > cell_count_y ? 1 : 0;
 
         for (int x = cell_margin_l; x <= cell_margin_r; x++) {
             for (int y = cell_margin_u; y <= cell_margin_d; y++) {
                 for (auto& p2_id : get_particles_in_cell(x, y)) {
-                    int shift_x = floor(static_cast<float>(x)/cell_count_x);
-                    int shift_y = floor(static_cast<float>(y)/cell_count_y);
+                    const int shift_x = floor(static_cast<float>(x)/cell_count_x);
+                    const int shift_y = floor(static_cast<float>(y)/cell_count_y);
                     update_particle_velocity(p_id, p2_id, shift_x, shift_y);
                 }
             }
@@ -84,28 +84,34 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
 }
 
 void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2, int shift_x, int shift_y) {
-    float distance{};
-    float normal_x{};
-    float normal_y{};
-    float new_pos2_x = positions_x[p2] + shift_x * width;
-    float new_pos2_y = positions_y[p2] + shift_y * height;
-    distance = calculate_distance(positions_x[p1], positions_y[p1], new_pos2_x, new_pos2_y);
-    if (distance != 0) {
-        normal_x = (new_pos2_x - positions_x[p1]) / distance;
-        normal_y = (new_pos2_y - positions_y[p1]) / distance;
-    }
-    float force = behavior_manager.calculate_attraction(user_interface->elements[19]->value, distance, behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]);
-    force *= force_multiplier;
-    velocities_x[p1] += force * normal_x * *delta * 60.f;
-    velocities_y[p1] += force * normal_y * *delta * 60.f;
+    const float dx = positions_x[p2] + shift_x * width - positions_x[p1];
+    const float dy = positions_y[p2] + shift_y * height - positions_y[p1];
+    const float distance_sq = dx * dx + dy * dy;
+    if (distance_sq < 0.0001f) return;
+    const float inv_distance = fast_inv_sqrt(distance_sq);
+    const float normal_x = dx * inv_distance;
+    const float normal_y = dy * inv_distance;
+
+    float force = behavior_manager.calculate_attraction(user_interface->elements[19]->value, sqrtf(distance_sq), behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]) * force_multiplier;
+    const float force_dt = force * *delta * 60.f;
+    velocities_x[p1] += normal_x * force_dt;
+    velocities_y[p1] += normal_y * force_dt;
 
     // Max velocity
-    float curr_velocity = hypot(velocities_x[p1], velocities_y[p1]);
-    if (curr_velocity > max_velocity) {
-        float val_scale = max_velocity / curr_velocity;
-        velocities_x[p1] *= val_scale;
-        velocities_y[p1] *= val_scale;
+    const float curr_velocity_sq = velocities_x[p1] * velocities_x[p1] + velocities_y[p1] * velocities_y[p1];
+    if (curr_velocity_sq > max_velocity*max_velocity) {
+        const float vel_scale = max_velocity * fast_inv_sqrt(curr_velocity_sq);
+        velocities_x[p1] *= vel_scale;
+        velocities_y[p1] *= vel_scale;
     }
+}
+
+float ParticleSimulator::fast_inv_sqrt(float x) {
+    float half = 0.5f * x;
+    int i = *(int*)&x;
+    i = 0x5f3759df - (i >> 1);
+    x = *(float*)&i;
+    return x * (1.5f - (half * x * x));
 }
 
 void ParticleSimulator::update_particle_position(size_t p) {
@@ -148,10 +154,6 @@ void ParticleSimulator::clamp(size_t p) {
     if (utils::abs_mod(positions_y[p],2.f*height) > height) velocities_y[p] = -velocities_y[p];
     positions_x[p] = abs(utils::abs_mod(positions_x[p] + width, 2.f*width)-width);
     positions_y[p] = abs(utils::abs_mod(positions_y[p] + height, 2.f*height)-height);
-}
-
-float ParticleSimulator::calculate_distance(float x1, float y1, float x2, float y2) {
-    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
 void ParticleSimulator::drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature, bool drag_type) {

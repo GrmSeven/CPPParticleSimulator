@@ -8,8 +8,8 @@ using namespace std;
 class threadManager {
     inline static vector<thread> thread_pool{};
 public:
-    static void multithread_range(function<void(size_t)> func = nullptr, size_t start = 0, size_t end = 0, size_t thread_count = thread::hardware_concurrency() - 1) {
-        thread_count = max(static_cast<size_t>(thread::hardware_concurrency()) - 1, thread_count);
+    static void multithread_range(function<void(size_t)> func = nullptr, size_t start = 0, size_t end = 0, size_t thread_count = thread::hardware_concurrency()) {
+        thread_count = max(static_cast<size_t>(thread::hardware_concurrency()), thread_count);
 
         clear_threads();
         if (thread_pool.size() != thread_count) {

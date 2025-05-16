@@ -268,9 +268,7 @@ void Renderer::run() {
         delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation
 
         handle_events();
-        if (true) { // REMOVE AFTER ADDING THREADS // should check if window is being dragged by checking if pollEvent worked this frame
-            particle_simulator.process();
-        }
+        particle_simulator.process();
         render();
     }
 }

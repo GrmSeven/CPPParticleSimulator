@@ -50,8 +50,8 @@ public: // May make it private and add getters and setters later (OOP)
     void clamp(size_t p);
     // Particle slow down
     void apply_terminal_velocity(size_t p, float strength);
-    // Hypot
-    float calculate_distance(float x1, float y1, float x2, float y2);
+    // Distance
+    float fast_inv_sqrt(float x);
     // Particle mouse dragging
     void drag_particles(sf::Vector2f from, sf::Vector2f to, float radius, float attraction_force, float drag_curvature, bool drag_type);
 
