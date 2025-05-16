@@ -10,4 +10,4 @@
 - Keyboard compat for UI
 - 
 - Logarithmic range scaling
-- Sliders instead of range
+- Sliders

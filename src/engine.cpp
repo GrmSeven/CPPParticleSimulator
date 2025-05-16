@@ -1,9 +1,9 @@
-#include "renderer.h"
+#include "engine.h"
 #include <cmath>
 #include "camera/camera.h"
 using namespace std;
 
-Renderer::Renderer()
+Engine::Engine()
     : width(sf::VideoMode::getDesktopMode().size.x*0.9), height(sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1),
     user_interface(sf::Vector2f(width, height)),
     particle_simulator(2003, 2003, &delta, &user_interface),
@@ -13,14 +13,14 @@ Renderer::Renderer()
 {
     // width = ;
     settings.antiAliasingLevel = 4;
-    window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed, settings);
+    window.create(sf::VideoMode({width, height}), "Particle Life Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed, settings);
     window.setFramerateLimit(fps_limit);
 }
 
 /**
  * For keyboard and mouse inputs
  */
-void Renderer::handle_events() {
+void Engine::handle_events() {
     window.setView(camera.view);
     sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
     global_mouse_pos = window.mapPixelToCoords(sf::Vector2i(mouse_pos), window.getView());
@@ -35,7 +35,6 @@ void Renderer::handle_events() {
             is_focused = false;
             camera.is_dragging = false;
             draw_particle_grid = false;
-            draw_mouse_radius = false;
         }
 
         if (event->is<sf::Event::FocusGained>()) {
@@ -56,11 +55,6 @@ void Renderer::handle_events() {
                 if (keyPressed->code == sf::Keyboard::Key::Space) {
                     particle_simulator.paused = !particle_simulator.paused;
                 }
-
-                // Circle around mouse
-                if (keyPressed->code == sf::Keyboard::Key::LControl) {
-                    draw_mouse_radius = true;
-                }
                 // Toggles grid
                 if (keyPressed->code == sf::Keyboard::Key::LAlt) {
                     draw_particle_grid = true;
@@ -71,13 +65,13 @@ void Renderer::handle_events() {
                     window.close();
                     fullscreen = !fullscreen;
                     if (fullscreen) {
-                        window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().size), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Fullscreen);
+                        window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().size), "Particle Life Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Fullscreen);
                         camera.resize_window(sf::Vector2f(window.getSize()));
                         user_interface.resize(sf::Vector2f(window.getSize()));
                     } else {
                         width = sf::VideoMode::getDesktopMode().size.x*0.9;
                         height = sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1;
-                        window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                        window.create(sf::VideoMode({width, height}), "Particle Life Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
                         camera.resize_window(sf::Vector2f(width, height));
                         user_interface.resize(sf::Vector2f(width, height));
                     }
@@ -89,7 +83,7 @@ void Renderer::handle_events() {
                         fullscreen = false;
                         width = sf::VideoMode::getDesktopMode().size.x*0.9;
                         height = sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1;
-                        window.create(sf::VideoMode({width, height}), "Particle Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
+                        window.create(sf::VideoMode({width, height}), "Particle Life Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed);
                         camera.resize_window(sf::Vector2f(width, height));
                         user_interface.resize(sf::Vector2f(width, height));
                     }
@@ -104,7 +98,7 @@ void Renderer::handle_events() {
 
             if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
                 if (keyRelased->code == sf::Keyboard::Key::LControl) {
-                    draw_mouse_radius = false;
+                    user_interface.elements[35]->value = !user_interface.elements[35]->value;
                 }
                 if (keyRelased->code == sf::Keyboard::Key::LAlt) {
                     draw_particle_grid = false;
@@ -212,10 +206,10 @@ void Renderer::handle_events() {
 /**
  * Renders particles and UI
  */
-void Renderer::render() {
+void Engine::render() {
     window.clear();
 
-    // Particle rendering
+    //// Particle rendering
     const int vertex_count = user_interface.elements[27]->value;
     const float p_radius = user_interface.elements[28]->value;
     // Create particle shape preset
@@ -227,7 +221,7 @@ void Renderer::render() {
         particle_shape[i*3+1].position = sf::Vector2f(cos(angle) * p_radius, sin(angle) * p_radius);
         particle_shape[i*3+2].position = sf::Vector2f(cos(angle2) * p_radius, sin(angle2) * p_radius);
     }
-    // Draw particles
+    // Draw particles - clones shape preset
     particle_vertices.resize(3*(vertex_count-2)*particle_simulator.particle_count);
     sf::Color particle_color;
     const float visualize_velocity = user_interface.elements[30]->value;
@@ -267,7 +261,7 @@ void Renderer::render() {
     }
 
     // Draw circle around the mouse
-    if (draw_mouse_radius || user_interface.elements[35]->value) {
+    if (user_interface.elements[35]->value) {
         sf::CircleShape mouse_circle(particle_drag_radius);
         mouse_circle.setFillColor(sf::Color(0, 0, 0, 0));
         mouse_circle.setOutlineThickness(1.0f);
@@ -284,20 +278,18 @@ void Renderer::render() {
 }
 
 // Main loop
-void Renderer::run() {
-    // Thread for rendering
-    // Thread for particle (copy settings from global settings -> run buffered methods -> particle simulation -> repeat)
-    // handle events (view and particle stuff save to global settings)
+void Engine::run() {
     float time_counter = 0;
     int frame_counter = 0;
     float fps_update_time = 0.5f;
     while (window.isOpen()) {
-        // Synchronises with ui
+        // Synchronises with ui (redundant, since async multithreading isn't used)
         particle_drag_radius = user_interface.elements[6]->value;
         if (user_interface.elements[14]->value != fps_limit) {
             set_fps_limit(user_interface.elements[14]->value);
         }
 
+        // Calculates delta and handles fps
         delta = clock.restart().asSeconds();
         timer += delta;
         time_counter += delta;
@@ -308,7 +300,7 @@ void Renderer::run() {
             time_counter = 0;
             frame_counter = 0;
         }
-        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation
+        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation when it doesnt keep up
 
         handle_events();
         particle_simulator.process();
@@ -316,7 +308,7 @@ void Renderer::run() {
     }
 }
 
-void Renderer::set_fps_limit(unsigned char fps) {
+void Engine::set_fps_limit(unsigned char fps) {
     fps_limit = fps;
     window.setFramerateLimit(fps);
 }

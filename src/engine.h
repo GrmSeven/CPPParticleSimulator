@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Renderer {
+class Engine {
 public:
     unsigned short width, height;
     unsigned int fps_limit = 60;
@@ -15,7 +15,7 @@ public:
     float timer{};
     bool fullscreen{};
     ParticleSimulator particle_simulator;
-    Renderer();
+    Engine();
     void run();
     void set_fps_limit(unsigned char fps);
 
@@ -36,7 +36,6 @@ private:
     bool shift_pressed{};
     float particle_drag_radius = 100.f;
     bool draw_particle_grid = false;
-    bool draw_mouse_radius = false;
 
     void handle_events();
     void render();

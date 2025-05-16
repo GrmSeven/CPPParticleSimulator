@@ -21,7 +21,7 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(s
 void UserInterface::create_elements() {
     elements.resize(39);
 
-    sidebar.setSize({sidebar_size, view.getSize().y});
+    sidebar.setSize({sidebar_size, view.getSize().y*2.0f});
     sidebar.setFillColor(background_color);
     sidebar.setOutlineColor(line_color);
     sidebar.setOutlineThickness(1);
@@ -206,7 +206,7 @@ void UserInterface::create_elements() {
     elements[15] = new Range({138, 743}, {30, 19}, 10, 5, 0, 60);
 
     elements[16] = new Button({176, 743}, {19, 19}, "?");
-    elements[16]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur";
+    elements[16]->tooltip = "Max FPS limits physics FPS. 0 means unlimited FPS.\nIf FPS (top right corner) goes below Min FPS, then simulation will slow down to keep up.\nIf Min FPS is set too low, simulation wont keep up and physics glitches may occur.";
 
     sf::Text text_24(font, "Partition ratio", 12);
     text_24.setPosition({5, 765});
@@ -226,16 +226,16 @@ void UserInterface::create_elements() {
     details.push_back(text_23);
 
     elements[31] = new Button({5, 830}, {75, 19}, "UI Controls");
-    elements[31]->tooltip = "This applies for most UI elements:\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
+    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x times while hel.\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
 
-    elements[32] = new Button({5, 850}, {115, 19}, "Keyboard Controls");
-    elements[32]->tooltip = "Space - Pause\nMiddle Mouse Button - Drag the screen\n\nScroll wheel - Zoom in/out\nArrow keys - Move around\nLeft click - Drag/Attract particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
+    elements[32] = new Button({5, 850}, {125, 19}, "Simulation Controls");
+    elements[32]->tooltip = "Space - Pause\n\nMiddle Mouse Button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\n\nShift + Scroll - Resize brush/drag\nLeft click - Drag/Attract particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
 
-    elements[33] = new Button({5, 870}, {70, 19}, "How to use");
-    elements[33]->tooltip = "Hover with cursor over boxes with ? on them for UI info\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames is too high ,to fix it,\neither make Min FPS bigger, reduce Force multiplier or \nparticle count.\n";
+    elements[33] = new Button({5, 870}, {75, 19}, "How to use?");
+    elements[33]->tooltip = "Hover with cursor over boxes with ? for more UI info.\n\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames or acceleration is too high.\nTo fix it, either make Min FPS bigger, reduce Force multiplier or \nreduce particle count.";
 
     elements[34] = new Button({5, 890}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
-    elements[34]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning, Structure of Arrays and Multithreading\nEverything is written in C++, visuals are rendered using SFML";
+    elements[34]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning, Structure of Arrays and Multithreading.\nEverything is written in C++, visuals are rendered using SFML.";
     elements[34]->buttonColor = sf::Color(60, 60, 120);
 
     elements[25] = new Button({-20, -20}, {19, 19}, "?");
