@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-#include "Element.h"
+#include "element.h"
 
 class Button : public Element {
 public:

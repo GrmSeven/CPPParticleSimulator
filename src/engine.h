@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Renderer {
+class Engine {
 public:
     unsigned short width, height;
     unsigned int fps_limit = 60;
@@ -15,7 +15,7 @@ public:
     float timer{};
     bool fullscreen{};
     ParticleSimulator particle_simulator;
-    Renderer();
+    Engine();
     void run();
     void set_fps_limit(unsigned char fps);
 
@@ -27,12 +27,16 @@ private:
     sf::Vector2f global_mouse_pos;
     sf::Vector2f last_mouse_pos;
     sf::ContextSettings settings;
+    sf::VertexArray particle_shape;
+    sf::VertexArray particle_vertices;
     bool is_focused = true;
     bool simulator_focused = false;
     bool particle_drag_enabled{};
+    bool particle_delete_enabled{};
+    bool shift_pressed{};
     float particle_drag_radius = 100.f;
     bool draw_particle_grid = false;
-    bool draw_mouse_radius = false;
+    void draw_particle(size_t p_id, bool visualize_velocity, sf::Color particle_color, int draw_rec, int vertex_count, vector<sf::Vector2f> rec_shift);
 
     void handle_events();
     void render();
