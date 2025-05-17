@@ -71,19 +71,19 @@ void ParticleSimulator::handle_particle_velocity(size_t p_id) {
     int cell_margin_r;
     int cell_margin_u;
     int cell_margin_d;
-    if (cell_radius*2+1 >= cell_count_x) {
+    if (cell_radius*2+2 >= cell_count_x) {
         cell_margin_l = 0;
         cell_margin_r = cell_count_x - 1;
     } else {
-        cell_margin_l = -cell_radius + cell_x;
-        cell_margin_r = cell_radius + cell_x + 1; // Make +1 smart later
+        cell_margin_l = -cell_radius + cell_x - 1;
+        cell_margin_r = cell_radius + cell_x + 1;
     }
-    if (cell_radius*2+1 >= cell_count_y) {
+    if (cell_radius*2+2 >= cell_count_y) {
         cell_margin_u = 0;
         cell_margin_d = cell_count_y - 1;
     } else {
-        cell_margin_u = -cell_radius + cell_y;
-        cell_margin_d = cell_radius + cell_y + 1; // Make +1 smart later
+        cell_margin_u = -cell_radius + cell_y - 1;
+        cell_margin_d = cell_radius + cell_y + 1;
     }
 
 
