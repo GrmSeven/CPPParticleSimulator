@@ -147,7 +147,7 @@ void UserInterface::create_elements() {
     sf::Text text24(font, "Max velocity:", 12);
     text24.setPosition({5, 555});
     details.push_back(text24);
-    elements[18] = new Range({80, 553}, {50, 19}, 1000, 100, 0, 100000);
+    elements[18] = new Range({80, 553}, {50, 19}, 10000, 100, 0, 1000000);
 
     sf::Text text_16(font, "Use terminal velocity", 12);
     text_16.setPosition({30, 575});
