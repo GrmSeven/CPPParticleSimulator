@@ -308,6 +308,7 @@ void ParticleSimulator::set_particle_type_count() {
 }
 
 void ParticleSimulator::sync_settings() {
+    paused = user_interface->elements[39]->value;
     set_particle_count(user_interface->elements[0]->value);
     set_particle_type_count();
     is_space_wrapping_enabled = user_interface->elements[17]->value;

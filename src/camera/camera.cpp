@@ -83,10 +83,15 @@ void Camera::update(sf::RenderWindow& window, double deltaTime) {
     }
 
     mouse_set_zoom(wanted_position, window, utils::lerp(wanted_zoom, zoom, pow(zoom_speed, 60*deltaTime)));
+    clamp_camera();
 }
 
 void Camera::move_camera(float x, float y, double deltaTime) {
     view.move(sf::Vector2f(x * zoom * deltaTime, y * zoom * deltaTime));
+}
+
+void Camera::clamp_camera() {
+    view.move(utils::clamp(view.getCenter(), sf::Vector2f(-2003, -2003), sf::Vector2f(2003*2, 2003*2)) - view.getCenter());
 }
 
 void Camera::mouse_smooth_zoom_set(sf::Vector2i pixel, float level) {

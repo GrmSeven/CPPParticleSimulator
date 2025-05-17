@@ -36,6 +36,7 @@ private:
     bool shift_pressed{};
     float particle_drag_radius = 100.f;
     bool draw_particle_grid = false;
+    void draw_particle(size_t p_id, bool visualize_velocity, sf::Color particle_color, int draw_rec, int vertex_count, vector<sf::Vector2f> rec_shift);
 
     void handle_events();
     void render();

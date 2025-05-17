@@ -15,11 +15,12 @@ public:
     float speed = 1000.f;
     bool is_active = true;
     float min_zoom = 0.002f;
-    float max_zoom = 10.f;
+    float max_zoom = 6.f;
 
     void handle_events(std::optional<sf::Event>& event);
     void update(sf::RenderWindow& window, double deltaTime);
     void move_camera(float x, float y, double deltaTime);
+    void clamp_camera();
     void mouse_smooth_zoom_set(sf::Vector2i pixel, float level);
     void mouse_set_zoom(sf::Vector2i pixel, const sf::RenderWindow& window, float level);
     void resize_window(sf::Vector2f newWindosSize);
