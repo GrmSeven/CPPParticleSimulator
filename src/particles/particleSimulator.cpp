@@ -1,5 +1,4 @@
 #include "particleSimulator.h"
-
 #include <cmath>
 #include <iostream>
 #include "../utils.h"
@@ -103,12 +102,12 @@ void ParticleSimulator::update_particle_velocity(size_t p1, size_t p2) {
     const float normal_x = dx * inv_distance;
     const float normal_y = dy * inv_distance;
 
-    float force = behavior_manager.calculate_attraction(user_interface->elements[19]->value, sqrtf(distance_sq), behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]) * force_multiplier;
+    const float force = behavior_manager.calculate_attraction(user_interface->elements[19]->value, sqrtf(distance_sq), behavior_manager.particle_interaction_matrix[types[p1]][types[p2]]) * force_multiplier;
     const float force_dt = force * *delta * 60.f;
     velocities_x[p1] += normal_x * force_dt;
     velocities_y[p1] += normal_y * force_dt;
 
-    // Max velocity
+    // // Limit velocity
     const float curr_velocity_sq = velocities_x[p1] * velocities_x[p1] + velocities_y[p1] * velocities_y[p1];
     if (curr_velocity_sq > max_velocity*max_velocity) {
         const float vel_scale = max_velocity * fast_inv_sqrt(curr_velocity_sq);

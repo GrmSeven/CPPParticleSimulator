@@ -1,8 +1,6 @@
 #pragma once
 #include <vector>
-
 #include <cmath>
-
 #include "behaviorManager.h"
 #include "../userInterface/userInterface.h"
 

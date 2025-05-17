@@ -110,17 +110,17 @@ void Engine::handle_events() {
                 //// UI shortcuts
                 // Particle count
                 for (int i = 0; i < (shift_pressed ? 10 : 1); i++) {
-                    if (keyRelased->code == sf::Keyboard::Key::Q) {
+                    if (keyRelased->code == sf::Keyboard::Key::W) {
                         user_interface.elements[0]->scroll_down();
                     }
-                    if (keyRelased->code == sf::Keyboard::Key::A) {
+                    if (keyRelased->code == sf::Keyboard::Key::S) {
                         user_interface.elements[0]->scroll_up();
                     }
                     // Particle type count
-                    if (keyRelased->code == sf::Keyboard::Key::W) {
+                    if (keyRelased->code == sf::Keyboard::Key::Q) {
                         user_interface.elements[1]->scroll_down();
                     }
-                    if (keyRelased->code == sf::Keyboard::Key::S) {
+                    if (keyRelased->code == sf::Keyboard::Key::A) {
                         user_interface.elements[1]->scroll_up();
                     }
                     // Preset
@@ -256,9 +256,9 @@ void Engine::render() {
     for (int i = 0; i < vertex_count-2; i++) {
         const float angle = (i+1) * 6.28f / vertex_count;
         const float angle2 = (i+2) * 6.28f / vertex_count;
-        particle_shape[i*3].position = sf::Vector2f(p_radius, 0);
-        particle_shape[i*3+1].position = sf::Vector2f(cos(angle) * p_radius, sin(angle) * p_radius);
-        particle_shape[i*3+2].position = sf::Vector2f(cos(angle2) * p_radius, sin(angle2) * p_radius);
+        particle_shape[i*3].position = sf::Vector2f(0, -p_radius);
+        particle_shape[i*3+1].position = sf::Vector2f(sin(angle) * p_radius, -cos(angle) * p_radius);
+        particle_shape[i*3+2].position = sf::Vector2f(sin(angle2) * p_radius, -cos(angle2) * p_radius);
     }
     // Draw particles - clones shape preset
     const int draw_rec = user_interface.elements[40]->value;

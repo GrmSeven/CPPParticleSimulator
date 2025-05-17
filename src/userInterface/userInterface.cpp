@@ -134,7 +134,7 @@ void UserInterface::create_elements() {
     elements[21] = new Button({176, 493}, {19, 19}, "?");
     elements[21]->tooltip = "When particles are closer than Min distance, then they will repel slightly.\nInteraction distance determines how far particles can attract/repel from each other.\n(Uses Matrix and Behavior formula to calculate exact behavior)";
 
-    sf::Text text_14(font, "Interation distance", 12);
+    sf::Text text_14(font, "Interaction distance", 12);
     text_14.setPosition({5, 515});
     details.push_back(text_14);
     elements[22] = new Range({110, 513}, {40, 19}, 50, 5, 10, 1000, [this]{this->elements[20]->value = min(this->elements[20]->value, this->elements[22]->value); this->elements[20]->update_shapes();});
