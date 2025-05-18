@@ -10,8 +10,8 @@ public:
     float min_value;
     float max_value;
     float default_value;
-    size_t matrix_size;
-    int used_palette;
+    size_t matrix_size = 8;
+    int used_palette = 0;
     std::vector<std::vector<float>> particle_interaction_matrix = {
         {1, 0, 0, 0, 0, 0, 0, 0.5},
         {0.5, 1, 0, 0, 0, 0, 0, 0},

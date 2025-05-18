@@ -2,6 +2,7 @@
 #include <cmath>
 #include "camera/camera.h"
 #include "threadManager.h"
+
 using namespace std;
 
 Engine::Engine()
@@ -12,10 +13,10 @@ Engine::Engine()
     particle_shape(sf::PrimitiveType::Triangles, 0),
     particle_vertices(sf::PrimitiveType::Triangles, 0)
 {
-    // width = ;
     settings.antiAliasingLevel = 4;
     window.create(sf::VideoMode({width, height}), "Particle Life Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed, settings);
     window.setFramerateLimit(fps_limit);
+
 }
 
 /**
@@ -36,6 +37,8 @@ void Engine::handle_events() {
             is_focused = false;
             camera.is_dragging = false;
             draw_particle_grid = false;
+            shift_pressed = false;
+            camera.shift_pressed = false;
         }
 
         if (event->is<sf::Event::FocusGained>()) {
@@ -223,7 +226,6 @@ void Engine::handle_events() {
                     }
                 }
             }
-
             camera.is_active = simulator_focused;
             camera.handle_events(event);
         }
@@ -236,7 +238,6 @@ void Engine::handle_events() {
         if (particle_delete_enabled && !user_interface.elements[10]->value == 0) {
             particle_simulator.delete_particle_near(global_mouse_pos, user_interface.elements[6]->value);
         }
-
         camera.update(window, delta);
     }
 }

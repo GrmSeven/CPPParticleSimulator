@@ -2,15 +2,10 @@
 
 ### TODO:
 **Important:**
-2. Better thread pooling (don't create new one every single time)
-3. Single vector for grid (performance)
-4. All in one executable / default windows font
-5. Fix UI becoming gray/white randomly
-6. Bug: Shift doesnt trigger on release
-7. Fix floating point displaying on ranges
+- Optimize cell search even more (+ 1 and -1 should be used each time)
+- Add more hints
+- Particle rendering size depending on vertex count
 
 **Smaller features:**
+- Fix range floating point (convert to int->str add point) utils function:     string float_to_string(float number, int n);
 - Logarithmic range scaling
-- Sliders
-
-

@@ -17,7 +17,7 @@ public:
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
     bool text_centered = true;
-    bool disabled;
+    bool disabled = false;
     string text_string;
     string tooltip;
     function<void()> func;

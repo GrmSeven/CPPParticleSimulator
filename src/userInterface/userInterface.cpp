@@ -19,7 +19,7 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(s
 }
 
 void UserInterface::create_elements() {
-    elements.resize(41);
+    elements.resize(42);
 
     sidebar.setSize({sidebar_size, view.getSize().y*2.0f});
     sidebar.setFillColor(background_color);
@@ -33,6 +33,9 @@ void UserInterface::create_elements() {
     text_1.setPosition({5, 5});
     text_1.setStyle(sf::Text::Bold);
     details.push_back(text_1);
+
+    elements[41] = new Button({175, 25}, {19, 19}, "?");
+    elements[41]->tooltip = "Particle section has keyboard shortcuts:\n\nQ and N - Change particle count\nW and S - Change particle type count\n E and D - Choose matrix preset\n R - Apply matrix preset\nHold Shift - amplifies every action 10x while held";
 
     sf::Text text_2(font, "Particle count", 12);
     text_2.setPosition({5, 25});
@@ -73,7 +76,7 @@ void UserInterface::create_elements() {
     elements[6]->tooltip = "Radius of a brush/drag.";
 
     elements[35] = new Checkbox({83, 308}, {75, 19}, "     Visualize", false);
-    elements[35]->tooltip = "Click to visualize brush/drag radius. It also appears while holding Ctrl.";
+    elements[35]->tooltip = "Click to visualize brush/drag radius.\nIt also toggles when Ctrl is pressed.";
 
     sf::Text text_5(font, "Drag type", 12);
     text_5.setPosition({5, 330});
@@ -81,7 +84,7 @@ void UserInterface::create_elements() {
     elements[7] = new Dropdown({65, 328}, {60, 19}, {"     Attract", "     Move"});
 
     elements[8] = new Button({176, 328}, {19, 19}, "?");
-    elements[8]->tooltip = "Use Left Mouse Button to attract/move particles within the radius\n\nAttract - Changes velocity of particle by applying a force that pulls them toward the cursor \n                  Works only when unpaused and velocity enabled\n\nMove - Changes position of particle based on distance from cursor\n                Drag force changes curvature - The bigger, the smaller curve\n\nHold Ctrl to visualize radius";
+    elements[8]->tooltip = "Use Left Mouse Button to attract/move particles within the radius\n\nAttract - Changes velocity of particle by applying a force that pulls them toward the cursor \n                  Works only when unpaused and velocity enabled\n\nMove - Changes position of particle based on distance from cursor\n                Drag force changes curvature - The bigger, the smaller curve\n\nPress Ctrl to visualize radius";
 
     sf::Text text_6(font, "Drag force", 12);
     text_6.setPosition({5, 350});
@@ -94,7 +97,7 @@ void UserInterface::create_elements() {
     elements[10] = new Dropdown({40, 368}, {60, 19}, {"     Spawn", "     Delete"});
 
     elements[11] = new Button({176, 368}, {19, 19}, "?");
-    elements[11]->tooltip = "Use Right Mouse Button to Spawn/Delete particles around cursor within the radius\nSet spawn type to 0, to spawn random particles\n\nHold Ctrl to visualize radius";
+    elements[11]->tooltip = "Use Right Mouse Button to Spawn/Delete particles around cursor within the radius\nSet spawn type to 0, to spawn random particles\n\nPress Ctrl to visualize radius";
 
     sf::Text text_8(font, "Spawn count", 12);
     text_8.setPosition({5, 390});
@@ -142,7 +145,7 @@ void UserInterface::create_elements() {
     sf::Text text_15(font, "Force multiplier", 12);
     text_15.setPosition({5, 535});
     details.push_back(text_15);
-    elements[23] = new Range({98, 533}, {30, 19}, 1, 0.2, 0, 1000);
+    elements[23] = new Range({98, 533}, {30, 19}, 10, 1, 0, 10000);
 
     sf::Text text24(font, "Max velocity:", 12);
     text24.setPosition({5, 555});
@@ -197,7 +200,7 @@ void UserInterface::create_elements() {
     details.push_back(text_22);
     elements[30] = new Range({103, 738}, {40, 19}, 0, 10, 0, 5000);
 
-    elements[38] = new Button({180, 738}, {19, 19}, "?");
+    elements[38] = new Button({175, 738}, {19, 19}, "?");
     elements[38]->tooltip = "Makes fast particles brighter.\nThis changes speed threshold.\nSet to 0 to disable.";
 
     add_line(3, 760);
@@ -210,7 +213,7 @@ void UserInterface::create_elements() {
     sf::Text text_03(font, "Max FPS", 12);
     text_03.setPosition({5, 785});
     details.push_back(text_03);
-    elements[14] = new Range({56, 783}, {30, 19}, 0, 5, 0, 500);
+    elements[14] = new Range({56, 783}, {30, 19}, 145, 5, 0, 500);
 
     sf::Text text_04(font, "Min FPS", 12);
     text_04.setPosition({90, 785});
@@ -238,7 +241,7 @@ void UserInterface::create_elements() {
     details.push_back(text_23);
 
     elements[31] = new Button({5, 870}, {75, 19}, "UI Controls");
-    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x times while hel.\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
+    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x while held.\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
 
     elements[32] = new Button({5, 890}, {125, 19}, "Simulation Controls");
     elements[32]->tooltip = "Space - Pause\n\nMiddle mouse button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\n\nShift + Scroll - Resize brush/drag\nLeft click - Drag/Attract particles\nRight click - draw/delete particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
