@@ -17,13 +17,7 @@ public:
 
     void update_shapes() override {
         value = utils::clamp(value, min_value, max_value);
-        text_string = to_string(value);
-        while (!text_string.empty() && text_string.back() == '0') {
-            text_string.pop_back();
-        }
-        if (text_string.back() == '.') {
-            text_string.pop_back();
-        }
+        text_string = utils::float_to_string(value, 2);
         Element::update_shapes();
     }
 

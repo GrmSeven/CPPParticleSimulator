@@ -127,6 +127,11 @@ public:
             sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(*window));
             tooltip_text.setPosition(mouse_pos + sf::Vector2f(16, 0));
             tooltip_box.setPosition(tooltip_text.getGlobalBounds().position - sf::Vector2f(4, 4));
+            const float bottom_y = tooltip_box.getPosition().y + tooltip_box.getLocalBounds().size.y;
+            if (bottom_y > window->getSize().y) {
+                tooltip_text.setPosition({tooltip_text.getPosition().x, window->getSize().y - tooltip_box.getLocalBounds().size.y});
+                tooltip_box.setPosition(tooltip_text.getGlobalBounds().position - sf::Vector2f(4, 4));
+            }
 
             window->draw(tooltip_box);
             window->draw(tooltip_text);

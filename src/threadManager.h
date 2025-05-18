@@ -97,4 +97,13 @@ public:
         workers.clear();
         thread_data.clear();
     }
+
+private:
+    class Destructor {
+    public:
+        ~Destructor() {
+            shutdown();
+        }
+    };
+    static inline Destructor destructor;
 };

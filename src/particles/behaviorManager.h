@@ -12,16 +12,7 @@ using namespace std;
 class behaviorManager {
 public:
     size_t particle_type_count = 8;
-    std::vector<std::vector<float>> particle_interaction_matrix = {
-        {1, 0, 0, 0, 0, 0, 0, 0.5},
-        {0.5, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0.5, 1, 0, 0, 0, 0, 0},
-        {0, 0, 0.5, 1, 0, 0, 0, 0},
-        {0, 0, 0, 0.5, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0.5, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0.5, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0.5, 1}
-    };
+    std::vector<std::vector<float>> particle_interaction_matrix;
 
     float min_distance = 20.f;  // If particles are too close, then they repel slightly
     float interaction_radius = 50.f;  // How far does the attraction persist

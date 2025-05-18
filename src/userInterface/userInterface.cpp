@@ -40,7 +40,7 @@ void UserInterface::create_elements() {
     sf::Text text_2(font, "Particle count", 12);
     text_2.setPosition({5, 25});
     details.push_back(text_2);
-    elements[0] = new Range({85, 23}, {62, 19}, 1000, 100, 0, 1000000);
+    elements[0] = new Range({85, 23}, {62, 19}, 5000, 100, 0, 1000000);
 
     sf::Text text_3(font, "Particle types", 12);
     text_3.setPosition({5, 45});
@@ -57,7 +57,7 @@ void UserInterface::create_elements() {
     text_01.setPosition({5, 263});
     details.push_back(text_01);
     elements[3] = new Dropdown({45, 262}, {70, 19}, {"     Random", "      Null", "     Snakes", "     Spaghetti", "     Islands", "     Worms"});
-    elements[4] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements[3]->value); ;});
+    elements[4] = new Button({120, 262}, {40, 19}, "Apply", [this]{this->matrix->matrix_preset(this->elements[3]->value);});
     elements[4]->buttonColor = sf::Color(60, 60, 120);
     elements[5] = new Button({176, 262}, {19, 19}, "?");
     elements[5]->tooltip = "Choose preset for matrix and then click Apply.";
@@ -75,7 +75,7 @@ void UserInterface::create_elements() {
     elements[6] = new Range({48, 308}, {30, 19}, 100, 5, 5, 1450);
     elements[6]->tooltip = "Radius of a brush/drag.";
 
-    elements[35] = new Checkbox({83, 308}, {75, 19}, "     Visualize", false);
+    elements[35] = new Checkbox({83, 308}, {75, 19}, "     Visualize", true);
     elements[35]->tooltip = "Click to visualize brush/drag radius.\nIt also toggles when Ctrl is pressed.";
 
     sf::Text text_5(font, "Drag type", 12);
@@ -140,12 +140,12 @@ void UserInterface::create_elements() {
     sf::Text text_14(font, "Interaction distance", 12);
     text_14.setPosition({5, 515});
     details.push_back(text_14);
-    elements[22] = new Range({110, 513}, {40, 19}, 50, 5, 10, 1000, [this]{this->elements[20]->value = min(this->elements[20]->value, this->elements[22]->value); this->elements[20]->update_shapes();});
+    elements[22] = new Range({110, 513}, {40, 19}, 50, 5, 5, 1000, [this]{this->elements[20]->value = min(this->elements[20]->value, this->elements[22]->value); this->elements[20]->update_shapes();});
 
     sf::Text text_15(font, "Force multiplier", 12);
     text_15.setPosition({5, 535});
     details.push_back(text_15);
-    elements[23] = new Range({98, 533}, {30, 19}, 10, 1, 0, 10000);
+    elements[23] = new Range({98, 533}, {30, 19}, 1, 0.1, 0, 10000);
 
     sf::Text text24(font, "Max velocity:", 12);
     text24.setPosition({5, 555});
@@ -173,7 +173,7 @@ void UserInterface::create_elements() {
     sf::Text text_26(font, "Visualize recursion", 12);
     text_26.setPosition({5, 640});
     details.push_back(text_26);
-    elements[40] = new Dropdown({113, 638}, {54, 19}, {"     None", "     White", "     Color"});
+    elements[40] = new Dropdown({113, 638}, {54, 19}, {"     White", "     Color", "     None", });
 
     sf::Text text_27(font, "Draw border", 12);
     text_27.setPosition({30, 660});
@@ -198,7 +198,7 @@ void UserInterface::create_elements() {
     sf::Text text_22(font, "Visualize velocity", 12);
     text_22.setPosition({5, 740});
     details.push_back(text_22);
-    elements[30] = new Range({103, 738}, {40, 19}, 0, 10, 0, 5000);
+    elements[30] = new Range({103, 738}, {40, 19}, 0, 1, 0, 5000);
 
     elements[38] = new Button({175, 738}, {19, 19}, "?");
     elements[38]->tooltip = "Makes fast particles brighter.\nThis changes speed threshold.\nSet to 0 to disable.";
@@ -213,7 +213,7 @@ void UserInterface::create_elements() {
     sf::Text text_03(font, "Max FPS", 12);
     text_03.setPosition({5, 785});
     details.push_back(text_03);
-    elements[14] = new Range({56, 783}, {30, 19}, 145, 5, 0, 500);
+    elements[14] = new Range({56, 783}, {30, 19}, 0, 5, 0, 500);
 
     sf::Text text_04(font, "Min FPS", 12);
     text_04.setPosition({90, 785});
@@ -243,13 +243,13 @@ void UserInterface::create_elements() {
     elements[31] = new Button({5, 870}, {75, 19}, "UI Controls");
     elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x while held.\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value";
 
-    elements[32] = new Button({5, 890}, {125, 19}, "Simulation Controls");
+    elements[32] = new Button({85, 870}, {80, 19}, "Sim Controls");
     elements[32]->tooltip = "Space - Pause\n\nMiddle mouse button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\n\nShift + Scroll - Resize brush/drag\nLeft click - Drag/Attract particles\nRight click - draw/delete particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
 
-    elements[33] = new Button({5, 910}, {75, 19}, "How to use?");
+    elements[33] = new Button({5, 890}, {75, 19}, "How to use?");
     elements[33]->tooltip = "Hover with cursor over boxes with ? for more UI info.\n\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames or acceleration is too high.\nTo fix it, either make Min FPS bigger, reduce Force multiplier or \nreduce particle count.";
 
-    elements[34] = new Button({5, 930}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
+    elements[34] = new Button({85, 890}, {75, 19}, "Project info", []{utils::openWebPage("https://github.com/GrmSeven/CPPParticleSimulator");});
     elements[34]->tooltip = "Click to open github link (MIT license)\n\nFor optimisation this project uses Spatial partitioning, Structure of Arrays and Multithreading.\nEverything is written in C++, visuals are rendered using SFML.";
     elements[34]->buttonColor = sf::Color(60, 60, 120);
 
