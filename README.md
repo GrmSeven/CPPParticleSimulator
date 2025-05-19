@@ -34,9 +34,9 @@ To compile the project manually, it requires:
 
 ![Islands](https://i.imgur.com/i2AqmVg.png)
 
-![](https://youtu.be/YAzJucB3fZk)
+![Showcase](https://youtu.be/YAzJucB3fZk)
 
-![](https://youtu.be/JlyjVEjlBbE)
+![UI Showcase](https://youtu.be/JlyjVEjlBbE)
 
 ### Atoms behavior formula
 ![Atoms](https://i.imgur.com/O9DCmU8.png)
