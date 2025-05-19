@@ -68,7 +68,7 @@ public:
     std::vector<size_t>& get_particles_in_cell(int x, int y);
 
     void sync_settings();
-    void spawn_particle(float x, float y, size_t count, unsigned short t);
+    void spawn_particle(float x, float y, size_t count, float radius, unsigned short t);
     void spawn_particle(float x, float y, size_t count = 1);
     void delete_particle(size_t id);
     void delete_particle_near(sf::Vector2f pos, float radius);

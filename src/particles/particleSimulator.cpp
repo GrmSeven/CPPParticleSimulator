@@ -244,11 +244,13 @@ void ParticleSimulator::apply_terminal_velocity(size_t p, float strength) {
     }
 }
 
-void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned short t) {
+void ParticleSimulator::spawn_particle(float x, float y, size_t count, float radius, unsigned short t) {
     for (int i = 0; i < count; i++) {
         particle_count++;
-        positions_x.push_back(x + fmod(rand()/10000000.f, 1.f));
-        positions_y.push_back(y + fmod(rand()/10000000.f, 1.f));
+        const float angle = rand()%10000/10000.f * 6.283;
+        const float dist = sqrt(rand()%10000/10000.f);
+        positions_x.push_back(x + sin(angle) * radius*dist);
+        positions_y.push_back(y + cos(angle) * radius*dist);
         velocities_x.push_back(0);
         velocities_y.push_back(0);
         if (t == 0) {
@@ -262,7 +264,7 @@ void ParticleSimulator::spawn_particle(float x, float y, size_t count, unsigned 
 }
 
 void ParticleSimulator::spawn_particle(float x, float y, size_t count) {
-    spawn_particle(x, y, count,rand() % behavior_manager.particle_type_count);
+    spawn_particle(x, y, count, 1, rand() % behavior_manager.particle_type_count);
 }
 
 void ParticleSimulator::delete_particle(size_t id) {

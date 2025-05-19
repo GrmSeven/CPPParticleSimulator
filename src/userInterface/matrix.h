@@ -66,11 +66,15 @@ public:
             case 0:
                 return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {0.00, 0.67, 0.33});
             case 1:
-                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {-0.1, 0.1, 0.3});
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {1.0, 1.0, 1.0}, {-0.10, 0.10, 0.30});
             case 2:
-                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {2.0, 1.0, 1.0}, {0.5, 0.2, 0.25});
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {2.0, 1.0, 1.0}, {0.50, 0.20, 0.25});
             case 3:
                 return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.6, 0.6, 0.6}, {0.3, 0.3, 0.3}, {1.0, 1.0, 1.0}, {0.00, 0.67, 0.33});
+            case 4:
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.5, 0.5, 0.5}, {0.5, 0.5, 0.5}, {2.0, 1.0, 0.0}, {0.50, 0.20, 0.25});
+            case 5:
+                return get_palette_color(fmod(type/static_cast<float>(matrix_size), 1.f), {0.55, 0.62, 0.84}, {0.42, 0.36, 0.15}, {1.46, 1.36, 0.77}, {0.51, 0.82, 0.54});
         }
         return sf::Color::White;
     }

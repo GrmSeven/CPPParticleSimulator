@@ -154,7 +154,7 @@ void Engine::handle_events() {
                     if (mouseButton->button == sf::Mouse::Button::Right) {
                         particle_delete_enabled = true;
                         if (user_interface.elements[10]->value == 0) {
-                            particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements[12]->value, user_interface.elements[13]->value);
+                            particle_simulator.spawn_particle(global_mouse_pos.x, global_mouse_pos.y, user_interface.elements[12]->value, user_interface.elements[6]->value, user_interface.elements[13]->value);
                             user_interface.elements[0]->value += user_interface.elements[12]->value;
                             user_interface.elements[0]->update_shapes();
                         }

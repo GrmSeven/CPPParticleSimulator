@@ -212,7 +212,7 @@ void UserInterface::create_elements() {
     sf::Text text_21(font, "Palette", 12);
     text_21.setPosition({5, 720});
     details.push_back(text_21);
-    elements[29] = new Dropdown({48, 718}, {95, 19}, {"     Rainbow", "     Temperature", "     Maroon", "     Pastel"}, [this]{this->matrix->used_palette = this->elements[29]->value; this->matrix->update_shapes();});
+    elements[29] = new Dropdown({48, 718}, {95, 19}, {"     Rainbow", "     Temperature", "     Maroon", "     Pastel", "     Tropic", "     Aurora"}, [this]{this->matrix->used_palette = this->elements[29]->value; this->matrix->update_shapes();});
 
     sf::Text text_22(font, "Visualize velocity", 12);
     text_22.setPosition({5, 740});
