@@ -32,6 +32,7 @@ To compile the project manually, it requires:
 ## Controls
 Camera:
 | Middle mouse button | Drag the screen |
+| ------------------- | --------------- |
 | Scroll wheel        | Zoom in/out     |
 | Arrow keys          | Move around     |
 
