@@ -263,7 +263,7 @@ void UserInterface::create_elements() {
     details.push_back(text_23);
 
     elements[31] = new Button({5, 870}, {75, 19}, "UI Controls");
-    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x while held.\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value\n\nOther:\nF1 - Hold to hide UI\nQ and N - Change particle count\nW and S - Change particle type count\n E and D - Choose matrix preset\n R - Apply matrix preset";
+    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x while held\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value\n\nOther:\nF1 - Hold to hide UI\nQ and N - Change particle count\nW and S - Change particle type count\n E and D - Choose matrix preset\n R - Apply matrix preset";
 
     elements[32] = new Button({85, 870}, {80, 19}, "Sim Controls");
     elements[32]->tooltip = "Space - Pause\n\nMiddle mouse button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\n\nShift + Scroll - Resize brush/drag\nLeft click - Drag/Attract particles\nRight click - draw/delete particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
