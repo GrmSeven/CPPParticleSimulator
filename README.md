@@ -32,7 +32,7 @@ To compile the project manually, it requires:
 
 ## Showcase
 
-![Showcase](https://www.youtube.com/watch?v=YAzJucB3fZk&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1)
+[Showcase](https://www.youtube.com/watch?v=YAzJucB3fZk&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1)
 
 
 [![Showcase](https://i.imgur.com/OLqviS5.png)](https://www.youtube.com/watch?v=YAzJucB3fZk&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1)
