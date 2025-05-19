@@ -8,8 +8,8 @@ Since then, many similar applications and websites have been developed based on 
 This project takes that idea and implements it in C++17 with use of [SFML 3.0](https://github.com/SFML/SFML).
 The initial version was created as part of a course project to learn C++, 
 and it was later fully rewritten for better optimization and additional improvements.
-Can handle []+ particles under the right conditions. (CPU heavy, tested on -[])
-
+Can handle 100000+ particles under the right conditions. (CPU heavy)
+![Cool image](https://i.imgur.com/4OmETSp.png)
 ## How to run (Windows)
 There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/blob/development/build/ParticleLifeSim.zip?raw=true) 
 or downloading file in `build` folder.
