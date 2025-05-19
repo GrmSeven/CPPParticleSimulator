@@ -136,8 +136,6 @@ void Engine::handle_events() {
                 if (keyRelased->code == sf::Keyboard::Key::R) {
                     user_interface.elements[4]->click_left();
                 }
-
-
             }
 
             if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
@@ -328,6 +326,9 @@ void Engine::render() {
     window.display();
 }
 
+/*
+ * Particle rendering for multithreading
+ */
 void Engine::draw_particle(size_t p_id, float visualize_velocity, sf::Color particle_color, int draw_rec, int vertex_count, vector<sf::Vector2f> rec_shift) {
     sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
     if (visualize_velocity != 0) {
@@ -375,8 +376,9 @@ void Engine::run() {
             time_counter = 0;
             frame_counter = 0;
         }
-        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation when it doesnt keep up
+        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation when it doesn't keep up
 
+        // Main methods
         handle_events();
         particle_simulator.process();
         render();

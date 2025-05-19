@@ -11,6 +11,10 @@
 
 using namespace std;
 
+/*
+ * Ideally all of UI should be rewritten to be dynamic (easier to use some existing library)
+ */
+
 UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(sf::PrimitiveType::Lines, 2 * 5), fps_text(font)
 {
     view.setSize(windowSize);
@@ -18,6 +22,9 @@ UserInterface::UserInterface(sf::Vector2f windowSize) : font("hih.ttf"), lines(s
     create_elements();
 }
 
+/*
+ * Creates all the UI elements for the first time
+ */
 void UserInterface::create_elements() {
     elements.resize(42);
 
@@ -273,6 +280,9 @@ void UserInterface::create_elements() {
     }
 }
 
+/*
+ * For easier drawing of horizontal lines in UI
+ */
 void UserInterface::add_line(int i, int x) {
     lines[i*2 + 0].position = sf::Vector2f(0, x + 0.5);
     lines[i*2 + 1].position = sf::Vector2f(sidebar_size, x + 0.5);
@@ -280,6 +290,9 @@ void UserInterface::add_line(int i, int x) {
     lines[i*2 + 1].color = line_color;
 }
 
+/*
+ * Renders UI elements on the screen each frame
+ */
 void UserInterface::render(sf::RenderWindow& window) {
     window.setView(view);
 
@@ -309,11 +322,17 @@ void UserInterface::render(sf::RenderWindow& window) {
     window.draw(fps_text);
 }
 
+/*
+ * Checks if UI element touches point
+ */
 template <typename T>
 bool UserInterface::is_element_touching(Element* element, sf::Vector2<T> pos) {
     return element->contains(static_cast<sf::Vector2f>(pos));
 }
 
+/*
+ * Lazy way of getting element at some position
+ */
 Element* UserInterface::get_element_at(sf::Vector2i pos) {
     for (auto& element : elements) {
         if (is_element_touching(element, pos)) return element;
@@ -321,6 +340,10 @@ Element* UserInterface::get_element_at(sf::Vector2i pos) {
     if (is_element_touching(matrix, pos)) return matrix;
     return nullptr;
 }
+
+/*
+ * Mouse handling
+ */
 
 void UserInterface::mouse_moved(sf::Vector2i pos) {
     mouse_pos = pos;
@@ -409,6 +432,9 @@ void UserInterface::mouse_scrolled(sf::Vector2i pos, float scroll_delta, bool sh
     }
 }
 
+/*
+ * Resizes whole UI to a new window
+ */
 void UserInterface::resize(sf::Vector2f newWindowSize) {
     view.setSize(newWindowSize);
     view.setCenter(newWindowSize / 2.f);

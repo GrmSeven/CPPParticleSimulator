@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/*
+ * Base class for all UI elements. Handles all interactions and visuals
+ */
 class Element : public sf::FloatRect {
 public:
 

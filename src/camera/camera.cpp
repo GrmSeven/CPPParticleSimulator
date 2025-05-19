@@ -91,6 +91,9 @@ void Camera::move_camera(float x, float y, double deltaTime) {
     view.move(sf::Vector2f(x * zoom * deltaTime, y * zoom * deltaTime));
 }
 
+/*
+ * Doesn't let camera outside of bounds
+ */
 void Camera::clamp_camera() {
     view.move(utils::clamp(view.getCenter(), sf::Vector2f(-2003, -2003), sf::Vector2f(2003*2, 2003*2)) - view.getCenter());
 }
