@@ -32,15 +32,10 @@ To compile the project manually, it requires:
 
 ## Showcase
 
-![Islands](https://i.imgur.com/i2AqmVg.png)
+![Showcase](https://www.youtube.com/watch?v=YAzJucB3fZk&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1)
 
-![Showcase](https://youtu.be/YAzJucB3fZk)
 
-![UI Showcase](https://youtu.be/JlyjVEjlBbE)
-
-### Atoms behavior formula
-![Atoms](https://i.imgur.com/O9DCmU8.png)
-![](https://www.youtube.com/watch?v=BIUk-gUoYqY)
+[![Showcase](https://i.imgur.com/OLqviS5.png)](https://www.youtube.com/watch?v=YAzJucB3fZk&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1)
 
 ## Controls
 Camera:
