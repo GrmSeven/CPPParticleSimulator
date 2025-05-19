@@ -31,32 +31,41 @@ To compile the project manually, it requires:
 
 ## Controls
 Camera:
+| Key | Action |
+| --- | --- |
 | Middle mouse button | Drag the screen |
-| ------------------- | --------------- |
-| Scroll wheel        | Zoom in/out     |
-| Arrow keys          | Move around     |
+| Scroll wheel  | Zoom in/out |
+| Arrow keys | Move around |
 
 Canvas:
-Shift + Scroll - Resize brush/drag
-Ctrl - Show particle drag/brush radius
-Left click - Drag/Attract particles
-Right click - Draw/delete particles
+| Key | Action |
+| --- | --- |
+| Shift + Scroll | Resize brush/drag |
+| Ctrl | Show particle drag/brush radius |
+| Left click | Drag/Attract particles |
+| Right click | Draw/delete particles |
 
 UI:
-Hold Shift - amplifies every action 10x while held
-Left Click/Scroll up - Next value / increase value
-Right Click/Scroll down - Previous value / decrease value
-Left Click - Activate button / Toggle checkbox
-Middle Click - Reset to default value
+| Key | Action |
+| --- | --- |
+| Hold Shift | amplifies every action 10x while held |
+| Left Click/Scroll up | Next value / increase value |
+| Right Click/Scroll down | Previous value / decrease value |
+| Left Click | Activate button / Toggle checkbox |
+| Middle Click | Reset to default value |
 
 Simulation:
-Space - Pause simulation
-Q and N - Change particle count
-W and S - Change particle type count
-E and D - Choose matrix preset
-R - Apply matrix preset
+| Key | Action |
+| --- | --- |
+| Space | Pause simulation |
+| Q and N | Change particle count |
+| W and S | Change particle type count |
+| E and D | Choose matrix preset |
+| R | Apply matrix preset |
 
 Other:
-F11 - Fullscreen toggle
-F1 - Hold to hide UI
-Alt - Hold to show spacial partitioning grid
+| Key | Action |
+| --- | --- |
+| F11 | Fullscreen toggle |
+| F1 | Hold to hide UI |
+| Alt | Hold to show spacial partitioning grid |
