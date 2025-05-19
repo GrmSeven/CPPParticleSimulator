@@ -279,8 +279,16 @@ void ParticleSimulator::delete_particle_near(sf::Vector2f pos, float radius) {
     radius *= radius;
     pos = utils::abs_mod(pos, sf::Vector2f(width, height));
     for (size_t i = 0; i < particle_count; i++) {
-        const float dx = pos.x - positions_x[i];
-        const float dy = pos.y - positions_y[i];
+        float dx = pos.x - positions_x[i];
+        float dy = pos.y - positions_y[i];
+        if (is_space_wrapping_enabled) {
+            if (abs(dx) > width/2.f) {
+                dx -= utils::sign(dx) * width;
+            }
+            if (abs(dy) > height/2.f) {
+                dy -= utils::sign(dy) * height;
+            }
+        }
         const float distance_sq = dx * dx + dy * dy;
         if (distance_sq < radius) {
             delete_particle(i);
@@ -340,7 +348,7 @@ void ParticleSimulator::sync_settings() {
     if (cell_size != cell_partition_size) {
         resize_cells(cell_partition_size);
     }
-    force_multiplier = user_interface->elements[23]->value/10.f;
+    force_multiplier = user_interface->elements[23]->value;
     uses_terminal_velocity = user_interface->elements[24]->value;
     terminal_velocity_strength = user_interface->elements[26]->value;
     max_velocity = user_interface->elements[18]->value;

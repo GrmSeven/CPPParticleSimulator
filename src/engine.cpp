@@ -233,7 +233,7 @@ void Engine::handle_events() {
     }
     if (is_focused) {
         if (particle_drag_enabled) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements[9]->value*10.f, 1.f-(user_interface.elements[9]->value/100.f), !user_interface.elements[7]->value);
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements[9]->value*10.f, 1.f-(user_interface.elements[9]->value/100.f), user_interface.elements[7]->value);
             last_mouse_pos = global_mouse_pos;
         }
         if (particle_delete_enabled && !user_interface.elements[10]->value == 0) {
@@ -283,44 +283,47 @@ void Engine::render() {
     }
     window.draw(particle_vertices);
 
-    // Draw grid
-    if (draw_particle_grid) {
-        sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2 - 4);
-        float& cell_size = particle_simulator.cell_size;
-        for (int i = 1; i < particle_simulator.cell_count_x; i++) {
-            grid[i*2 - 2].position = sf::Vector2f(i*cell_size, 0.f);
-            grid[i*2 - 1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
+
+        // Draw grid
+        if (draw_particle_grid) {
+            sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2 - 4);
+            float& cell_size = particle_simulator.cell_size;
+            for (int i = 1; i < particle_simulator.cell_count_x; i++) {
+                grid[i*2 - 2].position = sf::Vector2f(i*cell_size, 0.f);
+                grid[i*2 - 1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
+            }
+            for (int i = 1; i < particle_simulator.cell_count_y; i++) {
+                grid[particle_simulator.cell_count_x*2 + i*2 - 4].position = sf::Vector2f(0.f, i*cell_size);
+                grid[particle_simulator.cell_count_x*2 + i*2 - 3].position = sf::Vector2f(particle_simulator.width, i*cell_size);
+            }
+            window.draw(grid);
         }
-        for (int i = 1; i < particle_simulator.cell_count_y; i++) {
-            grid[particle_simulator.cell_count_x*2 + i*2 - 4].position = sf::Vector2f(0.f, i*cell_size);
-            grid[particle_simulator.cell_count_x*2 + i*2 - 3].position = sf::Vector2f(particle_simulator.width, i*cell_size);
+
+        // Draw circle around the mouse
+        if (user_interface.elements[35]->value) {
+            sf::CircleShape mouse_circle(particle_drag_radius);
+            mouse_circle.setFillColor(sf::Color(0, 0, 0, 0));
+            mouse_circle.setOutlineThickness(log2f(camera.zoom + 1));
+            mouse_circle.setOutlineColor(sf::Color(255, 255, 255));
+            mouse_circle.setPointCount(128);
+            mouse_circle.setPosition(global_mouse_pos - sf::Vector2f(particle_drag_radius, particle_drag_radius));
+            window.draw(mouse_circle);
         }
-        window.draw(grid);
-    }
 
-    // Draw circle around the mouse
-    if (user_interface.elements[35]->value) {
-        sf::CircleShape mouse_circle(particle_drag_radius);
-        mouse_circle.setFillColor(sf::Color(0, 0, 0, 0));
-        mouse_circle.setOutlineThickness(log2f(camera.zoom + 1));
-        mouse_circle.setOutlineColor(sf::Color(255, 255, 255));
-        mouse_circle.setPointCount(128);
-        mouse_circle.setPosition(global_mouse_pos - sf::Vector2f(particle_drag_radius, particle_drag_radius));
-        window.draw(mouse_circle);
-    }
+        // Drawing border
+        if (user_interface.elements[25]->value) {
+            sf::RectangleShape border;
+            border.setSize(sf::Vector2f(particle_simulator.width, particle_simulator.height));
+            border.setFillColor(sf::Color(0, 0, 0, 0));
+            border.setOutlineThickness(log2f(camera.zoom + 1));
+            border.setOutlineColor(sf::Color(255, 255, 255));
+            window.draw(border);
+        }
 
-    // Drawing border
-    if (user_interface.elements[25]->value) {
-        sf::RectangleShape border;
-        border.setSize(sf::Vector2f(particle_simulator.width, particle_simulator.height));
-        border.setFillColor(sf::Color(0, 0, 0, 0));
-        border.setOutlineThickness(log2f(camera.zoom + 1));
-        border.setOutlineColor(sf::Color(255, 255, 255));
-        window.draw(border);
-    }
-
-    // User interface
-    user_interface.render(window);
+        // User interface
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F1)) {
+            user_interface.render(window);
+        }
 
     window.display();
 }
