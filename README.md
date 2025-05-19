@@ -9,7 +9,10 @@ This project takes that idea and implements it in C++17 with use of [SFML 3.0](h
 The initial version was created as part of a course project to learn C++, 
 and it was later fully rewritten for better optimization and additional improvements.
 Can handle 100000+ particles under the right conditions. (CPU heavy)
+
+
 ![Cool image](https://i.imgur.com/4OmETSp.png)
+
 ## How to run (Windows)
 There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/blob/development/build/ParticleLifeSim.zip?raw=true) 
 or downloading file in `build` folder.
@@ -28,6 +31,16 @@ To compile the project manually, it requires:
 - Structure of Arrays
 
 ## Showcase
+
+![Islands](https://i.imgur.com/i2AqmVg.png)
+
+![](https://youtu.be/YAzJucB3fZk)
+
+![](https://youtu.be/JlyjVEjlBbE)
+
+### Atoms behavior formula
+![Atoms](https://i.imgur.com/O9DCmU8.png)
+![](https://www.youtube.com/watch?v=BIUk-gUoYqY)
 
 ## Controls
 Camera:
