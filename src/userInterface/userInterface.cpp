@@ -263,10 +263,10 @@ void UserInterface::create_elements() {
     details.push_back(text_23);
 
     elements[31] = new Button({5, 870}, {75, 19}, "UI Controls");
-    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - amplifies every action 10x while held.\nLeft Click/Scroll up - Next value / increase value\nRight Click/Scroll down - Previous value / decrease value\nMiddle Click - Reset to default value\n\nOther:\nF1 - Hold to hide UI\nQ and N - Change particle count\nW and S - Change particle type count\n E and D - Choose matrix preset\n R - Apply matrix preset";
+    elements[31]->tooltip = "This applies for most UI elements:\n\nHold Shift - Amplifies every action 10x while held\nLeft Click/Scroll up - Next value / Increase value\nRight Click/Scroll down - Previous value / Decrease value\nMiddle Click - Reset to default value\n\nOther:\nF1 - Hold to hide UI\nQ and N - Change particle count\nW and S - Change particle type count\n E and D - Choose matrix preset\n R - Apply matrix preset";
 
     elements[32] = new Button({85, 870}, {80, 19}, "Sim Controls");
-    elements[32]->tooltip = "Space - Pause\n\nMiddle mouse button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\n\nShift + Scroll - Resize brush/drag\nLeft click - Drag/Attract particles\nRight click - draw/delete particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle drag/brush radius\nAlt - Show spacial partitioning grid";
+    elements[32]->tooltip = "Space - Pause simulation\n\nMiddle mouse button - Drag the screen\nScroll wheel - Zoom in/out\nArrow keys - Move around\n\nShift + Scroll - Resize brush/drag\nLeft click - Drag / Attract particles\nRight click - Draw / Delete particles\n\nF11 - Fullscreen toggle\nCtrl - Show particle brush/drag radius\nAlt - Show spacial partitioning grid";
 
     elements[33] = new Button({5, 890}, {75, 19}, "How to use?");
     elements[33]->tooltip = "Hover with cursor over boxes with ? for more UI info.\n\nIf bunched up particles start bouncing/exploding rapidly\nthat means time between frames or acceleration is too high.\nTo fix it, either make Min FPS bigger, reduce Force multiplier or \nreduce particle count.";
