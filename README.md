@@ -1,6 +1,6 @@
 # Particle Life Simulation
 
-## Desctiption
+## Description
 "Particle Life" was originally created by Jeffrey Ventrella (https://www.ventrella.com/Clusters/).
 It is a simulation designed to generate emergent life-like behavior from particles following simple rules.
 Since then, many similar applications and websites have been developed based on the same concept.
