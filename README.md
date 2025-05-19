@@ -41,18 +41,18 @@ Canvas:
 | Key | Action |
 | --- | --- |
 | Shift + Scroll | Resize brush/drag |
-| Ctrl | Show particle drag/brush radius |
-| Left click | Drag/Attract particles |
-| Right click | Draw/delete particles |
+| Ctrl | Show particle brush/drag radius |
+| Left click | Drag / Attract particles |
+| Right click | Draw / Delete particles |
 
 UI:
 | Key | Action |
 | --- | --- |
-| Hold Shift | amplifies every action 10x while held |
-| Left Click/Scroll up | Next value / increase value |
-| Right Click/Scroll down | Previous value / decrease value |
+| Left Click/Scroll up | Next value / Increase value |
+| Right Click/Scroll down | Previous value / Decrease value |
 | Left Click | Activate button / Toggle checkbox |
 | Middle Click | Reset to default value |
+| Hold Shift | Amplifies every action 10x while held |
 
 Simulation:
 | Key | Action |
@@ -62,10 +62,11 @@ Simulation:
 | W and S | Change particle type count |
 | E and D | Choose matrix preset |
 | R | Apply matrix preset |
+| Hold Shift | Amplifies every action 10x while held |
 
 Other:
 | Key | Action |
 | --- | --- |
-| F11 | Fullscreen toggle |
+| F11 | Toggle Fullscreen toggle |
 | F1 | Hold to hide UI |
 | Alt | Hold to show spacial partitioning grid |
