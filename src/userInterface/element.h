@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/*
+ * Base class for all UI elements. Handles all interactions and visuals
+ */
 class Element : public sf::FloatRect {
 public:
 
@@ -17,7 +20,7 @@ public:
     sf::RectangleShape tooltip_box;
     bool toolip_shown;
     bool text_centered = true;
-    bool disabled;
+    bool disabled = false;
     string text_string;
     string tooltip;
     function<void()> func;
@@ -127,6 +130,11 @@ public:
             sf::Vector2f mouse_pos = sf::Vector2f(sf::Mouse::getPosition(*window));
             tooltip_text.setPosition(mouse_pos + sf::Vector2f(16, 0));
             tooltip_box.setPosition(tooltip_text.getGlobalBounds().position - sf::Vector2f(4, 4));
+            const float bottom_y = tooltip_box.getPosition().y + tooltip_box.getLocalBounds().size.y;
+            if (bottom_y > window->getSize().y) {
+                tooltip_text.setPosition({tooltip_text.getPosition().x, window->getSize().y - tooltip_box.getLocalBounds().size.y});
+                tooltip_box.setPosition(tooltip_text.getGlobalBounds().position - sf::Vector2f(4, 4));
+            }
 
             window->draw(tooltip_box);
             window->draw(tooltip_text);

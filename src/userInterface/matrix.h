@@ -10,24 +10,16 @@ public:
     float min_value;
     float max_value;
     float default_value;
-    size_t matrix_size;
-    int used_palette;
-    std::vector<std::vector<float>> particle_interaction_matrix = {
-        {1, 0, 0, 0, 0, 0, 0, 0.5},
-        {0.5, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0.5, 1, 0, 0, 0, 0, 0},
-        {0, 0, 0.5, 1, 0, 0, 0, 0},
-        {0, 0, 0, 0.5, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0.5, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0.5, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0.5, 1}
-    };
+    size_t matrix_size = 8;
+    int used_palette = 0;
+    std::vector<std::vector<float>> particle_interaction_matrix;
     std::vector<sf::RectangleShape> cells;
     std::vector<sf::CircleShape> circles;
 
     Matrix(sf::Vector2f pos, sf::Vector2f size, int default_matrix_size, float default_value, float interval, float min_value, float max_value, function<void()> func = nullptr)
         : Element(pos, size, func), interval(interval), min_value(min_value), max_value(max_value), matrix_size(default_matrix_size), default_value(default_value) {
         resize_matrix(matrix_size);
+        matrix_preset(2);
         currentButtonColor = sf::Color::Transparent;
         Matrix::update_shapes();
     }

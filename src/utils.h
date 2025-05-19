@@ -53,6 +53,28 @@ public:
         return min(max(value, min_value), max_value);
     }
 
+    // Float to string with rounding
+    static string float_to_string(float number, int n) {
+        if (number == 0) return "0";
+        string s_num = to_string(int(round(number * pow(10, n))));
+        if (n > 0) {
+            if (abs(number) < 1) {
+                s_num.insert(s_num.begin(), '.');
+                s_num.insert(s_num.begin(), '0');
+            } else {
+                s_num.insert(s_num.end() - n, '.');
+            }
+            while (!s_num.empty() && s_num.back() == '0') {
+                s_num.pop_back();
+            }
+            if (s_num.back() == '.') {
+                s_num.pop_back();
+            }
+        }
+        return s_num;
+
+    }
+
 
     static void openWebPage(const char* url) {
         #ifdef _WIN32

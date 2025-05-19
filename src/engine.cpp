@@ -2,17 +2,17 @@
 #include <cmath>
 #include "camera/camera.h"
 #include "threadManager.h"
+
 using namespace std;
 
 Engine::Engine()
     : width(sf::VideoMode::getDesktopMode().size.x*0.9), height(sf::VideoMode::getDesktopMode().size.y - sf::VideoMode::getDesktopMode().size.x*0.1),
     user_interface(sf::Vector2f(width, height)),
     particle_simulator(2003, 2003, &delta, &user_interface),
-    camera(1.8f, sf::Vector2f(2003, 2003), sf::Vector2f(width, height)),
+    camera(1.7f, sf::Vector2f(2003, 2003), sf::Vector2f(width, height)),
     particle_shape(sf::PrimitiveType::Triangles, 0),
     particle_vertices(sf::PrimitiveType::Triangles, 0)
 {
-    // width = ;
     settings.antiAliasingLevel = 4;
     window.create(sf::VideoMode({width, height}), "Particle Life Simulator", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize, sf::State::Windowed, settings);
     window.setFramerateLimit(fps_limit);
@@ -36,6 +36,8 @@ void Engine::handle_events() {
             is_focused = false;
             camera.is_dragging = false;
             draw_particle_grid = false;
+            shift_pressed = false;
+            camera.shift_pressed = false;
         }
 
         if (event->is<sf::Event::FocusGained>()) {
@@ -134,8 +136,6 @@ void Engine::handle_events() {
                 if (keyRelased->code == sf::Keyboard::Key::R) {
                     user_interface.elements[4]->click_left();
                 }
-
-
             }
 
             if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
@@ -220,23 +220,23 @@ void Engine::handle_events() {
                                 user_interface.elements[6]->scroll_up();
                             }
                         }
+                        user_interface.elements[35]->value = true;
+                        user_interface.elements[35]->update_shapes();
                     }
                 }
             }
-
             camera.is_active = simulator_focused;
             camera.handle_events(event);
         }
     }
     if (is_focused) {
         if (particle_drag_enabled) {
-            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements[9]->value*10.f, 1.f-(user_interface.elements[9]->value/100.f), !user_interface.elements[7]->value);
+            particle_simulator.drag_particles(last_mouse_pos, global_mouse_pos, particle_drag_radius, user_interface.elements[9]->value*10.f, 1.f-(user_interface.elements[9]->value/100.f), user_interface.elements[7]->value);
             last_mouse_pos = global_mouse_pos;
         }
         if (particle_delete_enabled && !user_interface.elements[10]->value == 0) {
             particle_simulator.delete_particle_near(global_mouse_pos, user_interface.elements[6]->value);
         }
-
         camera.update(window, delta);
     }
 }
@@ -262,7 +262,7 @@ void Engine::render() {
     }
     // Draw particles - clones shape preset
     const int draw_rec = user_interface.elements[40]->value;
-    if (draw_rec == 0) {
+    if (draw_rec == 2) {
         particle_vertices.resize(3*(vertex_count-2)*particle_simulator.particle_count);
     } else {
         particle_vertices.resize(3*(vertex_count-2)*particle_simulator.particle_count*9);
@@ -281,72 +281,66 @@ void Engine::render() {
     }
     window.draw(particle_vertices);
 
-    // Draw grid
-    if (draw_particle_grid) {
-        sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2 - 4);
-        float& cell_size = particle_simulator.cell_size;
-        for (int i = 1; i < particle_simulator.cell_count_x; i++) {
-            grid[i*2 - 2].position = sf::Vector2f(i*cell_size, 0.f);
-            grid[i*2 - 1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
-        }
-        for (int i = 1; i < particle_simulator.cell_count_y; i++) {
-            grid[particle_simulator.cell_count_x*2 + i*2 - 4].position = sf::Vector2f(0.f, i*cell_size);
-            grid[particle_simulator.cell_count_x*2 + i*2 - 3].position = sf::Vector2f(particle_simulator.width, i*cell_size);
-        }
-        window.draw(grid);
-    }
 
-    // Draw circle around the mouse
-    if (user_interface.elements[35]->value) {
-        sf::CircleShape mouse_circle(particle_drag_radius);
-        mouse_circle.setFillColor(sf::Color(0, 0, 0, 0));
-        mouse_circle.setOutlineThickness(1.0f);
-        mouse_circle.setOutlineColor(sf::Color(255, 255, 255));
-        mouse_circle.setPointCount(64);
-        mouse_circle.setPosition(global_mouse_pos - sf::Vector2f(particle_drag_radius, particle_drag_radius));
-        window.draw(mouse_circle);
-    }
+        // Draw grid
+        if (draw_particle_grid) {
+            sf::VertexArray grid(sf::PrimitiveType::Lines, particle_simulator.cell_count_x*2 + particle_simulator.cell_count_y*2 - 4);
+            float& cell_size = particle_simulator.cell_size;
+            for (int i = 1; i < particle_simulator.cell_count_x; i++) {
+                grid[i*2 - 2].position = sf::Vector2f(i*cell_size, 0.f);
+                grid[i*2 - 1].position = sf::Vector2f(i*cell_size, particle_simulator.height);
+            }
+            for (int i = 1; i < particle_simulator.cell_count_y; i++) {
+                grid[particle_simulator.cell_count_x*2 + i*2 - 4].position = sf::Vector2f(0.f, i*cell_size);
+                grid[particle_simulator.cell_count_x*2 + i*2 - 3].position = sf::Vector2f(particle_simulator.width, i*cell_size);
+            }
+            window.draw(grid);
+        }
 
-    // Drawing border
-    if (user_interface.elements[25]->value) {
-        if (camera.zoom < 1.f) {
-            sf::VertexArray border(sf::PrimitiveType::Lines, 8);
-            border[0].position = sf::Vector2f(0.f, 0.f);
-            border[1].position = sf::Vector2f(particle_simulator.width, 0.f);
-            border[2].position = sf::Vector2f(particle_simulator.width, 0.f);
-            border[3].position = sf::Vector2f(particle_simulator.width, particle_simulator.height);
-            border[4].position = sf::Vector2f(particle_simulator.width, particle_simulator.height);
-            border[5].position = sf::Vector2f(0.f, particle_simulator.height);
-            border[6].position = sf::Vector2f(0.f, particle_simulator.height);
-            border[7].position = sf::Vector2f(0.f, 0.f);
-            window.draw(border);
-        } else {
+        // Draw circle around the mouse
+        if (user_interface.elements[35]->value) {
+            sf::CircleShape mouse_circle(particle_drag_radius);
+            mouse_circle.setFillColor(sf::Color(0, 0, 0, 0));
+            mouse_circle.setOutlineThickness(log2f(camera.zoom + 1));
+            mouse_circle.setOutlineColor(sf::Color(255, 255, 255));
+            mouse_circle.setPointCount(128);
+            mouse_circle.setPosition(global_mouse_pos - sf::Vector2f(particle_drag_radius, particle_drag_radius));
+            window.draw(mouse_circle);
+        }
+
+        // Drawing border
+        if (user_interface.elements[25]->value) {
             sf::RectangleShape border;
             border.setSize(sf::Vector2f(particle_simulator.width, particle_simulator.height));
             border.setFillColor(sf::Color(0, 0, 0, 0));
-            border.setOutlineThickness(1.0f);
+            border.setOutlineThickness(log2f(camera.zoom + 1));
             border.setOutlineColor(sf::Color(255, 255, 255));
             window.draw(border);
         }
-    }
 
-    // User interface
-    user_interface.render(window);
+        // User interface
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F1)) {
+            user_interface.render(window);
+        }
 
     window.display();
 }
 
-void Engine::draw_particle(size_t p_id, bool visualize_velocity, sf::Color particle_color, int draw_rec, int vertex_count, vector<sf::Vector2f> rec_shift) {
+/*
+ * Particle rendering for multithreading
+ */
+void Engine::draw_particle(size_t p_id, float visualize_velocity, sf::Color particle_color, int draw_rec, int vertex_count, vector<sf::Vector2f> rec_shift) {
     sf::Vector2f shift = {particle_simulator.positions_x[p_id], particle_simulator.positions_y[p_id]};
     if (visualize_velocity != 0) {
-        const float velocity = sqrtf(particle_simulator.velocities_x[p_id] * particle_simulator.velocities_x[p_id] + particle_simulator.velocities_y[p_id] * particle_simulator.velocities_y[p_id])/visualize_velocity;
-        particle_color = utils::lerp(sf::Color(0, 0, 50), sf::Color(244, 186, 29), utils::clamp(velocity, 0, 1));
+        const float velocity = sqrtf(particle_simulator.velocities_x[p_id] * particle_simulator.velocities_x[p_id] + particle_simulator.velocities_y[p_id] * particle_simulator.velocities_y[p_id]);
+        const float scaled_velocity = velocity/visualize_velocity;
+        particle_color = utils::lerp(sf::Color(0, 0, 50), sf::Color(244, 186, 29), utils::clamp(scaled_velocity, 0, 1));
     } else {
         particle_color = user_interface.matrix->get_particle_color(particle_simulator.types[p_id]);
     }
-    for (int s = 0; s < (draw_rec == 0 ? 1 : 9); s++) {
+    for (int s = 0; s < (draw_rec == 2 ? 1 : 9); s++) {
         const int s_index = 3*(vertex_count-2)*particle_simulator.particle_count * s;
-        sf::Color new_color = draw_rec == 2 || s == 0 ? particle_color : sf::Color::White;
+        sf::Color new_color = draw_rec == 1 || s == 0 ? particle_color : sf::Color::White;
         for (int i = 0; i < vertex_count-2; i++) {
             const int index = i*3+p_id*3*(vertex_count-2);
             particle_vertices[s_index+index].position = particle_shape[i*3].position + shift + rec_shift[s];
@@ -382,12 +376,14 @@ void Engine::run() {
             time_counter = 0;
             frame_counter = 0;
         }
-        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation when it doesnt keep up
+        delta = min(delta, 1.f/user_interface.elements[15]->value); // Slows down the simulation when it doesn't keep up
 
+        // Main methods
         handle_events();
         particle_simulator.process();
         render();
     }
+    window.close();
 }
 
 void Engine::set_fps_limit(unsigned char fps) {

@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.28)
 project(CMakeSFMLProject LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17) # ?
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+if(MINGW)
+    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++ -static")
+endif()
 
 include(FetchContent)
 FetchContent_Declare(
@@ -14,7 +18,8 @@ FetchContent_Declare(
         SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp
+add_executable(main WIN32
+        src/main.cpp
         src/engine.cpp
         src/engine.h
         src/utils.h

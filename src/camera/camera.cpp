@@ -22,13 +22,7 @@ void Camera::handle_events(std::optional<sf::Event>& event) {
             }
         }
 
-        if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
-            if (keyRelased->code == sf::Keyboard::Key::LShift) {
-                shift_pressed = false;
-            }
-        }
-
-        // Canvas zooming
+        // Zooming
         if (const auto* mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>()) {
             if (!shift_pressed) {
                 float scroll_delta = mouseWheelScrolled->delta;
@@ -42,13 +36,20 @@ void Camera::handle_events(std::optional<sf::Event>& event) {
             }
         }
 
-        // Canvas dragging
+        // Dragging
         if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
             if (mouseButtonPressed->button == sf::Mouse::Button::Middle)
             {
                 prev_mouse_pos = {mouseButtonPressed->position.x, mouseButtonPressed->position.y};
                 is_dragging = true;
             }
+        }
+    }
+
+    // Shift detection
+    if (const auto* keyRelased = event->getIf<sf::Event::KeyReleased>()) {
+        if (keyRelased->code == sf::Keyboard::Key::LShift) {
+            shift_pressed = false;
         }
     }
 
@@ -90,6 +91,9 @@ void Camera::move_camera(float x, float y, double deltaTime) {
     view.move(sf::Vector2f(x * zoom * deltaTime, y * zoom * deltaTime));
 }
 
+/*
+ * Doesn't let camera outside of bounds
+ */
 void Camera::clamp_camera() {
     view.move(utils::clamp(view.getCenter(), sf::Vector2f(-2003, -2003), sf::Vector2f(2003*2, 2003*2)) - view.getCenter());
 }
