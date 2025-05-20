@@ -7,14 +7,15 @@ Since then, many similar applications and websites have been developed based on 
 
 This project takes that idea and implements it in C++17 with use of [SFML 3.0](https://github.com/SFML/SFML).
 The initial version was created as part of a course project to learn C++, 
-and it was later fully rewritten for better optimization and additional improvements.
+and it was later fully rewritten for better optimization and additional improvements. 
+All the code was written within one month. 
 Can handle 100000+ particles under the right conditions. (CPU heavy)
 
 
 ![Cool image](https://i.imgur.com/4OmETSp.png)
 
 ## How to run (Windows)
-There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/blob/development/build/ParticleLifeSim.zip?raw=true) 
+There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/blob/main/build/ParticleLifeSim.zip?raw=true) 
 or downloading file in `build` folder.
 Unzip `ParticlelifeSim.zip` and run `ParticlelifeSim.exe` file.
 
@@ -78,3 +79,16 @@ Other:
 | F11 | Toggle Fullscreen toggle |
 | F1 | Hold to hide UI |
 | Alt | Hold to show spacial partitioning grid |
+
+
+## Links
+Clusters: https://www.ventrella.com/Clusters/
+
+SFML: https://github.com/SFML/SFML
+
+Color palette: https://iquilezles.org/articles/palettes/
+
+Original inspiration: https://www.youtube.com/watch?v=4vk7YvBYpOs
+
+Formulas used for attraction: https://www.desmos.com/calculator/uimqle5zvt
+
