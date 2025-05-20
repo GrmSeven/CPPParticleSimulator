@@ -16,10 +16,11 @@ Can handle 100000+ particles under the right conditions. (CPU heavy)
 
 ## How to run (Windows)
 There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/blob/main/build/ParticleLifeSim.zip?raw=true) 
-or downloading file in `build` folder.
+or downloading file in `build` folder. (Windows will think the file is harmful because it contains DLLs that are required by the project)
+
 Unzip `ParticlelifeSim.zip` and run `ParticlelifeSim.exe` file.
 
-To compile the project manually, it requires:
+Or if you want to compile the project manually, it requires:
 - C++ 17 compatible compiler
 - CMake version 3.28 or higher https://cmake.org
 
