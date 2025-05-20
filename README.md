@@ -1,4 +1,4 @@
-# Particle Life Simulation
+# Particle Life Simulatior
 
 ## Description
 "Particle Life" was originally created by Jeffrey Ventrella (https://www.ventrella.com/Clusters/).
