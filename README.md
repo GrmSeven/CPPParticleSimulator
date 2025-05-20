@@ -83,8 +83,12 @@ Other:
 
 ## Links
 Clusters: https://www.ventrella.com/Clusters/
+
 SFML: https://github.com/SFML/SFML
+
 Color palette: https://iquilezles.org/articles/palettes/
+
 Original inspiration: https://www.youtube.com/watch?v=4vk7YvBYpOs
+
 Formulas used for attraction: https://www.desmos.com/calculator/uimqle5zvt
 
