@@ -89,7 +89,7 @@ private:
             return (distance - min_distance)/5.f;
         }
         if (distance < interaction_radius) {
-            return param*(distance - min_distance - interaction_radius/2)/5.f;
+            return param*(distance - min_distance/2 - interaction_radius/2)/5.f;
         }
         return 0.f;
     }

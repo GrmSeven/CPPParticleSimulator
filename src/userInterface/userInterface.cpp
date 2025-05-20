@@ -129,7 +129,7 @@ void UserInterface::create_elements() {
 
     elements[39] = new Checkbox({130, 435}, {65, 19}, "     Paused", false);
 
-    sf::Text text_11(font, "Space wrapping", 12);
+    sf::Text text_11(font, "Space warping", 12);
     text_11.setPosition({30, 455});
     details.push_back(text_11);
     elements[17] = new Checkbox({5, 453}, {19, 19}, "", true);
@@ -189,7 +189,7 @@ void UserInterface::create_elements() {
     sf::Text text_26(font, "Visualize warping", 12);
     text_26.setPosition({5, 640});
     details.push_back(text_26);
-    elements[40] = new Dropdown({113, 638}, {54, 19}, {"     White", "     Color", "     None", });
+    elements[40] = new Dropdown({104, 638}, {54, 19}, {"     White", "     Color", "     None", });
     elements[40]->tooltip = "Will render 8 copies of simulation to visualize warping.";
 
     sf::Text text_27(font, "Draw border", 12);
