@@ -36,7 +36,7 @@ Or if you want to compile the project manually, it requires:
 
 ## Showcase
 
-[![Showcase](https://i.imgur.com/fXCa08l.png)](https://www.youtube.com/watch?v=gewkxyqMldo&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1&index=1)
+[![Showcase](https://i.imgur.com/sDHLZQw.png)](https://www.youtube.com/watch?v=gewkxyqMldo&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1&index=1)
 [![Showcase](https://i.imgur.com/OLqviS5.png)](https://www.youtube.com/watch?v=gewkxyqMldo&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1&index=1)
 
 ## Controls
