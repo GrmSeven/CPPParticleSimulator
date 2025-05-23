@@ -15,7 +15,7 @@ Can handle 100000+ particles under the right conditions. (CPU heavy)
 ![Cool image](https://i.imgur.com/4OmETSp.png)
 
 ## How to run (Windows)
-[![Download](https://i.imgur.com/6SoIyIX.png)](https://github.com/GrmSeven/CPPParticleSimulator/releases/download/1.0.0/ParticleLifeSim-v1.0.0-win.zip)
+[![Download](https://i.imgur.com/UlKmG81.png)](https://github.com/GrmSeven/CPPParticleSimulator/releases/download/1.0.0/ParticleLifeSim-v1.0.0-win.zip)
 
 There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/releases/download/1.0.0/ParticleLifeSim-v1.0.0-win.zip) 
 or downloading latest Release. (Windows will think the file is harmful because it contains DLLs that are required by the project)
