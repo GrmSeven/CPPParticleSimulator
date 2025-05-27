@@ -209,21 +209,27 @@ void Engine::handle_events() {
             }
 
             if (const auto* mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
-                if (mouseWheel->position.x < user_interface.sidebar_size) {
-                    user_interface.mouse_scrolled(mouseWheel->position, mouseWheel->delta, shift_pressed);
-                } else {
-                    if (shift_pressed) {
-                        for (int i = 0; i < 5; i++) {
-                            if (mouseWheel->delta > 0) {
-                                user_interface.elements[6]->scroll_down();
-                            } else {
-                                user_interface.elements[6]->scroll_up();
+                cout << mouseWheel->delta << endl;
+                scroll_counter += abs(mouseWheel->delta);
+                if (scroll_counter > 1) {
+                    scroll_counter -= 1;
+                    if (mouseWheel->position.x < user_interface.sidebar_size) {
+                        user_interface.mouse_scrolled(mouseWheel->position, mouseWheel->delta, shift_pressed);
+                    } else {
+                        if (shift_pressed) {
+                            for (int i = 0; i < 5; i++) {
+                                if (mouseWheel->delta > 0) {
+                                    user_interface.elements[6]->scroll_down();
+                                } else {
+                                    user_interface.elements[6]->scroll_up();
+                                }
                             }
+                            user_interface.elements[35]->value = true;
+                            user_interface.elements[35]->update_shapes();
                         }
-                        user_interface.elements[35]->value = true;
-                        user_interface.elements[35]->update_shapes();
                     }
                 }
+
             }
             camera.is_active = simulator_focused;
             camera.handle_events(event);
