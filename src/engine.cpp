@@ -209,7 +209,6 @@ void Engine::handle_events() {
             }
 
             if (const auto* mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
-                cout << mouseWheel->delta << endl;
                 scroll_counter += abs(mouseWheel->delta);
                 if (scroll_counter > 1) {
                     scroll_counter -= 1;
