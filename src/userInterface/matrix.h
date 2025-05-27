@@ -12,6 +12,7 @@ public:
     float default_value;
     size_t matrix_size = 8;
     int used_palette = 0;
+    const float PI = 3.14;
     std::vector<std::vector<float>> particle_interaction_matrix;
     std::vector<sf::RectangleShape> cells;
     std::vector<sf::CircleShape> circles;
@@ -80,7 +81,7 @@ public:
     }
 
     sf::Color get_palette_color(float t, sf::Vector3f a, sf::Vector3f b, sf::Vector3f c, sf::Vector3f d) {
-        return sf::Color((a.x + b.x*cos( 2*M_PI*(c.x*t + d.x)))*255.f, (a.y + b.y*cos( 2*M_PI*(c.y*t + d.y)))*255.f, (a.z + b.z*cos( 2*M_PI*(c.z*t + d.z)))*255.f);
+        return sf::Color((a.x + b.x*cos( 2*PI*(c.x*t + d.x)))*255.f, (a.y + b.y*cos( 2*PI*(c.y*t + d.y)))*255.f, (a.z + b.z*cos( 2*PI*(c.z*t + d.z)))*255.f);
     }
 
     virtual void draw(sf::RenderWindow* window) {
