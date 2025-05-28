@@ -28,7 +28,7 @@ Or if you want to compile the project manually, it requires:
 
 ## Features
 - Particle life simulation
-- Camera movement, particle dragging, warping and other simulation controls
+- Camera movement, particle spawning, dragging, wrapping, velocity visualization, color palettes etc.
 - Simple custom UI system
 - Synchronous Multithreading
 - Spatial partitioning optimisation
@@ -87,9 +87,11 @@ Clusters: https://www.ventrella.com/Clusters/
 
 SFML: https://github.com/SFML/SFML
 
-Color palette: https://iquilezles.org/articles/palettes/
-
 Original inspiration: https://www.youtube.com/watch?v=4vk7YvBYpOs
+
+Color palette idea: https://iquilezles.org/articles/palettes/
+
+Color palette generator: https://www.desmos.com/calculator/bwb2oo7lei
 
 Formulas used for attraction: https://www.desmos.com/calculator/uimqle5zvt
 
