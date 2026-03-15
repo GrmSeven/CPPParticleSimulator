@@ -11,7 +11,7 @@ and it was later fully rewritten for better optimization and additional improvem
 All the code was written within one month. 
 Can handle 100000+ particles under the right conditions. (CPU heavy)
 
-
+![preview](https://drive.google.com/uc?id=1KLzKbPACYGk19QuZaTUSgL2sj-MjjaQZ)
 
 ## How to run (Windows)
 [Download](https://github.com/GrmSeven/CPPParticleSimulator/raw/refs/heads/main/build/ParticleLifeSim.zip)
