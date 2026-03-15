@@ -12,10 +12,9 @@ All the code was written within one month.
 Can handle 100000+ particles under the right conditions. (CPU heavy)
 
 
-![Cool image](https://i.imgur.com/4OmETSp.png)
 
 ## How to run (Windows)
-[![Download](https://i.imgur.com/UlKmG81.png)](https://github.com/GrmSeven/CPPParticleSimulator/raw/refs/heads/main/build/ParticleLifeSim.zip)
+[Download](https://github.com/GrmSeven/CPPParticleSimulator/raw/refs/heads/main/build/ParticleLifeSim.zip)
 
 There is already self-contained version that can be downloaded by clicking [here](https://github.com/GrmSeven/CPPParticleSimulator/raw/refs/heads/main/build/ParticleLifeSim.zip) 
 or downloading latest Release. (Windows will think the file is harmful because it contains DLLs that are required by the project)
@@ -36,8 +35,7 @@ Or if you want to compile the project manually, it requires:
 
 ## Showcase
 
-[![Showcase](https://i.imgur.com/sDHLZQw.png)](https://www.youtube.com/watch?v=gewkxyqMldo&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1&index=1)
-[![Showcase](https://i.imgur.com/OLqviS5.png)](https://www.youtube.com/watch?v=gewkxyqMldo&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1&index=1)
+https://www.youtube.com/watch?v=gewkxyqMldo&list=PLLKy2lT7F2I57ymEgP1YvlNCcKQiS2Wn1&index=1
 
 ## Controls
 Camera:
